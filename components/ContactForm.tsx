@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FadeIn } from './FadeIn';
 import { ServiceItem } from '../types';
-import { TrashIcon, CartIcon, CheckIcon } from './Icons';
+import { TrashIcon, CartIcon } from './Icons';
 
 interface ContactFormProps {
   cart: ServiceItem[];
@@ -9,13 +9,13 @@ interface ContactFormProps {
 }
 
 export const ContactForm: React.FC<ContactFormProps> = ({ cart, removeFromCart }) => {
+  // We only need state for visual feedback in inputs, 
+  // but the submission will be handled natively by the browser
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     message: ''
   });
-  
-  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -24,71 +24,10 @@ export const ContactForm: React.FC<ContactFormProps> = ({ cart, removeFromCart }
     });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setStatus('submitting');
-
-    // Prepare the message with cart details
-    const cartSummary = cart.length > 0 
-        ? `\n\n=== WYBRANE USŁUGI ===\n${cart.map(item => `• ${item.name} (${item.price})`).join('\n')}\n======================`
-        : '';
-
-    const fullMessage = `${formData.message}\n${cartSummary}`;
-
-    try {
-        const response = await fetch("https://formsubmit.co/ajax/turobert@icloud.com", {
-            method: "POST",
-            headers: { 
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({
-                name: formData.name,
-                email: formData.email,
-                message: fullMessage,
-                _subject: `Nowe zapytanie: ${formData.name}`,
-                _template: "table", // Makes the email look nicer
-                _captcha: "false"   // Disables captcha for smoother UX
-            })
-        });
-
-        if (response.ok) {
-            setStatus('success');
-            setFormData({ name: '', email: '', message: '' });
-        } else {
-            setStatus('error');
-        }
-    } catch (error) {
-        console.error("Form error:", error);
-        setStatus('error');
-    }
-  };
-
-  if (status === 'success') {
-      return (
-        <section id="contact-form" className="py-24 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-white/10">
-            <div className="max-w-3xl mx-auto px-4 text-center">
-                <FadeIn>
-                    <div className="bg-green-50 dark:bg-green-900/20 p-8 rounded-3xl border border-green-200 dark:border-green-800">
-                        <div className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-6 text-white shadow-lg shadow-green-500/30">
-                            <CheckIcon />
-                        </div>
-                        <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">Wiadomość Wysłana!</h2>
-                        <p className="text-slate-600 dark:text-gray-300 text-lg mb-8">
-                            Dziękuję za kontakt. Twoje zapytanie (wraz z wybranymi usługami) trafiło do mojej skrzynki. Odpiszę najszybciej jak to możliwe.
-                        </p>
-                        <button 
-                            onClick={() => setStatus('idle')}
-                            className="text-synapse-primary font-bold hover:underline"
-                        >
-                            Wyślij kolejną wiadomość
-                        </button>
-                    </div>
-                </FadeIn>
-            </div>
-        </section>
-      );
-  }
+  // Prepare cart summary string for the hidden input
+  const cartSummary = cart.length > 0 
+    ? cart.map(item => `- ${item.name} (${item.price})`).join('\n')
+    : 'Brak wybranych dodatkowych usług.';
 
   return (
     <section id="contact-form" className="py-24 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-white/10 transition-colors duration-300">
@@ -100,10 +39,34 @@ export const ContactForm: React.FC<ContactFormProps> = ({ cart, removeFromCart }
              <FadeIn>
                 <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">Napisz do mnie</h2>
                 <p className="text-slate-600 dark:text-gray-400 mb-8">
-                    Masz pytania? Wypełnij formularz. Odpowiedź otrzymasz bezpośrednio na swój email.
+                    Wypełnij formularz poniżej. Zostaniesz przekierowany do bezpiecznej bramki wysyłkowej, aby potwierdzić wiadomość.
                 </p>
                 
-                <form onSubmit={handleSubmit} className="space-y-6">
+                {/* 
+                    STANDARD HTML FORM SUBMISSION 
+                    target="_blank" ensures that if there is an error (like running from local file), 
+                    it opens in a new tab and doesn't disrupt the user's session.
+                */}
+                <form 
+                    action="https://formsubmit.co/turobert@icloud.com" 
+                    method="POST" 
+                    target="_blank"
+                    className="space-y-6"
+                    encType="multipart/form-data"
+                >
+                    {/* --- CONFIGURATION FIELDS FOR FORMSUBMIT --- */}
+                    {/* Disable Captcha if you want cleaner UX, keep true if you get spam */}
+                    <input type="hidden" name="_captcha" value="false" />
+                    {/* Subject of the email you receive */}
+                    <input type="hidden" name="_subject" value={`Nowe zapytanie ze strony: ${formData.name}`} />
+                    {/* Make the email look nice */}
+                    <input type="hidden" name="_template" value="table" />
+                    {/* Hidden field containing the cart items */}
+                    <input type="hidden" name="Wybrane_Usługi" value={cartSummary} />
+                    
+                    {/* Optional: Redirect back to your site after success */}
+                    {/* <input type="hidden" name="_next" value="https://synapsehub.pl/thanks.html" /> */}
+
                     <div>
                         <label htmlFor="name" className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-2">Imię i Nazwisko</label>
                         <input 
@@ -113,8 +76,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ cart, removeFromCart }
                             required
                             value={formData.name}
                             onChange={handleChange}
-                            disabled={status === 'submitting'}
-                            className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white focus:ring-2 focus:ring-synapse-primary focus:border-transparent outline-none transition-all disabled:opacity-50"
+                            className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white focus:ring-2 focus:ring-synapse-primary focus:border-transparent outline-none transition-all"
                             placeholder="Jan Kowalski"
                         />
                     </div>
@@ -127,8 +89,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ cart, removeFromCart }
                             required
                             value={formData.email}
                             onChange={handleChange}
-                            disabled={status === 'submitting'}
-                            className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white focus:ring-2 focus:ring-synapse-primary focus:border-transparent outline-none transition-all disabled:opacity-50"
+                            className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white focus:ring-2 focus:ring-synapse-primary focus:border-transparent outline-none transition-all"
                             placeholder="jan@przyklad.pl"
                         />
                     </div>
@@ -141,32 +102,34 @@ export const ContactForm: React.FC<ContactFormProps> = ({ cart, removeFromCart }
                             required
                             value={formData.message}
                             onChange={handleChange}
-                            disabled={status === 'submitting'}
-                            className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white focus:ring-2 focus:ring-synapse-primary focus:border-transparent outline-none transition-all disabled:opacity-50"
+                            className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white focus:ring-2 focus:ring-synapse-primary focus:border-transparent outline-none transition-all"
                             placeholder="Opisz swój projekt..."
                         ></textarea>
                     </div>
 
                     <button 
                         type="submit" 
-                        disabled={status === 'submitting'}
-                        className="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-synapse-primary to-synapse-accent text-white font-bold text-lg shadow-lg hover:shadow-synapse-primary/40 transform hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                        className="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-synapse-primary to-synapse-accent text-white font-bold text-lg shadow-lg hover:shadow-synapse-primary/40 transform hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2"
                     >
-                        {status === 'submitting' ? (
-                            <>
-                                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                                Wysyłanie...
-                            </>
-                        ) : (
-                            'Wyślij Wiadomość'
-                        )}
+                        Wyślij Wiadomość
                     </button>
                     
-                    {status === 'error' && (
-                        <p className="text-red-500 text-sm text-center bg-red-50 dark:bg-red-900/20 p-3 rounded-lg">
-                            Wystąpił błąd podczas wysyłania. Spróbuj ponownie lub napisz bezpośrednio na <a href="mailto:turobert@icloud.com" className="underline font-bold">turobert@icloud.com</a>.
+                    <div className="pt-4 border-t border-slate-200 dark:border-white/10 mt-6 flex flex-col items-center">
+                        <p className="text-sm text-slate-500 dark:text-gray-400 mb-3">
+                            Potrzebujesz szybszej odpowiedzi?
                         </p>
-                    )}
+                        <a 
+                            href="https://wa.me/48884060680" 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="flex items-center gap-2 px-6 py-3 rounded-full bg-[#25D366]/10 text-[#25D366] font-bold hover:bg-[#25D366]/20 transition-all duration-200 border border-[#25D366]/20"
+                        >
+                            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" className="w-5 h-5">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                            </svg>
+                            WhatsApp: +48 884 060 680
+                        </a>
+                    </div>
                 </form>
              </FadeIn>
           </div>
@@ -200,6 +163,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ cart, removeFromCart }
                                         </div>
                                         <button 
                                             onClick={() => removeFromCart(item)}
+                                            type="button" // Important so it doesn't submit form
                                             className="text-slate-400 hover:text-red-500 transition-colors p-1 rounded-md hover:bg-slate-100 dark:hover:bg-white/10"
                                             title="Usuń z koszyka"
                                         >

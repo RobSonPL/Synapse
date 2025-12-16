@@ -33,8 +33,14 @@ export const ContactForm: React.FC<ContactFormProps> = ({ cart, removeFromCart }
     const subject = `Nowe zapytanie: ${formData.name}`;
     const body = `Cześć Robert,\n\nPrzesyłam zapytanie o współpracę.\n\n--- DANE KONTAKTOWE ---\nImię: ${formData.name}\nEmail: ${formData.email}\n\n--- WIADOMOŚĆ ---\n${formData.message}${cartSummary}\n\nPozdrawiam,\n${formData.name}`;
 
-    // Use mailto with specific address
-    window.location.href = `mailto:turobert@icloud.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    // Create a temporary link element to trigger the mailto
+    // This is more reliable than window.location.href for avoiding blank tabs and ensuring the mail client opens
+    const link = document.createElement('a');
+    link.href = `mailto:turobert@icloud.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    link.style.display = 'none';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (

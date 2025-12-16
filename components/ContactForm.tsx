@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FadeIn } from './FadeIn';
 import { ServiceItem } from '../types';
-import { TrashIcon, CartIcon } from './Icons';
+import { TrashIcon, CartIcon, CheckIcon } from './Icons';
 
 interface ContactFormProps {
   cart: ServiceItem[];
@@ -14,6 +14,8 @@ export const ContactForm: React.FC<ContactFormProps> = ({ cart, removeFromCart }
     email: '',
     message: ''
   });
+  
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -22,26 +24,71 @@ export const ContactForm: React.FC<ContactFormProps> = ({ cart, removeFromCart }
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setStatus('submitting');
 
-    // Construct the email body with clear separation
+    // Prepare the message with cart details
     const cartSummary = cart.length > 0 
         ? `\n\n=== WYBRANE USŁUGI ===\n${cart.map(item => `• ${item.name} (${item.price})`).join('\n')}\n======================`
         : '';
 
-    const subject = `Nowe zapytanie: ${formData.name}`;
-    const body = `Cześć Robert,\n\nPrzesyłam zapytanie o współpracę.\n\n--- DANE KONTAKTOWE ---\nImię: ${formData.name}\nEmail: ${formData.email}\n\n--- WIADOMOŚĆ ---\n${formData.message}${cartSummary}\n\nPozdrawiam,\n${formData.name}`;
+    const fullMessage = `${formData.message}\n${cartSummary}`;
 
-    // Create a temporary link element to trigger the mailto
-    // This is more reliable than window.location.href for avoiding blank tabs and ensuring the mail client opens
-    const link = document.createElement('a');
-    link.href = `mailto:turobert@icloud.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    link.style.display = 'none';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    try {
+        const response = await fetch("https://formsubmit.co/ajax/turobert@icloud.com", {
+            method: "POST",
+            headers: { 
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                name: formData.name,
+                email: formData.email,
+                message: fullMessage,
+                _subject: `Nowe zapytanie: ${formData.name}`,
+                _template: "table", // Makes the email look nicer
+                _captcha: "false"   // Disables captcha for smoother UX
+            })
+        });
+
+        if (response.ok) {
+            setStatus('success');
+            setFormData({ name: '', email: '', message: '' });
+        } else {
+            setStatus('error');
+        }
+    } catch (error) {
+        console.error("Form error:", error);
+        setStatus('error');
+    }
   };
+
+  if (status === 'success') {
+      return (
+        <section id="contact-form" className="py-24 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-white/10">
+            <div className="max-w-3xl mx-auto px-4 text-center">
+                <FadeIn>
+                    <div className="bg-green-50 dark:bg-green-900/20 p-8 rounded-3xl border border-green-200 dark:border-green-800">
+                        <div className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-6 text-white shadow-lg shadow-green-500/30">
+                            <CheckIcon />
+                        </div>
+                        <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">Wiadomość Wysłana!</h2>
+                        <p className="text-slate-600 dark:text-gray-300 text-lg mb-8">
+                            Dziękuję za kontakt. Twoje zapytanie (wraz z wybranymi usługami) trafiło do mojej skrzynki. Odpiszę najszybciej jak to możliwe.
+                        </p>
+                        <button 
+                            onClick={() => setStatus('idle')}
+                            className="text-synapse-primary font-bold hover:underline"
+                        >
+                            Wyślij kolejną wiadomość
+                        </button>
+                    </div>
+                </FadeIn>
+            </div>
+        </section>
+      );
+  }
 
   return (
     <section id="contact-form" className="py-24 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-white/10 transition-colors duration-300">
@@ -52,7 +99,9 @@ export const ContactForm: React.FC<ContactFormProps> = ({ cart, removeFromCart }
           <div className="w-full lg:w-3/5">
              <FadeIn>
                 <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">Napisz do mnie</h2>
-                <p className="text-slate-600 dark:text-gray-400 mb-8">Masz pytania? Wypełnij formularz, a Twój program pocztowy otworzy się z gotową wiadomością.</p>
+                <p className="text-slate-600 dark:text-gray-400 mb-8">
+                    Masz pytania? Wypełnij formularz. Odpowiedź otrzymasz bezpośrednio na swój email.
+                </p>
                 
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <div>
@@ -64,7 +113,8 @@ export const ContactForm: React.FC<ContactFormProps> = ({ cart, removeFromCart }
                             required
                             value={formData.name}
                             onChange={handleChange}
-                            className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white focus:ring-2 focus:ring-synapse-primary focus:border-transparent outline-none transition-all"
+                            disabled={status === 'submitting'}
+                            className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white focus:ring-2 focus:ring-synapse-primary focus:border-transparent outline-none transition-all disabled:opacity-50"
                             placeholder="Jan Kowalski"
                         />
                     </div>
@@ -77,7 +127,8 @@ export const ContactForm: React.FC<ContactFormProps> = ({ cart, removeFromCart }
                             required
                             value={formData.email}
                             onChange={handleChange}
-                            className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white focus:ring-2 focus:ring-synapse-primary focus:border-transparent outline-none transition-all"
+                            disabled={status === 'submitting'}
+                            className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white focus:ring-2 focus:ring-synapse-primary focus:border-transparent outline-none transition-all disabled:opacity-50"
                             placeholder="jan@przyklad.pl"
                         />
                     </div>
@@ -90,17 +141,32 @@ export const ContactForm: React.FC<ContactFormProps> = ({ cart, removeFromCart }
                             required
                             value={formData.message}
                             onChange={handleChange}
-                            className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white focus:ring-2 focus:ring-synapse-primary focus:border-transparent outline-none transition-all"
+                            disabled={status === 'submitting'}
+                            className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white focus:ring-2 focus:ring-synapse-primary focus:border-transparent outline-none transition-all disabled:opacity-50"
                             placeholder="Opisz swój projekt..."
                         ></textarea>
                     </div>
 
                     <button 
                         type="submit" 
-                        className="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-synapse-primary to-synapse-accent text-white font-bold text-lg shadow-lg hover:shadow-synapse-primary/40 transform hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2"
+                        disabled={status === 'submitting'}
+                        className="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-synapse-primary to-synapse-accent text-white font-bold text-lg shadow-lg hover:shadow-synapse-primary/40 transform hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
                     >
-                        Wyślij Wiadomość
+                        {status === 'submitting' ? (
+                            <>
+                                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                                Wysyłanie...
+                            </>
+                        ) : (
+                            'Wyślij Wiadomość'
+                        )}
                     </button>
+                    
+                    {status === 'error' && (
+                        <p className="text-red-500 text-sm text-center bg-red-50 dark:bg-red-900/20 p-3 rounded-lg">
+                            Wystąpił błąd podczas wysyłania. Spróbuj ponownie lub napisz bezpośrednio na <a href="mailto:turobert@icloud.com" className="underline font-bold">turobert@icloud.com</a>.
+                        </p>
+                    )}
                 </form>
              </FadeIn>
           </div>

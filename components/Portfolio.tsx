@@ -1,69 +1,11 @@
 import React from 'react';
 import { FadeIn } from './FadeIn';
-
-interface Project {
-  id: number;
-  title: string;
-  category: string;
-  imageUrl: string;
-  link: string;
-}
-
-// Using WordPress mshots service to dynamically fetch screenshots of the websites.
-// Format: https://s.wordpress.com/mshots/v1/{ENCODED_URL}?w=800&h=600
-const projects: Project[] = [
-  {
-    id: 1,
-    title: "Soul Craft Academy",
-    category: "Edukacja & Rozwój",
-    imageUrl: "https://s.wordpress.com/mshots/v1/https%3A%2F%2Fsoul-craft-academy.lovable.app?w=800&h=600",
-    link: "https://soul-craft-academy.lovable.app"
-  },
-  {
-    id: 2,
-    title: "Food Cost Manager",
-    category: "Gastro & Biznes",
-    imageUrl: "https://s.wordpress.com/mshots/v1/https%3A%2F%2Ffoodcost.lovable.app?w=800&h=600",
-    link: "https://foodcost.lovable.app"
-  },
-  {
-    id: 3,
-    title: "Mapa Know-How",
-    category: "Zarządzanie Wiedzą",
-    imageUrl: "https://s.wordpress.com/mshots/v1/https%3A%2F%2Fmapa-do-knowhow.lovable.app?w=800&h=600",
-    link: "https://mapa-do-knowhow.lovable.app"
-  },
-  {
-    id: 4,
-    title: "Habit Reset Guide",
-    category: "Rozwój Osobisty",
-    imageUrl: "https://s.wordpress.com/mshots/v1/https%3A%2F%2Fhabit-reset-guide.lovable.app?w=800&h=600",
-    link: "https://habit-reset-guide.lovable.app"
-  },
-  {
-    id: 5,
-    title: "Smart Food Cost",
-    category: "Analityka Gastro",
-    imageUrl: "https://s.wordpress.com/mshots/v1/https%3A%2F%2Fsmart-food-cost-e595dd84.base44.app?w=800&h=600",
-    link: "https://smart-food-cost-e595dd84.base44.app"
-  },
-  {
-    id: 6,
-    title: "Powrót Króla",
-    category: "Storytelling & Web",
-    imageUrl: "https://s.wordpress.com/mshots/v1/https%3A%2F%2Fpowrot-krola-d4f3e9b4.base44.app?w=800&h=600",
-    link: "https://powrot-krola-d4f3e9b4.base44.app"
-  },
-  {
-    id: 7,
-    title: "Nowy Start",
-    category: "Landing Page",
-    imageUrl: "https://s.wordpress.com/mshots/v1/https%3A%2F%2Fnowy-start-a43a3a55.base44.app?w=800&h=600",
-    link: "https://nowy-start-a43a3a55.base44.app"
-  }
-];
+import { projectsData } from '../data/projectsData';
 
 export const Portfolio: React.FC = () => {
+  // Sort projects by ID descending to show newest first
+  const sortedProjects = [...projectsData].sort((a, b) => b.id - a.id);
+
   return (
     <section id="portfolio" className="py-24 bg-white dark:bg-slate-900 relative transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -81,7 +23,7 @@ export const Portfolio: React.FC = () => {
         </FadeIn>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {projects.map((project, index) => (
+          {sortedProjects.map((project, index) => (
             <FadeIn key={project.id} delay={index * 100}>
               <a 
                 href={project.link}

@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 
 export interface ServiceItem {
   id: string;
-  name: string; // Changed from title to name to match Services.tsx data
+  name: string;
   price: string;
   category: 'web' | 'text' | 'publish';
 }
@@ -18,4 +18,12 @@ export enum GeminiStatus {
   LOADING = 'loading',
   SUCCESS = 'success',
   ERROR = 'error',
+}
+
+export interface Project {
+  id: number;
+  title: string;
+  category: string;
+  imageUrl: string;
+  link: string;
 }

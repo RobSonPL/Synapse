@@ -8,12 +8,14 @@ import { CreativeSpark } from './components/CreativeSpark';
 import { About } from './components/About';
 import { Footer } from './components/Footer';
 import { ContactForm } from './components/ContactForm';
+import { ProjectGenerator } from './components/ProjectGenerator';
 import { ServiceItem } from './types';
 
 function App() {
   // Default to true for the original "Synapse Dark" aesthetic
   const [darkMode, setDarkMode] = useState(true);
   const [cart, setCart] = useState<ServiceItem[]>([]);
+  const [showAdmin, setShowAdmin] = useState(false);
 
   useEffect(() => {
     if (darkMode) {
@@ -54,7 +56,10 @@ function App() {
         <CreativeSpark />
         <ContactForm cart={cart} removeFromCart={removeFromCart} />
       </main>
-      <Footer />
+      <Footer onOpenAdmin={() => setShowAdmin(true)} />
+      
+      {/* Admin Panel Modal */}
+      {showAdmin && <ProjectGenerator onClose={() => setShowAdmin(false)} />}
     </div>
   );
 }

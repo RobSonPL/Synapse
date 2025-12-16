@@ -2,7 +2,11 @@ import React from 'react';
 import { FadeIn } from './FadeIn';
 import { SynapseLogo } from './Icons';
 
-export const Footer: React.FC = () => {
+interface FooterProps {
+  onOpenAdmin: () => void;
+}
+
+export const Footer: React.FC<FooterProps> = ({ onOpenAdmin }) => {
   return (
     <footer id="contact" className="bg-slate-50 dark:bg-synapse-dark pt-20 pb-10 border-t border-slate-200 dark:border-white/10 transition-colors duration-300">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -63,9 +67,16 @@ export const Footer: React.FC = () => {
             </div>
           </div>
           
-          <div className="border-t border-slate-200 dark:border-white/5 pt-8">
+          <div className="border-t border-slate-200 dark:border-white/5 pt-8 flex justify-center items-center px-4">
             <p className="text-slate-500 dark:text-gray-600 text-sm">
-              &copy; {new Date().getFullYear()} Synapse Creative (Robert). Wszystkie prawa zastrzeżone.
+              <span 
+                onClick={onOpenAdmin} 
+                className="cursor-pointer hover:text-synapse-primary transition-colors font-bold"
+                title="Panel Administratora"
+              >
+                &copy;
+              </span> 
+              {' '}{new Date().getFullYear()} Synapse Creative (Robert).
             </p>
           </div>
         </FadeIn>

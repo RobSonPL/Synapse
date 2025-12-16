@@ -49,5 +49,40 @@ export const projectsData: Project[] = [
     category: "Landing Page",
     imageUrl: "https://s.wordpress.com/mshots/v1/https%3A%2F%2Fnowy-start-a43a3a55.base44.app?w=800&h=600",
     link: "https://nowy-start-a43a3a55.base44.app"
+  },
+  {
+    id: 8,
+    title: "Comics Navy",
+    category: "Komiks & Web",
+    imageUrl: "https://s.wordpress.com/mshots/v1/https%3A%2F%2Fcomics-navy.vercel.app?w=800&h=600",
+    link: "https://comics-navy.vercel.app/"
+  },
+  {
+    id: 9,
+    title: "Nu Opal E-book",
+    category: "E-book & Layout",
+    imageUrl: "https://s.wordpress.com/mshots/v1/https%3A%2F%2Febook-nu-opal.vercel.app?w=800&h=600",
+    link: "https://ebook-nu-opal.vercel.app"
+  },
+  {
+    id: 10,
+    title: "Nano Grafic",
+    category: "Design & Portfolio",
+    imageUrl: "https://s.wordpress.com/mshots/v1/https%3A%2F%2Fnano-grafic.vercel.app?w=800&h=600",
+    link: "https://nano-grafic.vercel.app"
+  },
+  {
+    id: 11,
+    title: "Re-Image Face",
+    category: "AI & Tools",
+    imageUrl: "https://s.wordpress.com/mshots/v1/https%3A%2F%2Fre-image-face.vercel.app?w=800&h=600",
+    link: "https://re-image-face.vercel.app/"
+  },
+  {
+    id: 12,
+    title: "Vist Card",
+    category: "Wizytówka Online",
+    imageUrl: "https://s.wordpress.com/mshots/v1/https%3A%2F%2Fvist-card.vercel.app?w=800&h=600",
+    link: "https://vist-card.vercel.app"
   }
 ];

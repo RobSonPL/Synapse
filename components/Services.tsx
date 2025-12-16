@@ -85,14 +85,21 @@ export const Services: React.FC<ServicesProps> = ({ cart, toggleCartItem }) => {
                     <p className="text-sm text-slate-500 dark:text-gray-400 mb-6">Kompleksowe przygotowanie produktu.</p>
                     <ul className="space-y-4 flex-grow">
                         {servicesData.filter(s => s.category === 'publish').map(item => (
-                            <li key={item.id} className="flex justify-between items-center border-b border-slate-100 dark:border-white/5 pb-3 last:border-0">
-                                <div className="flex-1">
-                                    <span className="text-slate-700 dark:text-gray-200 text-sm font-medium block">{item.name}</span>
-                                    <span className="text-xs text-synapse-primary font-bold">{item.price}</span>
+                            <li key={item.id} className="flex justify-between items-center border-b border-slate-100 dark:border-white/5 pb-3 last:border-0 group/item">
+                                <div className="flex items-center flex-1 gap-3">
+                                    {item.imageUrl && (
+                                      <a href={item.link} target="_blank" rel="noopener noreferrer" className="block flex-shrink-0 group/img overflow-hidden rounded-md border border-slate-200 dark:border-white/10 w-16 h-12">
+                                         <img src={item.imageUrl} alt={item.name} className="w-full h-full object-cover group-hover/img:scale-110 transition-transform duration-300 bg-slate-200" />
+                                      </a>
+                                    )}
+                                    <div className="flex-1">
+                                      <span className="text-slate-700 dark:text-gray-200 text-sm font-medium block">{item.name}</span>
+                                      <span className="text-xs text-synapse-primary font-bold">{item.price}</span>
+                                    </div>
                                 </div>
                                 <button 
                                     onClick={() => toggleCartItem(item)}
-                                    className={`ml-2 p-2 rounded-full transition-all duration-200 ${
+                                    className={`ml-2 p-2 rounded-full transition-all duration-200 flex-shrink-0 ${
                                         isInCart(item.id) 
                                         ? 'bg-synapse-primary text-white hover:bg-red-500' 
                                         : 'bg-slate-100 dark:bg-white/10 text-slate-400 hover:bg-synapse-primary hover:text-white'
@@ -117,13 +124,20 @@ export const Services: React.FC<ServicesProps> = ({ cart, toggleCartItem }) => {
                     <ul className="space-y-4 flex-grow">
                         {servicesData.filter(s => s.category === 'web').map(item => (
                             <li key={item.id} className="flex justify-between items-center border-b border-slate-100 dark:border-white/5 pb-3 last:border-0">
-                                <div className="flex-1">
-                                    <span className="text-slate-600 dark:text-gray-300 text-sm font-medium block">{item.name}</span>
-                                    <span className="text-xs text-synapse-primary font-bold">{item.price}</span>
+                                <div className="flex items-center flex-1 gap-3">
+                                    {item.imageUrl && (
+                                      <a href={item.link} target="_blank" rel="noopener noreferrer" className="block flex-shrink-0 group/img overflow-hidden rounded-md border border-slate-200 dark:border-white/10 w-16 h-12">
+                                         <img src={item.imageUrl} alt={item.name} className="w-full h-full object-cover group-hover/img:scale-110 transition-transform duration-300 bg-slate-200" />
+                                      </a>
+                                    )}
+                                    <div className="flex-1">
+                                      <span className="text-slate-600 dark:text-gray-300 text-sm font-medium block">{item.name}</span>
+                                      <span className="text-xs text-synapse-primary font-bold">{item.price}</span>
+                                    </div>
                                 </div>
                                 <button 
                                     onClick={() => toggleCartItem(item)}
-                                    className={`ml-2 p-2 rounded-full transition-all duration-200 ${
+                                    className={`ml-2 p-2 rounded-full transition-all duration-200 flex-shrink-0 ${
                                         isInCart(item.id) 
                                         ? 'bg-synapse-primary text-white hover:bg-red-500' 
                                         : 'bg-slate-100 dark:bg-white/10 text-slate-400 hover:bg-synapse-primary hover:text-white'
@@ -148,13 +162,20 @@ export const Services: React.FC<ServicesProps> = ({ cart, toggleCartItem }) => {
                     <ul className="space-y-4 flex-grow">
                          {servicesData.filter(s => s.category === 'text').map(item => (
                             <li key={item.id} className="flex justify-between items-center border-b border-slate-100 dark:border-white/5 pb-3 last:border-0">
-                                <div className="flex-1">
-                                    <span className="text-slate-600 dark:text-gray-300 text-sm font-medium block">{item.name}</span>
-                                    <span className="text-xs text-synapse-primary font-bold">{item.price}</span>
+                                <div className="flex items-center flex-1 gap-3">
+                                    {item.imageUrl && (
+                                      <a href={item.link} target="_blank" rel="noopener noreferrer" className="block flex-shrink-0 group/img overflow-hidden rounded-md border border-slate-200 dark:border-white/10 w-16 h-12">
+                                         <img src={item.imageUrl} alt={item.name} className="w-full h-full object-cover group-hover/img:scale-110 transition-transform duration-300 bg-slate-200" />
+                                      </a>
+                                    )}
+                                    <div className="flex-1">
+                                      <span className="text-slate-600 dark:text-gray-300 text-sm font-medium block">{item.name}</span>
+                                      <span className="text-xs text-synapse-primary font-bold">{item.price}</span>
+                                    </div>
                                 </div>
                                 <button 
                                     onClick={() => toggleCartItem(item)}
-                                    className={`ml-2 p-2 rounded-full transition-all duration-200 ${
+                                    className={`ml-2 p-2 rounded-full transition-all duration-200 flex-shrink-0 ${
                                         isInCart(item.id) 
                                         ? 'bg-synapse-primary text-white hover:bg-red-500' 
                                         : 'bg-slate-100 dark:bg-white/10 text-slate-400 hover:bg-synapse-primary hover:text-white'

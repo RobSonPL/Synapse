@@ -5,6 +5,8 @@ export interface ServiceItem {
   name: string;
   price: string;
   category: 'web' | 'text' | 'publish';
+  imageUrl?: string;
+  link?: string;
 }
 
 export interface NavItem {

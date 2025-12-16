@@ -3,9 +3,9 @@ import { FadeIn } from './FadeIn';
 
 export const Hero: React.FC = () => {
   
-  const scrollToSpark = (e: React.MouseEvent) => {
+  const scrollToServices = (e: React.MouseEvent) => {
     e.preventDefault();
-    const element = document.getElementById('creative-spark');
+    const element = document.getElementById('services');
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
@@ -24,36 +24,30 @@ export const Hero: React.FC = () => {
         <FadeIn>
           <div className="inline-block mb-6 px-4 py-1.5 rounded-full border border-synapse-primary/30 bg-white/50 dark:bg-synapse-primary/10 backdrop-blur-sm">
               <span className="text-synapse-primary font-semibold text-sm tracking-wide uppercase">
-                  Twój Partner w Świecie Kreatywności
+                  Wydawnictwo Cyfrowe & AI
               </span>
           </div>
           
           <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-8">
-            <span className="block text-slate-900 dark:text-white mb-2 transition-colors duration-300">Połączmy Twoją</span>
+            <span className="block text-slate-900 dark:text-white mb-2 transition-colors duration-300">Twoja wiedza zasługuje na</span>
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-synapse-primary via-blue-500 to-synapse-accent">
-              Wizję z Przyszłością
+              Profesjonalny E-book
             </span>
           </h1>
 
           <p className="mt-4 max-w-2xl mx-auto text-xl text-slate-600 dark:text-gray-300 leading-relaxed transition-colors duration-300">
-            Wierzę w relacje oparte na szacunku i przyjaźni. W Synapse Creative tworzę treści, które nie tylko informują, ale inspirują. Od e-booków po zaawansowanych agentów AI.
+            Pomagam ekspertom i twórcom przekuć pomysły w dochodowe produkty cyfrowe. Od redakcji tekstu, przez design okładki, aż po wsparcie AI w promocji.
           </p>
 
           <div className="mt-10 flex flex-wrap justify-center gap-4">
             <button 
-              onClick={scrollToSpark}
+              onClick={scrollToServices}
               className="px-8 py-4 rounded-full bg-synapse-dark text-white dark:bg-white dark:text-synapse-dark font-bold text-lg hover:bg-slate-800 dark:hover:bg-gray-100 transition-colors shadow-lg hover:scale-105 transform duration-200 cursor-pointer"
             >
-              Wypróbuj AI Demo
+              Stwórz E-booka
             </button>
             <a href="https://www.naffy.io/Synapse_Creative" target="_blank" rel="noopener noreferrer" className="px-8 py-4 rounded-full border border-slate-300 text-slate-700 hover:bg-slate-100 dark:border-white/20 dark:hover:bg-white/10 dark:text-white font-semibold text-lg transition-colors backdrop-blur-sm">
-              Moje E-booki
-            </a>
-            <a href="https://pl4557135.e-naturessunshine.com/" target="_blank" rel="noopener noreferrer" className="px-8 py-4 rounded-full border border-slate-300 text-slate-700 hover:bg-green-50 dark:border-white/20 dark:hover:bg-green-900/20 dark:text-white font-semibold text-lg transition-colors backdrop-blur-sm">
-              Zdrowie i Witaminy
-            </a>
-            <a href="#" target="_blank" rel="noopener noreferrer" className="px-8 py-4 rounded-full border border-slate-300 text-slate-700 hover:bg-purple-50 dark:border-white/20 dark:hover:bg-purple-900/20 dark:text-white font-semibold text-lg transition-colors backdrop-blur-sm">
-              Wellness
+              Zobacz Moje Publikacje
             </a>
           </div>
         </FadeIn>

@@ -28,35 +28,38 @@ export const About: React.FC = () => {
 
           <FadeIn className="w-full md:w-1/2" delay={200}>
             <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-6 transition-colors duration-300">
-              Cześć, mam na imię <span className="text-synapse-primary">Robert</span>.
+              Cześć, tu <span className="text-synapse-primary">Robert</span>.
             </h2>
+            <h3 className="text-xl font-medium text-slate-700 dark:text-gray-200 mb-4">
+              Twórca e-booków, pasjonat technologii i psychologii.
+            </h3>
             
             <div className="space-y-4 text-slate-600 dark:text-gray-300 text-lg transition-colors duration-300 leading-relaxed">
               <p>
-                W Synapse Creative łączę światy, które z pozoru do siebie nie pasują, a razem tworzą wybuchową mieszankę kreatywności.
+                W Synapse Creative łączę kompetencje twarde (IT, DTP, AI) z miękkimi (Psychologia, Storytelling), aby tworzyć produkty, które sprzedają się same.
               </p>
               
               <ul className="space-y-3 mt-4">
-                <li className="flex items-start gap-3">
+                 <li className="flex items-start gap-3">
                   <span className="mt-1.5 w-2 h-2 rounded-full bg-synapse-primary flex-shrink-0"></span>
-                  <span><strong>Informatyk od 2006 roku.</strong> Technologia to mój naturalny język.</span>
+                  <span><strong>Twój Osobisty Wydawca.</strong> Pomagam przelać Twoją wiedzę na "papier" cyfrowy. Od struktury spisu treści po finalny plik PDF.</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="mt-1.5 w-2 h-2 rounded-full bg-synapse-primary flex-shrink-0"></span>
-                  <span><strong>Przedsiębiorca z 24-letnim stażem.</strong> Prowadziłem własny biznes w branży gastronomicznej. Wiem, co to ciężka praca, zarządzanie i odpowiedzialność.</span>
+                  <span><strong>Technologia w służbie treści.</strong> Wykorzystuję AI do generowania okładek, korekty tekstów i tworzenia materiałów promocyjnych.</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="mt-1.5 w-2 h-2 rounded-full bg-synapse-accent flex-shrink-0"></span>
-                  <span><strong>Student Psychologii (od 2021).</strong> Zgłębiam tajniki ludzkiego umysłu, by tworzyć treści, które naprawdę rezonują z odbiorcą.</span>
+                  <span><strong>Przedsiębiorca & Informatyk.</strong> Wiem, jak stworzyć produkt, ale też jak go technicznie wdrożyć do sprzedaży (sklepy, landing page).</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="mt-1.5 w-2 h-2 rounded-full bg-synapse-accent flex-shrink-0"></span>
-                  <span><strong>Student Campus AI (od 2022).</strong> Jestem na bieżąco z rewolucją sztucznej inteligencji, wdrażając ją w praktyce.</span>
+                  <span><strong>Student Psychologii.</strong> Projektuję treści tak, aby rezonowały z emocjami Twoich odbiorców.</span>
                 </li>
               </ul>
 
-              <p className="mt-6 pt-6 border-t border-slate-200 dark:border-gray-700">
-                Moje podejście? <strong>Motywacja i przyjaźń.</strong> Szanuję każdego człowieka i jego historię. Nie jestem tylko wykonawcą – jestem Twoim partnerem w cyfrowej podróży.
+              <p className="mt-6 pt-6 border-t border-slate-200 dark:border-gray-700 font-medium">
+                Masz pomysł na e-booka, ale nie wiesz jak zacząć? Napisz do mnie. Razem stworzymy coś wyjątkowego.
               </p>
             </div>
           </FadeIn>

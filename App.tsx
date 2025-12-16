@@ -7,10 +7,13 @@ import { Testimonials } from './components/Testimonials';
 import { CreativeSpark } from './components/CreativeSpark';
 import { About } from './components/About';
 import { Footer } from './components/Footer';
+import { ContactForm } from './components/ContactForm';
+import { ServiceItem } from './types';
 
 function App() {
   // Default to true for the original "Synapse Dark" aesthetic
   const [darkMode, setDarkMode] = useState(true);
+  const [cart, setCart] = useState<ServiceItem[]>([]);
 
   useEffect(() => {
     if (darkMode) {
@@ -24,6 +27,21 @@ function App() {
     setDarkMode(!darkMode);
   };
 
+  const toggleCartItem = (item: ServiceItem) => {
+    setCart(prev => {
+        const exists = prev.find(i => i.id === item.id);
+        if (exists) {
+            return prev.filter(i => i.id !== item.id);
+        } else {
+            return [...prev, item];
+        }
+    });
+  };
+
+  const removeFromCart = (item: ServiceItem) => {
+     setCart(prev => prev.filter(i => i.id !== item.id));
+  };
+
   return (
     <div className="min-h-screen transition-colors duration-300 ease-in-out bg-synapse-light dark:bg-synapse-dark selection:bg-synapse-primary selection:text-white">
       <Navbar darkMode={darkMode} toggleTheme={toggleTheme} />
@@ -31,9 +49,10 @@ function App() {
         <Hero />
         <About />
         <Portfolio />
-        <Services />
+        <Services cart={cart} toggleCartItem={toggleCartItem} />
         <Testimonials />
         <CreativeSpark />
+        <ContactForm cart={cart} removeFromCart={removeFromCart} />
       </main>
       <Footer />
     </div>

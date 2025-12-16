@@ -2,9 +2,9 @@ import { ReactNode } from 'react';
 
 export interface ServiceItem {
   id: string;
-  title: string;
-  description: string;
-  icon: ReactNode;
+  name: string; // Changed from title to name to match Services.tsx data
+  price: string;
+  category: 'web' | 'text' | 'publish';
 }
 
 export interface NavItem {

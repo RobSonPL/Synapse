@@ -78,6 +78,14 @@ export const ProjectGenerator: React.FC<ProjectGeneratorProps> = ({ onClose }) =
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const handleSaveAndClose = () => {
+    handleCopy();
+    // In a web environment we can't write to file, so we copy and close
+    setTimeout(() => {
+        onClose();
+    }, 800);
+  };
+
   return (
     <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
       <div className="bg-white dark:bg-slate-900 w-full max-w-2xl rounded-2xl shadow-2xl border border-slate-200 dark:border-white/10 overflow-hidden flex flex-col max-h-[90vh]">
@@ -254,10 +262,19 @@ export const ProjectGenerator: React.FC<ProjectGeneratorProps> = ({ onClose }) =
           </div>
         </div>
 
-        <div className="p-4 bg-slate-50 dark:bg-white/5 border-t border-slate-200 dark:border-white/10 text-right">
-             <button onClick={onClose} className="px-4 py-2 text-slate-500 hover:text-slate-700 dark:text-gray-400 dark:hover:text-white mr-2">Anuluj</button>
-             <button onClick={handleCopy} className="px-6 py-2 bg-synapse-primary text-white rounded-lg font-bold hover:bg-synapse-accent transition-colors">
+        <div className="p-4 bg-slate-50 dark:bg-white/5 border-t border-slate-200 dark:border-white/10 text-right flex justify-end items-center gap-2">
+             <button onClick={onClose} className="px-4 py-2 text-slate-500 hover:text-slate-700 dark:text-gray-400 dark:hover:text-white">Anuluj</button>
+             
+             <button onClick={handleCopy} className="px-6 py-2 bg-slate-200 dark:bg-white/10 text-slate-700 dark:text-white rounded-lg font-bold hover:bg-slate-300 dark:hover:bg-white/20 transition-colors">
                 Kopiuj Kod
+             </button>
+
+             <button 
+                onClick={handleSaveAndClose} 
+                className="px-6 py-2 bg-gradient-to-r from-synapse-primary to-synapse-accent text-white rounded-lg font-bold shadow-lg hover:shadow-synapse-primary/30 transform hover:scale-105 transition-all flex items-center gap-2"
+             >
+                <CheckIcon />
+                {copied ? "Skopiowano!" : "Zapisz Projekt"}
              </button>
         </div>
       </div>

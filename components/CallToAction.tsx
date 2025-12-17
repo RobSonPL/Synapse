@@ -31,7 +31,7 @@ export const CallToAction: React.FC = () => {
           
           <button 
             onClick={scrollToSpark}
-            className="group inline-flex items-center gap-3 px-8 py-4 rounded-full bg-white text-synapse-accent font-bold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300"
+            className="group inline-flex items-center gap-3 px-8 py-4 rounded-full bg-white text-synapse-accent font-bold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 animate-[pulse_3s_ease-in-out_infinite] hover:animate-none"
           >
             <SparkleIcon />
             <span>Uruchom Synapse AI</span>

@@ -7,9 +7,11 @@ import { config } from '../data/config';
 interface NavbarProps {
   darkMode: boolean;
   toggleTheme: () => void;
+  onNavigate: (view: 'home' | 'blog') => void;
+  currentView: 'home' | 'blog' | 'article';
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme }) => {
+export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme, onNavigate, currentView }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { language, setLanguage, t } = useLanguage();
 
@@ -17,7 +19,12 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme }) => {
     { label: t.nav.ebooks, href: config.links.ebooks, isExternal: true },
     { label: "BUY now !", href: '#services', isExternal: false },
     { label: t.nav.mentalHealth, href: config.links.mentalHealth, isExternal: true },
-    { label: t.nav.blog, href: '#blog', isExternal: false },
+    { 
+        label: t.nav.blog, 
+        href: '#blog', 
+        isExternal: false,
+        action: () => onNavigate('blog') 
+    },
     { label: t.nav.gifts, href: '#gifts', isExternal: false },
     { label: t.nav.health, href: config.links.health, isExternal: true },
   ];
@@ -31,20 +38,38 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme }) => {
   ];
 
   // Helper to determine if an item should be yellow
-  const isYellowItem = (href: string) => href === '#blog' || href === '#gifts' || href === '#services';
+  const isYellowItem = (href: string) => href === '#gifts' || href === '#services';
 
   // Helper to check for the specific Hypnosis link
   const isHypnosisLink = (href: string) => href.includes('hipnozamonikasidorowska');
 
-  // Handle smooth scroll for internal links
-  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    if (href.startsWith('#')) {
-      e.preventDefault();
-      const element = document.getElementById(href.substring(1));
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
+  // Handle navigation
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, item: NavItem) => {
+    if (item.action) {
+        e.preventDefault();
+        item.action();
         setIsOpen(false);
+        window.scrollTo(0, 0);
+        return;
+    }
+
+    if (!item.isExternal && item.href.startsWith('#')) {
+      e.preventDefault();
+      
+      // If we are not on home, go to home first then scroll? 
+      // Simplified: if navigating to section, ensure we are on home view
+      if (currentView !== 'home') {
+          onNavigate('home');
+          // Allow render cycle to switch view before scrolling
+          setTimeout(() => {
+              const element = document.getElementById(item.href.substring(1));
+              if (element) element.scrollIntoView({ behavior: 'smooth' });
+          }, 100);
+      } else {
+          const element = document.getElementById(item.href.substring(1));
+          if (element) element.scrollIntoView({ behavior: 'smooth' });
       }
+      setIsOpen(false);
     }
   };
 
@@ -54,7 +79,7 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme }) => {
         <div className="flex items-center justify-between h-20">
           
           {/* Logo Area */}
-          <div className="flex-shrink-0 flex items-center gap-3 cursor-pointer group" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+          <div className="flex-shrink-0 flex items-center gap-3 cursor-pointer group" onClick={() => onNavigate('home')}>
              <SynapseLogo className="w-10 h-10 group-hover:scale-110 transition-transform duration-300 animate-[pulse_3s_ease-in-out_infinite]" />
              <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-synapse-primary dark:from-white dark:to-synapse-primary">
                Synapse
@@ -85,8 +110,10 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme }) => {
                   <a
                     key={item.label}
                     href={item.href}
-                    onClick={(e) => handleScroll(e, item.href)}
+                    onClick={(e) => handleNavClick(e, item)}
                     className={`relative group px-3 py-2 text-sm font-bold transition-all duration-300 hover:scale-110 transform ${
+                      item.label === t.nav.blog ? 'text-synapse-primary' : ''
+                    } ${
                       isYellowItem(item.href) 
                         ? 'text-yellow-600 dark:text-yellow-400 hover:text-yellow-500 dark:hover:text-yellow-300' 
                         : 'text-slate-600 dark:text-gray-300 hover:text-synapse-primary dark:hover:text-white'
@@ -168,13 +195,7 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme }) => {
               <a
                 key={item.label}
                 href={item.href}
-                onClick={(e) => {
-                    if (!item.isExternal) {
-                        handleScroll(e, item.href);
-                    } else {
-                        setIsOpen(false);
-                    }
-                }}
+                onClick={(e) => handleNavClick(e, item)}
                 target={item.isExternal ? "_blank" : "_self"}
                 rel={item.isExternal ? "noopener noreferrer" : ""}
                 className={`block px-3 py-2 rounded-md text-base font-bold ${

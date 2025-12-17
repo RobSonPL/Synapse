@@ -15,6 +15,7 @@ export interface NavItem {
   label: string;
   href: string;
   isExternal?: boolean;
+  action?: () => void; // Added action for custom routing
 }
 
 export enum GeminiStatus {
@@ -37,9 +38,12 @@ export interface BlogPost {
   title: string;
   date: string;
   excerpt: string;
+  content: string; // Full HTML/Markdown content
   type: 'pdf' | 'presentation' | 'article';
-  fileUrl: string; // URL to PDF or external link
+  fileUrl?: string; // Optional download link
   thumbnailUrl: string;
+  author: string;
+  readTime: string;
 }
 
 export interface GiftItem {

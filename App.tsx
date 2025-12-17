@@ -12,14 +12,20 @@ import { ProjectGenerator } from './components/ProjectGenerator';
 import { CallToAction } from './components/CallToAction';
 import { Blog } from './components/Blog';
 import { FreeGifts } from './components/FreeGifts';
+import { BlogPage } from './components/BlogPage';
+import { BlogPostView } from './components/BlogPostView';
 import { LanguageProvider } from './contexts/LanguageContext';
-import { ServiceItem } from './types';
+import { ServiceItem, BlogPost } from './types';
 
 function App() {
   // Default to false for Light Mode
   const [darkMode, setDarkMode] = useState(false);
   const [cart, setCart] = useState<ServiceItem[]>([]);
   const [showAdmin, setShowAdmin] = useState(false);
+  
+  // Routing State
+  const [currentView, setCurrentView] = useState<'home' | 'blog' | 'article'>('home');
+  const [selectedArticle, setSelectedArticle] = useState<BlogPost | null>(null);
 
   useEffect(() => {
     if (darkMode) {
@@ -48,22 +54,57 @@ function App() {
      setCart(prev => prev.filter(i => i.id !== item.id));
   };
 
+  const handleNavigate = (view: 'home' | 'blog') => {
+    setCurrentView(view);
+    window.scrollTo(0, 0);
+  };
+
+  const handleArticleClick = (article: BlogPost) => {
+      setSelectedArticle(article);
+      setCurrentView('article');
+  };
+
   return (
     <LanguageProvider>
       <div className="min-h-screen transition-colors duration-300 ease-in-out bg-synapse-light dark:bg-synapse-dark selection:bg-synapse-primary selection:text-white">
-        <Navbar darkMode={darkMode} toggleTheme={toggleTheme} />
+        <Navbar 
+            darkMode={darkMode} 
+            toggleTheme={toggleTheme} 
+            onNavigate={handleNavigate}
+            currentView={currentView}
+        />
+        
         <main>
-          <Hero />
-          <FreeGifts />
-          <About />
-          <Portfolio />
-          <Services cart={cart} toggleCartItem={toggleCartItem} />
-          <Testimonials />
-          <CallToAction />
-          <CreativeSpark />
-          <Blog />
-          <ContactForm cart={cart} removeFromCart={removeFromCart} />
+          {currentView === 'home' && (
+            <>
+              <Hero />
+              <FreeGifts />
+              <About />
+              <Portfolio />
+              <Services cart={cart} toggleCartItem={toggleCartItem} />
+              <Testimonials />
+              <CallToAction />
+              <CreativeSpark />
+              <Blog />
+              <ContactForm cart={cart} removeFromCart={removeFromCart} />
+            </>
+          )}
+
+          {currentView === 'blog' && (
+             <BlogPage 
+                onArticleClick={handleArticleClick}
+                onBack={() => handleNavigate('home')}
+             />
+          )}
+
+          {currentView === 'article' && selectedArticle && (
+              <BlogPostView 
+                post={selectedArticle}
+                onBack={() => handleNavigate('blog')}
+              />
+          )}
         </main>
+
         <Footer onOpenAdmin={() => setShowAdmin(true)} />
         
         {/* Admin Panel Modal */}

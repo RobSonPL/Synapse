@@ -22,8 +22,6 @@ async function retryOperation<T>(
       lastError = error;
       
       // Determine if error is retryable.
-      // Usually we retry on 5xx (server errors) or 429 (too many requests).
-      // Assuming generic network errors don't have a status or have specific codes.
       const status = error.status || error.response?.status;
       const isRetryable = !status || status >= 500 || status === 429;
 
@@ -52,7 +50,7 @@ export const generateCreativeSpark = async (topic: string): Promise<string> => {
     // Wrap the API call with the retry logic
     const response: GenerateContentResponse = await retryOperation(() => 
       ai.models.generateContent({
-        model: 'gemini-2.5-flash',
+        model: 'gemini-3-flash-preview',
         contents: prompt,
         config: {
           thinkingConfig: { thinkingBudget: 0 } // Speed over deep thought for this interaction

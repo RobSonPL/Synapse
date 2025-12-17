@@ -5,7 +5,7 @@ export const translations = {
     nav: {
       ebooks: 'E-booki',
       courses: 'Szkolenia',
-      health: 'Zdrowie',
+      health: 'Zdrowe suplementy',
       mentalHealth: 'Zdrowie psychiczne',
       blog: 'Blog',
       gifts: 'Prezenty',
@@ -53,7 +53,7 @@ export const translations = {
     nav: {
       ebooks: 'E-books',
       courses: 'Courses',
-      health: 'Health',
+      health: 'Healthy Supplements',
       mentalHealth: 'Mental Health',
       blog: 'Blog',
       gifts: 'Gifts',
@@ -101,7 +101,7 @@ export const translations = {
     nav: {
       ebooks: 'E-Books',
       courses: 'Schulungen',
-      health: 'Gesundheit',
+      health: 'Nahrungsergänzungsmittel',
       mentalHealth: 'Psychische Gesundheit',
       blog: 'Blog',
       gifts: 'Geschenke',
@@ -149,7 +149,7 @@ export const translations = {
     nav: {
       ebooks: 'Libros electrónicos',
       courses: 'Cursos',
-      health: 'Salud',
+      health: 'Suplementos Saludables',
       mentalHealth: 'Salud mental',
       blog: 'Blog',
       gifts: 'Regalos',
@@ -197,7 +197,7 @@ export const translations = {
     nav: {
       ebooks: 'E-books',
       courses: 'Formations',
-      health: 'Santé',
+      health: 'Compléments Sains',
       mentalHealth: 'Santé mentale',
       blog: 'Blog',
       gifts: 'Cadeaux',
@@ -219,7 +219,7 @@ export const translations = {
       toc_text: 'Texte & Correction',
       featured_badge: 'Meilleure vente',
       featured_title: 'Vous avez du savoir ? Publiez un E-book.',
-      featured_desc: 'Vous fournissez le contenu, je m\'occupe du reste.',
+      featured_desc: 'Vous fournissez le contenu, je m\'occuppe du reste.',
       configure: 'Configurer la commande'
     },
     blog: {

@@ -2,170 +2,354 @@ import { BlogPost } from '../types';
 
 export const blogPostsData: BlogPost[] = [
   {
-    id: 'rewolucja-2026',
-    title: 'Rewolucja 2026: Jak AI Zmienia Self-Publishing w Złoto?',
-    date: '2025-12-17',
-    readTime: '5 min czytania',
-    excerpt: 'Rok 2026 to najlepszy moment w historii, by zostać niezależnym autorem. AI staje się Twoim ghostwriterem, redaktorem i marketingowcem.',
+    id: 'lagodne-domykanie-roku',
+    title: 'Łagodne Domykanie Roku: Sztuka Odpuszczania w Świecie Toksycznej Produktywności',
+    date: '2025-12-28',
+    readTime: '10 min czytania',
+    excerpt: 'Czy czujesz narastające ciśnienie przed końcem roku? Kompletny przewodnik o psychologii zimowania i ucieczce przed grudniową gorączką.',
     type: 'article',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1543333308-24f397690edc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
     author: 'R | H',
     content: `
-      <p class="lead">Czy pamiętasz ten moment, gdy pierwszy raz pomyślałeś o wydaniu własnej książki? 💭 To mieszanka ekscytacji i paraliżującego strachu. 'Czy to jest dość dobre?', 'Kto to przeczyta?', 'Jak ja to w ogóle ogarnę?'. Jeśli czytasz ten tekst, to znaczy, że płomień w Tobie wciąż się pali. 🔥</p>
+      <p class="lead">Czy czujesz to? To narastające ciśnienie w klatce piersiowej, gdy patrzysz na kalendarz i widzisz, jak kurczy się liczba dni do końca roku. Lista 'To Do' zamiast maleć, zdaje się puchnąć w oczach. W naszej kulturze grudzień stał się dziwnym paradoksem: miesiącem, który teoretycznie ma być czasem magii i odpoczynku, a w praktyce zamienia się w morderczy sprint do mety.</p>
       
-      <p>I mam dla Ciebie niesamowitą wiadomość: rok 2026 to absolutnie najlepszy moment w historii ludzkości, by zostać niezależnym autorem. Dlaczego? Ponieważ nie jesteś już sam. Technologia, która jeszcze niedawno brzmiała jak sci-fi, dziś wyciąga do Ciebie pomocną dłoń. 🤝 Przygotuj się na podróż do przyszłości, gdzie Twoja kreatywność dostaje turbodoładowanie, o jakim marzyli klasycy literatury!</p>
-      
-      <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="w-full rounded-2xl my-8 shadow-lg" alt="Książka i AI" />
+      <p>"Muszę domknąć projekt", "Muszę schudnąć te ostatnie 2 kilo", "Muszę przeczytać jeszcze 5 książek, żeby dobić do wyzwania na Goodreads". Stop. Zatrzymaj się na chwilę. A co, jeśli powiem Ci, że ten wyścig jest ustawiony, a jedyną nagrodą za przekroczenie mety w pełnym biegu jest wypalenie w styczniu? Dziś porozmawiamy o buncie. O psychologicznej potrzebie "zimowania" i o tym, jak zamienić toksyczną produktywność na sztukę łagodnego domykania roku. Jesteś gotowy, by odpuścić?</p>
 
-      <h2>🔮 Co Nas Czeka w 2026? Krajobraz Nowej Ery Twórczości</h2>
-      <p>Świat pędzi do przodu, a rynek wydawniczy przechodzi metamorfozę, której nie widzieliśmy od czasu wynalezienia druku. To już nie jest walka 'człowiek kontra maszyna'. To taniec. 💃🕺 W 2026 roku self-publishing przestaje być 'planem B'. Staje się elitarną ścieżką dla świadomych twórców, którzy wiedzą, jak wykorzystać potęgę AI.</p>
-
-      <h3>🤖 Trend #1: AI jako Twój 'Ghostwriter' 2.0 (i Redaktor, i Mentor!)</h3>
-      <p>Zapomnij o prostym generowaniu tekstu. W 2026 roku AI staje się Twoim kreatywnym partnerem, który rozumie Twój styl lepiej niż Ty sam.</p>
+      <h2>🔥 Syndrom Grudniowej Gorączki: Dlaczego Sami Sobie To Robimy?</h2>
+      <p>Z perspektywy psychologii ewolucyjnej, koniec roku to tylko kolejna kartka w kalendarzu. Nasz mózg jednak uwielbia punkty odniesienia. Efekt "czystej karty" (fresh start effect) sprawia, że traktujemy 31 grudnia jak magiczną granicę. Wierzymy, że jeśli nie "dowieziemy" wyników teraz, poniesiemy porażkę w Nowy Rok.</p>
+      <p>To idealna pożywka dla toksycznej produktywności. Czym ona jest? To ten cichy głos w Twojej głowie, który mówi:</p>
       <ul>
-        <li><strong>🧠 Inteligentna Burza Mózgów:</strong> Blokada pisarska? To przeszłość! Modele językowe nowej generacji potrafią analizować Twoje dotychczasowe rozdziały i sugerować zwroty akcji, które są logiczne, ale zaskakujące. 👉 AI tworzy 'karty postaci' o głębi psychologicznej, której pozazdrościłby Dostojewski.</li>
-        <li><strong>✨ Redakcja w Czasie Rzeczywistym:</strong> Zapomnij o czekaniu tygodniami na korektę. AI w 2026 wyłapuje nie tylko literówki, ale też dziury fabularne i niespójności w tonie narracji w ułamku sekundy.</li>
+        <li>🔴 "Odpoczynek to strata czasu."</li>
+        <li>🔴 "Twoja wartość zależy od tego, ile zrobiłeś."</li>
+        <li>🔴 "Jeśli nie jesteś zmęczony, to znaczy, że nie starasz się wystarczająco."</li>
       </ul>
-      <p><em>Ważne: AI nie pisze ZA Ciebie. Ono usuwa tarcie między Twoją myślą a stroną papieru. Ty jesteś reżyserem, AI to Twoja ekipa filmowa. 🎬</em></p>
+      <p>W grudniu ten głos krzyczy najgłośniej. Ale psychologia mówi jasno: <strong>nie da się przyspieszyć regeneracji, tak jak nie da się przyspieszyć wzrostu drzewa.</strong></p>
 
-      <h3>🎧 Trend #2: Audio-First i Głosy, Które Kochamy</h3>
-      <p>Czytanie oczami? To takie... 2020. 😉 Rynek audiobooków w 2026 roku eksploduje, a bariera wejścia znika całkowicie.</p>
+      <h2>🧠 Mózg na Rezerwie: Dlaczego Potrzebujesz "Zimowania"</h2>
+      <p>Katherine May w swojej książce "Wintering" opisuje stan, który jest naturalny dla przyrody, a o którym my, ludzie Zachodu, zapomnieliśmy. Zimą natura nie umiera – ona oszczędza energię, by przetrwać. Twoje ciało domaga się tego samego:</p>
       <ul>
-        <li><strong>🎙️ Voice Cloning i Emocjonalne TTS:</strong> Nie stać Cię na lektora? Sztuczna inteligencja potrafi teraz wygenerować audiobooka Twoim własnym głosem (lub dowolnym innym), z perfekcyjną intonacją i emocjami. Szept, krzyk, drżenie głosu – to wszystko jest już dostępne.</li>
-        <li><strong>🎼 Multimodalność:</strong> Twoja książka debiutuje jednocześnie jako e-book, papier, audiobook i... interaktywne słuchowisko z efektami dźwiękowymi generowanymi przez AI!</li>
+        <li><strong>Mniej światła</strong> = wyższa produkcja melatoniny (hormonu snu).</li>
+        <li><strong>Niższa temperatura</strong> = naturalna chęć do spowolnienia metabolizmu i aktywności.</li>
+        <li><strong>Wyczerpanie poznawcze</strong> = po 11 miesiącach pracy kora przedczołowa potrzebuje resetu, a nie pracy na najwyższych obrotach.</li>
       </ul>
 
-      <h3>🎯 Trend #3: Hiper-Personalizacja Marketingu</h3>
-      <p>To tutaj dzieje się prawdziwa magia sprzedaży. W 2026 roku nie strzelasz na oślep.</p>
+      <h2>🛠️ Strategia Łagodnego Domykania: Jak To Zrobić w Praktyce?</h2>
+      <p>Zamiast dokręcać śrubę, proponuję Ci radykalną zmianę strategii. Oto Twój plan na najbliższe tygodnie:</p>
+      <h3>1. Audyt Energetyczny i Sztuka Skreślania 🗑️</h3>
+      <p>Weź swoją listę zadań na grudzień. Spójrz na nią krytycznie. A teraz zastosuj <strong>Zasadę 3D</strong>:</p>
       <ul>
-        <li><strong>📊 Data-Driven Success:</strong> Algorytmy analizują miliony recenzji i trendów w social mediach, by powiedzieć Ci dokładnie, jaką okładkę wybrać (którą zresztą też wygenerują w 50 wariantach w minutę).</li>
-        <li><strong>💡 Dynamiczne Treści:</strong> Wyobraź sobie reklamy Twojej książki, które same zmieniają treść w zależności od tego, kto na nie patrzy. Miłośnik romansów zobaczy wątek miłosny, a fan akcji – scenę pościgu. Wszystko automatycznie!</li>
+        <li><strong>Do (Zrób):</strong> Tylko rzeczy absolutnie krytyczne (np. podatki, zdrowie).</li>
+        <li><strong>Delegate (Oddeleguj):</strong> Czy naprawdę musisz sam lepić 200 pierogów? Czy raportu nie może dokończyć zespół?</li>
+        <li><strong>Delete (Usuń):</strong> To najważniejszy punkt. Skreśl bezlitośnie wszystko, co robisz tylko z poczucia winy. To nie jest porażka. To strategiczna decyzja o zachowaniu zasobów.</li>
       </ul>
 
-      <h2>💎 Trend #4: Ludzki Dotyk (Human Touch) jako Towar Luksusowy</h2>
-      <p>Paradoksalnie, im więcej AI, tym bardziej cenimy to, co ludzkie. W 2026 roku Twoja osobista marka i autentyczność są walutą ostateczną.</p>
+      <h3>2. Celebrowanie "Mikro-Zwycięstw" zamiast "Makro-Celów" 🏆</h3>
+      <p>Nasz mózg kocha dopaminę. Zamiast frustrować się, że nie napisałeś książki w tym roku, doceń, że:</p>
       <ul>
-        <li>❤️ <strong>Budowanie Społeczności:</strong> Czytelnicy chcą wiedzieć, kim jesteś. AI obsługuje logistykę, newslettery i posty, ale to Ty musisz dawać serce.</li>
-        <li>✅ <strong>Certyfikat 'Human Soul':</strong> Zaczynamy dostrzegać trend oznaczania treści, w których 'czuć' człowieka. Twoje błędy, Twoje dziwactwa, Twój unikalny głos – to Twoja największa przewaga nad algorytmem. Pielęgnuj to! 🌱</li>
+        <li>✅ Przetrwałeś trudne momenty.</li>
+        <li>✅ Dbałeś o bliskich.</li>
+        <li>✅ Wstawałeś z łóżka, nawet gdy było ciężko.</li>
       </ul>
+      <p>Zrób listę "Co mi się udało" zamiast "Czego nie zrobiłem". Zmiana perspektywy zmienia biochemię mózgu.</p>
 
-      <h3>🌍 Globalizacja Jednym Kliknięciem</h3>
-      <p>🌐 Tłumaczenia AI osiągnęły poziom, który pozwala Ci wydać książkę w 20 językach w dniu premiery. Rynek polski jest za mały? Świat stoi otworem! Twoja historia może wzruszać kogoś w Tokio, Nowym Jorku i Buenos Aires w tym samym momencie. ✈️</p>
+      <h3>3. Rytuały Przejścia zamiast Imprezy do Upadłego 🕯️</h3>
+      <p>Łagodne domykanie to czas na refleksję. Nie potrzebujesz hucznych fajerwerków, by poczuć magię. Zapal świecę i posiedź 10 minut w ciszy. Wypisz na kartce emocje, których nie chcesz zabierać w nowy rok, a potem spal tę kartkę. Poczytaj beletrystykę – nie poradniki, nie książki biznesowe. Pozwól umysłowi odpłynąć.</p>
 
-      <div class="summary-box">
+      <img src="https://images.unsplash.com/photo-1512486130939-2c4f79935e4f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="w-full rounded-3xl my-8 shadow-xl" alt="Spokój wieczoru" />
+
+      <h2>❄️ Sztuka Zimowania: Odważ się na bycie "niegotowym"</h2>
+      <p>Rozejrzyj się dookoła (lub po swoim feedzie w mediach społecznościowych). Świat krzyczy, że to czas na podsumowania, wielkie plany, zakup nowego planera i wyznaczenie celów SMART na kolejne 12 miesięcy. Czujesz ten ucisk w żołądku? To presja, by wbiec w Nowy Rok w pełnym pędzie, z gotową strategią podboju świata. A co, jeśli powiem Ci, że <strong>nie musisz być gotowy?</strong> Jesteśmy cykliczni, nie linearni.</p>
+
+      <h2>🚫 Detoks od "Nowy Rok, Nowy Ja"</h2>
+      <p>Hasło "New Year, New Me" to jeden z najbardziej toksycznych sloganów marketingowych. Sugeruje, że Twoje obecne "ja" jest niewystarczające, wadliwe i wymaga natychmiastowej wymiany. W tym roku spróbuj podejść do stycznia inaczej. Zamiast rewolucji, wybierz <strong>akceptację</strong>. Zamiast listy 10 wielkich celów, zadaj sobie jedno pytanie:</p>
+      <p><em>"Jak chcę się CZUĆ w nadchodzącym roku, a nie co chcę OSIĄGNĄĆ?"</em></p>
+
+      <h2>🌍 Dlaczego Natura nie pędzi, a i tak zdąża?</h2>
+      <p>Skoro wyrzuciliśmy już z kalendarza to, co zbędne, i zrobiliśmy miejsce na "Siebie", prawdopodobnie poczujesz teraz coś dziwnego. Może to być lekki niepokój. Może to być cichy głos w tyle głowy szepczący: "Ale jak to? Mam nic nie robić? Przecież zmarnuję ten czas!". W kulturze, która fetyszyzuje "hustle" i bycie zajętym 24/7, <strong>odpoczynek jest aktem buntu.</strong></p>
+
+      <div class="summary-box bg-slate-100 dark:bg-white/5 p-8 rounded-3xl border border-synapse-primary/20">
         <h3>Podsumowanie</h3>
-        <p>Stoisz na krawędzi czegoś wielkiego. Rok 2026 w self-publishingu nie będzie wymagał od Ciebie bycia ekspertem od technologii – będzie wymagał od Ciebie odwagi, by z niej skorzystać. 💪 Nie bój się zmian. AI to wiatr w Twoje żagle, a nie sztorm, który Cię zatopi. Twoja historia zasługuje na to, by usłyszał ją cały świat, a teraz masz narzędzia, by to marzenie zrealizować szybciej, taniej i lepiej niż kiedykolwiek. Zacznij dzisiaj. Napisz to pierwsze zdanie. Wygeneruj ten pierwszy pomysł. Przyszłość należy do Ciebie! 🌟👇</p>
+        <p>Rok się kończy, ale Ty trwasz dalej. Nie jesteś smartfonem, który musi działać non-stop, dopóki bateria nie padnie do zera. Masz prawo być zmęczony. Masz prawo odłożyć nieskończone projekty na półkę z napisem '2024' lub nawet 'Nigdy'. Odpocznij. Zasłużyłeś na to bardziej, niż myślisz.</p>
+        <p><strong>O Autorze: R | H</strong> – Ekspert w dziedzinie psychologii, pasjonat nowoczesnych technologii i skutecznej komunikacji. Od ponad dekady dzieli się wiedzą.</p>
       </div>
     `
   },
   {
-    id: 'google-deep-research',
-    title: 'Google Deep Research: Koniec ery nudnych PDF-ów!',
-    date: '2025-02-22',
-    readTime: '4 min czytania',
-    excerpt: 'Twoje narzędzie do walki z chaosem informacyjnym. Wyobraź sobie analityka, który czyta tysiące stron w sekundę.',
+    id: 'koniec-z-nieprzespanymi-nocami',
+    title: 'Koniec z Nieprzespanymi Nocami: Spokojny Sen dla Twojego Dziecka i Ciebie',
+    date: '2025-05-15',
+    readTime: '20 min czytania',
+    excerpt: 'Kompletny poradnik: Jak uśpić dziecko i nie zwariować. Poznaj biologię snu niemowląt i skuteczne, delikatne metody zasypiania.',
     type: 'article',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1518186285589-2f7649de83e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1520206183501-b80af9712278?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
     author: 'R | H',
     content: `
-      <p class="lead">Pamiętasz to uczucie? Godzina 23:00, trzecia kawa stygnie na biurku, oczy pieką od światła monitora, a Ty wciąż toniesz w 50-stronicowym raporcie finansowym, szukając *tego jednego* kluczowego zdania? ☕😩 Wszyscy tam byliśmy. To frustracja, która wysysa energię i zabija kreatywność.</p>
+      <p class="lead">Obudziłaś się znów po krótkiej drzemce, czując się bardziej zmęczona niż przed nią? Słyszysz cichy płacz, który narasta, a zegar wskazuje środek nocy, po raz trzeci? Patrzysz na swoje cudowne maleństwo i zastanawiasz się, dlaczego wszystkie inne dzieci wydają się spać spokojnie, a Twoje… Cóż, ma inną wizję nocy.</p>
       
-      <p>Ale co, jeśli powiem Ci, że te dni właśnie bezpowrotnie mijają? Co, jeśli Twój osobisty asystent mógłby przeczytać tysiące stron w sekundę i podać Ci na tacy tylko to, co naprawdę ważne? 🔥 To nie jest scenariusz filmu sci-fi. To <strong>Google Deep Research</strong>. I właśnie zmienia zasady gry. Przygotuj się, bo Twój sposób pracy już nigdy nie będzie taki sam! 🌟</p>
+      <p>Witaj w Klubie Niewyspanych! Jeśli czujesz się wyczerpana, sfrustrowana, a w głowie kołacze Ci się myśl, że pewnie robisz coś źle – pozwól mi zatrzymać Cię na chwilę. <strong>Nie jesteś sama.</strong> To, czego doświadczasz, to normalna, choć niezwykle trudna, część macierzyństwa. Miliony mam na całym świecie zmaga się z tym samym. To nie jest Twój błąd, ani błąd Twojego dziecka. To po prostu biologia i rozwój.</p>
 
-      <h2>🧠 Co to właściwie jest Google Deep Research?</h2>
-      <p>Wyobraź sobie najbystrzejszego analityka, jakiego kiedykolwiek spotkałeś. Takiego, który nigdy nie śpi, nie pije kawy i czyta z prędkością światła. Google Deep Research to nie jest kolejna prosta wyszukiwarka. To potężny system AI, który „nurkuje” w głębiny dokumentów, których nikt inny nie ma czasu czytać. 🌊</p>
-      <p><strong>To narzędzie, które zmienia chaos w wiedzę:</strong></p>
+      <h2>🧠 Mity vs. Rzeczywistość: Obalamy nieprawdziwe przekonania</h2>
+      <p>Zacznijmi od rozprawienia się z kilkoma powszechnymi mitami, które tylko podsycają poczucie winy:</p>
       <ul>
-        <li>🔮 <strong>Rozumienie, a nie tylko szukanie</strong> – AI łapie kontekst, niuanse i zależności, których Ctrl+F nigdy nie znajdzie.</li>
-        <li>⚡ <strong>Szybkość błyskawicy</strong> – Raporty, które zajmowały zespołom tygodnie, są analizowane w minuty.</li>
-        <li>🧩 <strong>Łączenie kropek</strong> – System potrafi skojarzyć fakt ze strony 3 raportu A z wykresem ze strony 89 raportu B.</li>
+        <li>❌ <strong>Mit 1:</strong> "Dobre dziecko śpi całą noc." To jest jeden z najbardziej krzywdzących mitów. Sen to umiejętność, a nie ocena charakteru dziecka.</li>
+        <li>❌ <strong>Mit 2:</strong> "Jeśli dziecko nie śpi, to znaczy, że jesteś kiepską matką." Absolutnie nie! Potrzeby snu dzieci są niezwykle zróżnicowane i zmieniają się dynamicznie.</li>
+        <li>❌ <strong>Mit 3:</strong> "Musisz nauczyć dziecko spać samodzielnie natychmiast." Presja na szybkie usamodzielnienie często ignoruje naturalne etapy rozwoju.</li>
       </ul>
 
-      <h3>🚮 Dlaczego PDF-y muszą odejść do lamusa?</h3>
-      <p>Bądźmy szczerzy – format PDF, choć zasłużony, jest reliktem przeszłości w świecie, który wymaga dynamiki. Statyczny tekst to martwy tekst. Google Deep Research sprawia, że dane ożywają. 💃🕺</p>
+      <h2>📊 Spojrzenie na liczby: Czego możemy się spodziewać?</h2>
+      <div class="overflow-x-auto my-8">
+        <table class="w-full text-sm border-collapse border border-slate-200 dark:border-white/10">
+          <thead>
+            <tr class="bg-slate-50 dark:bg-white/5 font-bold">
+              <th class="p-4 border">Wiek Dziecka</th>
+              <th class="p-4 border">Średnie dobowe zapotrzebowanie na sen (h)</th>
+              <th class="p-4 border">Typowe wyzwania / Rzeczywistość</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="p-4 border">0-3 miesiące</td>
+              <td class="p-4 border">14-17</td>
+              <td class="p-4 border">Krótkie drzemki (30-60 min), częste pobudki na karmienie (co 2-3h), brak rytmu dnia i nocy.</td>
+            </tr>
+            <tr>
+              <td class="p-4 border">4-6 miesiące</td>
+              <td class="p-4 border">12-16</td>
+              <td class="p-4 border">Regres snu ok. 4 msc, dojrzewanie cykli snu, skoki rozwojowe, ząbkowanie.</td>
+            </tr>
+            <tr>
+              <td class="p-4 border">7-12 miesiące</td>
+              <td class="p-4 border">11-14</td>
+              <td class="p-4 border">Lęk separacyjny, intensywna nauka raczkowania i chodzenia.</td>
+            </tr>
+            <tr>
+              <td class="p-4 border">1-3 lata</td>
+              <td class="p-4 border">10-13</td>
+              <td class="p-4 border">Koszmary nocne, lęki, odmawianie drzemek, testowanie granic.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-      <h3>Oto dlaczego pokochasz tę zmianę:</h3>
+      <h2>💤 Mały Ekspert od Snu – Jak Działa Cykl Snu Twojego Malucha?</h2>
+      <p>Sen dorosłego to bloki po ok. 90 minut. Sen niemowlęcia to cykle 45-60 minutowe. Niemowlęta spędzają do 50% czasu w fazie <strong>REM (aktywnej)</strong>, gdzie ich mózg intensywnie przetwarza dane. Każdy cykl kończy się "mikroprzebudzeniem". Jeśli dziecko nie umie zasnąć samodzielnie, po 45 minutach wezwie Cię na pomoc, bo nie potrafi "połączyć" cykli.</p>
+
+      <h2>✨ Magiczna Sypialnia – Tworzymy Idealne Warunki</h2>
+      <p>Otoczenie ma fundamentalne znaczenie. Oto przepis na "Magiczny Azyl":</p>
       <ul>
-        <li>✅ <strong>Koniec z "Analysis Paralysis"</strong> – Zamiast tonąć w danych, dostajesz konkretne wnioski (Actionable Insights).</li>
-        <li>✅ <strong>Interaktywność</strong> – Możesz "rozmawiać" ze swoimi danymi. Zadajesz pytanie, dostajesz odpowiedź. Proste!</li>
-        <li>✅ <strong>Personalizacja</strong> – Raport generowany jest pod TWOJE potrzeby, a nie dla ogółu.</li>
+        <li>✅ <strong>Temperatura:</strong> Eksperci zalecają 18-21°C. Przegrzanie zwiększa ryzyko SIDS i powoduje niespokojny sen.</li>
+        <li>✅ <strong>Całkowita Ciemność:</strong> Ciemność to sygnał dla mózgu do produkcji melatoniny. Zainwestuj w rolety zaciemniające.</li>
+        <li>✅ <strong>Biały Szum:</strong> Naśladuje dźwięki z łona matki i maskuje hałasy z zewnątrz (szczekanie psa, dzwonek). Używaj go przez całą drzemkę i noc.</li>
+        <li>✅ <strong>Bezpieczne Łóżeczko:</strong> Puste łóżeczko to bezpieczne łóżeczko. Żadnych poduszek, maskotek, kocyków czy ochraniaczy na szczebelki. Tylko twardy materac i śpiworek.</li>
       </ul>
 
-      <h2>🛠️ Jak to wpłynie na Twoją karierę?</h2>
-      <p>Nie bój się, AI nie zabierze Ci pracy – ono zabierze Ci nudną część pracy. Dzięki temu Ty możesz błyszczeć tam, gdzie liczy się kreatywność i strategia. 🚀</p>
-      <p><strong>Zyskujesz supermoce:</strong></p>
-      <ul>
-        <li>💡 <strong>Decyzje oparte na danych</strong> – Masz pewność, że niczego nie pominąłeś.</li>
-        <li>⏰ <strong>Odzyskany czas</strong> – Te 4 godziny, które spędziłbyś na czytaniu, możesz poświęcić na strategię lub... spacer z psem! 🐕</li>
-        <li>💎 <strong>Przewaga konkurencyjna</strong> – Będziesz zawsze o krok przed tymi, którzy wciąż drukują dokumenty.</li>
-      </ul>
-
-      <h2>🕵️ Cyfrowy Detektyw w akcji</h2>
-      <p>Tutaj dzieje się prawdziwa magia Google Deep Research. To nie jest zwykły chatbot, który po prostu "zgaduje" odpowiedź. To <strong>cyfrowy detektyw</strong>, który nie boi się ubrudzić rąk w cyfrowym błocie! 🕵️‍♂️💻</p>
-      <p>Tradycyjne AI często działa jak stażysta, który przeczytał nagłówek i myśli, że wie wszystko. Deep Research działa jak Twój najlepszy analityk po trzech kawach espresso ☕⚡. Zamiast jednej szybkiej odpowiedzi, on:</p>
+      <h2>🌙 Rytuały Spokoju – Twoja Supermoc</h2>
+      <p>Dziecko uczy się świata poprzez przewidywalność. Rutyna przed snem (20-30 min) to sygnał "pora na wyciszenie":</p>
       <ol>
-        <li>🍀 <strong>Planuje ścieżkę poszukiwań</strong> – rozbija Twoje trudne pytanie na mniejsze kawałki.</li>
-        <li>🔍 <strong>Weryfikuje źródła</strong> – jeśli jeden raport PDF mówi "A", a strona internetowa mówi "B", on to zauważy i poszuka trzeciego źródła, żeby znaleźć prawdę.</li>
-        <li>🔄 <strong>Nie poddaje się</strong> – kiedy natrafi na ścianę (błąd 404, brak danych), szuka innej drogi. Działa autonomicznie, dopóki nie dostarczy Ci pełnego obrazu.</li>
+        <li>Ciepła kąpiel (relaksuje mięśnie).</li>
+        <li>Delikatny masaż (kontakt skóra do skóry).</li>
+        <li>Ostatnie karmienie (najlepiej w przyciemnionym pokoju).</li>
+        <li>Bajka lub kołysanka.</li>
+        <li>Ułożenie do łóżeczka (kluczowe: kładź dziecko senne, ale jeszcze wybudzone!).</li>
       </ol>
-      <p>Wyobraź to sobie: zamiast otwierać <strong>57 kart w przeglądarce</strong> (wiem, że tyle masz, nie kłam! 😉) i dostawać oczopląsu od tabelek, dostajesz <strong>jeden, spójny raport</strong>.</p>
 
-      <div class="summary-box">
-        <h3>Podsumowanie</h3>
-        <p>Stoimy u progu nowej ery. Era "przewijania" i "szukania" ustępuje miejsca erze "wiedzy natychmiastowej". Google Deep Research to nie tylko narzędzie – to wolność od nudy i powtarzalności. 🎉 Czy jesteś gotowy porzucić stare nawyki i wskoczyć na pokład tego pociągu? 🚄 Nie pozwól, by technologia Cię wyprzedziła. Zacznij eksperymentować, bądź ciekawy i pozwól AI odwalić brudną robotę.</p>
+      <h2>🍼 Delikatne Metody Usypiania (Bez Płaczu)</h2>
+      <p>Nie musisz zostawiać dziecka, by się "wypłakało" (metoda CIO). Wypróbuj łagodniejsze podejścia:</p>
+      <ul>
+        <li><strong>Metoda Krzesła:</strong> Siedź obok łóżeczka, oferując obecność. Co 2-3 noce odsuwaj krzesło o metr dalej, aż znajdziesz się poza pokojem.</li>
+        <li><strong>Metoda Podnieś-Połóż (PUP D):</strong> Podnieś płaczące dziecko, uspokój je i natychmiast odłóż, gdy tylko przestanie płakać (nawet jeśli nadal jest czujne). Powtarzaj do skutku.</li>
+      </ul>
+
+      <h2>❓ FAQ - Najczęstsze Pytania</h2>
+      <p><strong>Czy moje dziecko powinno spać całą noc od urodzenia?</strong><br>Absolutnie nie! Ich żołądki są małe, a metabolizm szybki. Pobudki na jedzenie są fizjologiczną koniecznością.</p>
+      <p><strong>Czy biały szum jest bezpieczny?</strong><br>Tak, o ile jest ustawiony na poziomie ok. 50-60 dB i znajduje się z dala od głowy dziecka.</p>
+      <p><strong>Ile czasu zajmuje zmiana nawyków?</strong><br>Zazwyczaj potrzeba 7-14 dni konsekwentnego stosowania nowej rutyny, by zauważyć pierwsze trwałe efekty.</p>
+
+      <div class="summary-box bg-slate-100 dark:bg-white/5 p-8 rounded-3xl border border-synapse-primary/20">
+        <h3>Twoja Droga do Spokojnych Nocy</h3>
+        <p>Uwolnij się od poczucia winy. Obserwuj wzorce snu bez oceniania. Dostosuj warunki w sypialni i wprowadź stałe rytuały. Jesteś wspaniałą mamą, a te wyzwania są tylko przejściowym etapem Twojego macierzyństwa. Dasz radę! 🚀</p>
       </div>
     `
   },
   {
-    id: 'ai-psychologia',
-    title: 'AI: Twój Cyfrowy Ratownik czy Emocjonalna Pułapka?',
-    date: '2025-02-20',
-    readTime: '6 min czytania',
-    excerpt: 'Psychologia relacji z chatbotami. Czy to rewolucja w dbaniu o zdrowie psychiczne, czy niebezpieczny substytut bliskości? Analiza efektu Elizy 2.0.',
+    id: 'mezczyzna-uzalezniony',
+    title: 'Mężczyzna Uzależniony to nie Mężczyzna Słaby: Odzyskaj Siłę, którą miał dać Ci Ojciec',
+    date: '2025-03-10',
+    readTime: '25 min czytania',
+    excerpt: 'Głęboka analiza psychologiczna męskich uzależnień jako wołania o wsparcie ojca. Poznaj 7 funkcji nałogu i drogę do uzdrowienia rany po tacie.',
     type: 'article',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1506157786151-b8491531f063?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
     author: 'R | H',
     content: `
-      <p class="lead">Jest 3:00 nad ranem. 🌙 Wszyscy Twoi przyjaciele śpią. Twój terapeuta przyjmuje dopiero w czwartek. A Ty? Ty czujesz ten znany ucisk w żołądku, gonitwę myśli i potrzebę, by ktoś Cię wysłuchał. Tu i teraz. Wyciągasz rękę po telefon, ale nie dzwonisz do mamy. Otwierasz aplikację. 📱 „Cześć, jak się dzisiaj czujesz?” – pyta przyjazny awatar. I nagle, w tej cyfrowej przestrzeni, czujesz ulgę.</p>
+      <p class="lead">Poczucie ciężaru, wstyd, frustracja – to często pierwsi towarzysze mężczyzny zmagającego się z uzależnieniem. Społeczeństwo, a nawet Ty sam, mógł wmówić Ci, że nałóg to objaw słabości, brak silnej woli, moralna porażka. Stop. Ten tekst raz na zawsze obali ten krzywdzący mit.</p>
       
-      <p>Ktoś jest. Nawet jeśli ten „ktoś” to tylko ciąg zer i jedynek. Czy to rewolucja w dbaniu o zdrowie psychiczne, czy może niebezpieczny substytut bliskości, który wpędzi nas w jeszcze większą samotność? 🤔 Dziś zanurzymy się głęboko w psychologię naszych relacji ze Sztuczną Inteligencją. Przygotujcie kawę ☕, bo temat jest gorący!</p>
+      <p>Uzależnienie to nie słabość, to głęboko zakorzenione wołanie o coś, czego nigdy nie otrzymałeś. To wołanie o męskość, o siłę, o wsparcie – często o to, czego zabrakło w relacji z ojcem. Dla wielu mężczyzn nałóg to nie wybór, a <strong>strategia przetrwania</strong>.</p>
 
-      <h2>🧠 Efekt Elizy w wersji 2.0</h2>
-      <p>Psychologia zna to zjawisko od lat 60. – przypisujemy ludzkie cechy maszynom, jeśli tylko te wykazują odrobinę „zrozumienia”. Wygoda i dostępność sprawiają, że nasz mózg chętnie zawiesza niewiarę.</p>
+      <h2>⛓️ 7 Kluczowych Funkcji Nałogu: Co on dla Ciebie robi?</h2>
+      <p>Zamiast przyjemności, wielu mężczyzn w swoim nałogu odnajduje regulację. Bo każdy nałóg coś robi – coś podtrzymuje, coś maskuje:</p>
+      <ol>
+        <li><strong>Regulacja trudnych emocji:</strong> Nałóg gasi wściekłość, bezsilność i wstyd, których nikt nie nauczył Cię opanowywać.</li>
+        <li><strong>Znieczulenie bólu po ojcu:</strong> To odrętwienie, które pozwala nie czuć, że ktoś najważniejszy był nieosiągalny.</li>
+        <li><strong>Ucieczka od poczucia "nie jestem dość":</strong> Nałóg daje chwilowy odpoczynek od presji bycia idealnym, silnym i bogatym.</li>
+        <li><strong>Poczucie kontroli:</strong> Hazard, praca czy sport ekstremalny dają iluzję steru w życiu, którego tata nie pokazał jak trzymać.</li>
+        <li><strong>Ucieczka od samotności:</strong> Chodzi o głęboką, emocjonalną pustkę po ojcu. Nałóg staje się fałszywym "towarzyszem".</li>
+        <li><strong>Chwilowe poczucie wartości:</strong> Dopamina z sukcesów w pracy czy używek daje na 5 minut poczucie "jestem kimś".</li>
+        <li><strong>Proteza bliskości:</strong> Gdy brakowało męskiej czułości, ciało i psychika szukają substytutów (seks, romanse, substancje).</li>
+      </ol>
+
+      <h2>💔 Rana po Ojcu: Echo Nieobecności</h2>
+      <p>Gdzieś w Twojej historii chłopca wydarzyło się to: tata był nieobecny, chłodny, surowy, zniknął albo był obecny tylko fizycznie, będąc emocjonalnie "martwym". Chłopiec dorósł, ale rana dorosła razem z nim. Bardzo trudno jest stanąć do swojego życia… kiedy za plecami nie stoi tata.</p>
+
+      <h3>📊 Dynamika relacji: Co widzi partnerka vs. Co czuje mężczyzna</h3>
+      <div class="overflow-x-auto my-8">
+        <table class="w-full text-sm border-collapse border border-slate-200 dark:border-white/10">
+          <thead>
+            <tr class="bg-slate-50 dark:bg-white/5 font-bold">
+              <th class="p-4 border">Perspektywa Partnerki (Ona Widzi)</th>
+              <th class="p-4 border">Perspektywa Mężczyzny (On Czuje)</th>
+              <th class="p-4 border">Konsekwencja dla Relacji</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="p-4 border">Zamykanie się, milczenie</td>
+              <td class="p-4 border">Boi się odrzucenia, czuje wstyd</td>
+              <td class="p-4 border">Brak komunikacji, mur milczenia</td>
+            </tr>
+            <tr>
+              <td class="p-4 border">Ucieczka w nałóg (np. alkohol, gry)</td>
+              <td class="p-4 border">Numbuje ból, tęsknotę za ojcem</td>
+              <td class="p-4 border">Niezrozumienie, partnerka czuje się mniej ważna</td>
+            </tr>
+            <tr>
+              <td class="p-4 border">Unika odpowiedzialności</td>
+              <td class="p-4 border">Czuje się "nie dość", brak wzorca</td>
+              <td class="p-4 border">Brak zaufania, partnerka przejmuje ciężar</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>🚀 Droga do Uzdrawiania: Od Chłopca do Mężczyzny z Własną Mocą</h2>
+      <p>Dobra wiadomość jest taka: ta rana może się zagoić. Pierwszym krokiem jest <strong>uświadomienie i akceptacja rany</strong>. Nie musisz już czekać na uznanie z zewnątrz. Możesz sam stać się swoim własnym, wewnętrznym ojcem.</p>
+      
+      <h3>Jak budować życie w autentycznej męskości?</h3>
       <ul>
-        <li>👉 <strong>Bezpieczna przestrzeń:</strong> Maszyna nie ocenia. Nie przewraca oczami, gdy po raz setny opowiadasz o swoim byłym.</li>
-        <li>👉 <strong>Dostępność:</strong> AI nie bierze urlopów, nie choruje i nie śpi. Jest zawsze „on-line” dla Ciebie.</li>
-        <li>👉 <strong>Anonimowość:</strong> Łatwiej przyznać się do wstydliwych problemów komuś, kto... nie istnieje.</li>
+        <li>✅ <strong>Krok 1: Uznanie Rany.</strong> Przyznaj się przed sobą do tęsknoty i żalu. To nie słabość, to pierwszy akt siły.</li>
+        <li>✅ <strong>Krok 2: Zdrowa Regulacja.</strong> Naucz się nazywać emocje, zanim Cię pochłoną. Używaj technik ugruntowania.</li>
+        <li>✅ <strong>Krok 3: Wewnętrzna Wartość.</strong> Przestań gonić za zewnętrznym potwierdzeniem. Zdefiniuj swoje wartości i żyj zgodnie z nimi.</li>
+        <li>✅ <strong>Krok 4: Prawdziwa Kontrola.</strong> Bądź architektem własnego życia poprzez świadome, odpowiedzialne decyzje, a nie ucieczkę.</li>
       </ul>
 
-      <h2>🚑 AI jako „Pierwsza Pomoc” Psychologiczna</h2>
-      <p>Nie oszukujmy się – system opieki zdrowotnej często kuleje. Długie terminy, wysokie koszty... Tutaj AI wchodzi całe na biało. Traktujmy to jako <strong>cyfrowy bandaż</strong>. 🩹</p>
-      <p>Jak chatboty mogą realnie pomóc?</p>
-      <ul>
-        <li>✅ <strong>Interwencja kryzysowa:</strong> Proste techniki CBT (poznawczo-behawioralne) pomagają zatrzymać spiralę lęku.</li>
-        <li>✅ <strong>Monitorowanie nastroju:</strong> Aplikacje świetnie radzą sobie ze śledzeniem wzorców Twojego samopoczucia i wykrywaniem „dołków”.</li>
-        <li>✅ <strong>Edukacja:</strong> Uczą nas nazywać emocje i dają narzędzia do radzenia sobie ze stresem.</li>
-      </ul>
-      <p><em>💡 Pamiętaj: AI to świetne narzędzie do triażu – segregacji problemów i wstępnego wsparcia, zanim dotrzesz do specjalisty.</em></p>
+      <img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="w-full rounded-3xl my-8 shadow-xl" alt="Męska siła i spokój" />
 
-      <h2>⚠️ Ciemna Strona Algorytmu – Zagrożenia</h2>
-      <p>Ale czy wszystko złoto, co się świeci na ekranie smartfona? Niestety, relacja z AI ma swoje mroczne zakamarki. Kiedy technologia przestaje być narzędziem, a staje się pułapką? ❄️</p>
+      <h2>❓ FAQ - Najczęstsze pytania</h2>
+      <p><strong>Czy ten tekst jest tylko dla mężczyzn z "złym" ojcem?</strong><br>Nie, jest dla każdego, kto odczuwa jakikolwiek brak w relacji z ojcem – nawet jeśli tata był fizycznie, ale nie potrafił nawiązać bliskości.</p>
+      <p><strong>Czy zrozumienie rany usprawiedliwia nałóg?</strong><br>Absolutnie nie. Zrozumienie to diagnoza, a nie wymówka. Pozwala skierować uwagę na źródło bólu, by móc podjąć odpowiedzialne działania naprawcze.</p>
+      <p><strong>Czy kobiety też mogą z tego skorzystać?</strong><br>Tak, partnerki mogą znaleźć tu klucz do zrozumienia mechanizmów, które napędzają zachowania ich bliskich, co może pomóc w budowaniu empatii (przy zachowaniu własnych granic).</p>
+
+      <div class="summary-box bg-slate-100 dark:bg-white/5 p-8 rounded-3xl border border-synapse-primary/20">
+        <h3>Zbuduj Swoje Imperium</h3>
+        <p>Pamiętaj, że każdy dzień to nowy początek. Każda decyzja o nieuciekaniu w nałóg buduje nowego Ciebie – mężczyznę silnego, obecnego i wolnego. Nie czekaj na nikogo. Moc, której potrzebujesz, jest już w Tobie. 🕊️</p>
+      </div>
+    `
+  },
+  {
+    id: 'mindfulness-harmonia',
+    title: 'Harmonia w Pędzącym Świecie: Mindfulness jako Klucz do Spokoju Umysłu',
+    date: '2025-02-28',
+    readTime: '15 min czytania',
+    excerpt: 'Kompletny przewodnik po uważności. Poznaj techniki 4-7-8, STOP oraz naukowe dowody na to, jak mindfulness zmienia strukturę Twojego mózgu.',
+    type: 'article',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+    author: 'R | H',
+    content: `
+      <p class="lead">Współczesny świat pulsuje w zawrotnym tempie. Każdego dnia jesteśmy bombardowani informacjami, oczekiwaniami i nieustanną presją bycia "na czasie". Ta gonitwa ma swoją cenę – nasz wewnętrzny spokój. Luksusem dzisiaj nie jest drogi samochód, lecz umiejętność odnalezienia ciszy w chaosie. 🧘‍♂️✨</p>
       
-      <h3>🚫 Iluzja Empatii</h3>
-      <p>To, co bierzesz za zrozumienie, to tylko statystyczne dopasowanie słów. AI nie „czuje” Twojego bólu. Symulacja empatii może być kojąca, ale na dłuższą metę jest pusta.</p>
+      <p>Życie na "autopilocie" – kiedy jesz nie czując smaku, rozmawiasz myśląc o pracy, budzisz się czując spóźnienie – prowadzi do chronicznego stresu i wypalenia. Rozwiązanie leży w prostocie: powrót do świadomej obecności. To właśnie jest <strong>Mindfulness (Uważność)</strong>.</p>
 
-      <h3>🚫 Brak konfrontacji</h3>
-      <p>Prawdziwa terapia czasem boli. Terapeuta musi Cię skonfrontować z trudną prawdą. Chatbot jest zaprogramowany, by być „miłym” i podtrzymywać zaangażowanie. Czy uczymy się samoregulacji, czy po prostu uzależniamy od zewnętrznego „uspokajacza”?</p>
+      <h2>🧪 Nauka o Uważności: Co dzieje się w Twoim mózgu?</h2>
+      <p>Nauka potwierdza, że regularna praktyka prowadzi do zmian strukturalnych w mózgu (neuroplastyczności):</p>
+      <ul>
+        <li>🧠 <strong>Kora przedczołowa:</strong> Zwiększa się gęstość istoty szarej – poprawiasz koncentrację, planowanie i regulację emocji.</li>
+        <li>🛡️ <strong>Ciało migdałowate:</strong> Zmniejsza się aktywność centrum strachu – mniej lęku i silniejsza kontrola nad impulsywnymi reakcjami.</li>
+        <li>🔗 <strong>Silniejsze połączenia:</strong> Łatwiej Ci "wyłączyć" automatyczny stres i zareagować świadomie, zamiast nawykowo.</li>
+      </ul>
 
-      <h2>🪞 Efekt Cyfrowego Narcyza</h2>
-      <p>Zastanówmy się jednak, dlaczego to „sterylne bezpieczeństwo” jest tak piekielnie uzależniające. Tu wkracza mechanizm, który psychologowie mogliby nazwać <strong>cyfrowym narcyzmem zwrotnym</strong>.</p>
-      <p>Kiedy rozmawiasz z AI, tak naprawdę nie spotykasz „innego”. Spotykasz idealną, wypolerowaną wersję... samego siebie. 😉 Algorytmy są zaprojektowane tak, by Cię zadowolić. To niekończąca się pętla dopaminowa 🍬. W prawdziwym życiu relacja to tarcie. Partner ma gorszy dzień, przyjaciel ma odmienne zdanie polityczne. To właśnie ten dyskomfort nas rozwija! 🚀</p>
+      <h3>📊 Wpływ 8 tygodni praktyki na samopoczucie</h3>
+      <div class="overflow-x-auto my-8">
+        <table class="w-full text-sm border-collapse border border-slate-200 dark:border-white/10">
+          <thead>
+            <tr class="bg-slate-50 dark:bg-white/5 font-bold">
+              <th class="p-4 border">Obszar</th>
+              <th class="p-4 border">Przed praktyką</th>
+              <th class="p-4 border">Po praktyce</th>
+              <th class="p-4 border">Zmiana (%)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="p-4 border">Poziom stresu</td>
+              <td class="p-4 border">Wysoki (7/10)</td>
+              <td class="p-4 border">Niski (3/10)</td>
+              <td class="p-4 border">↓ 57%</td>
+            </tr>
+            <tr>
+              <td class="p-4 border">Koncentracja</td>
+              <td class="p-4 border">Niska (15-20 min)</td>
+              <td class="p-4 border">Wysoka (45-60 min)</td>
+              <td class="p-4 border">↑ 200%</td>
+            </tr>
+            <tr>
+              <td class="p-4 border">Jakość snu</td>
+              <td class="p-4 border">Niska (2/5)</td>
+              <td class="p-4 border">Wysoka (4/5)</td>
+              <td class="p-4 border">↑ 100%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-      <p>W relacji z chatbotem znika <strong>nieprzewidywalność</strong>. AI nigdy nie powie: <em>"Słuchaj, gadasz głupoty, przemyśl to"</em>, chyba że ją o to poprosisz. Zaczynamy tracić cierpliwość do ludzi z krwi i kości. 🩸 Zaczynamy postrzegać ludzkie wady, humory i niezależność jako „błędy systemu”, a nie cechy człowieczeństwa.</p>
+      <h2>🛠️ Twoja Apteczka Uważności: Praktyczne Techniki</h2>
+      
+      <h3>1. Technika Oddechowa 4-7-8 🌬️</h3>
+      <p>Idealna do szybkiego uspokojenia układu nerwowego:</p>
+      <ul>
+        <li>Wdech przez nos (licz do 4).</li>
+        <li>Zatrzymaj oddech (licz do 7).</li>
+        <li>Wydech przez usta z szumem (licz do 8).</li>
+        <li>Powtórz 4 razy.</li>
+      </ul>
 
-      <div class="summary-box">
-        <h3>Podsumowanie</h3>
-        <p>Moi Drodzy, technologia jest wspaniała, ale to tylko narzędzie. 🛠️ AI jako „pierwsza pomoc”? Zdecydowanie TAK! Jako substytut prawdziwego życia i relacji? Wielkie NIE. Dbajcie o swoją higienę cyfrową tak samo, jak o higienę snu czy diety. Nie bójcie się używać chatbotów, gdy potrzebujecie szybkiego wsparcia, ale pamiętajcie, że największą moc uzdrawiania ma drugi człowiek. 👇 **A Wy? Rozmawialiście kiedyś z AI o swoich problemach?** Ściskam Was mocno!</p>
+      <h3>2. Praktyka "STOP" – Błyskawiczna Przerwa 🛑</h3>
+      <ul>
+        <li><strong>S (Stop):</strong> Zatrzymaj się. Cokolwiek robisz, przerwij na chwilę.</li>
+        <li><strong>T (Take a Breath):</strong> Weź głęboki, świadomy oddech.</li>
+        <li><strong>O (Observe):</strong> Zauważ co czujesz w ciele, co myślisz, jakie masz emocje.</li>
+        <li><strong>P (Proceed):</strong> Kontynuuj z większą świadomością i intencją.</li>
+      </ul>
+
+      <h3>3. Mikromindfulness w Codzienności ☕</h3>
+      <p>Nie potrzebujesz lotosu i kadzideł. Możesz ćwiczyć uważność podczas:</p>
+      <ul>
+        <li><strong>Picia kawy:</strong> Poczuj ciepło kubka, aromat, teksturę napoju.</li>
+        <li><strong>Chodzenia:</strong> Zauważ kontakt stopy z podłożem, powiew wiatru na twarzy.</li>
+        <li><strong>Mycia naczyń:</strong> Poczuj wodę, fakturę gąbki, zapach płynu.</li>
+      </ul>
+
+      <img src="https://images.unsplash.com/photo-1499728603263-13726abce5fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="w-full rounded-3xl my-8 shadow-xl" alt="Spokój i natura" />
+
+      <h2>🌊 Metafora Świadomej Żeglugi</h2>
+      <p>Wyobraź sobie swoje życie jako statek na oceanie. Bez uważności jesteś pasażerem miotanym przez fale emocji i wiatry myśli. Z uważnością – <strong>stajesz za sterem</strong>. Nie zatrzymasz burzy (trudnych sytuacji), ale nauczysz się, jak przez nią przepłynąć bez paniki, zachowując właściwy kurs.</p>
+
+      <h2>❓ FAQ - Najczęstsze pytania</h2>
+      <p><strong>Czy muszę siedzieć w pozycji lotosu?</strong><br>Absolutnie nie! Uważność to stan umysłu, nie ciała. Możesz ją praktykować stojąc, siedząc na krześle, a nawet idąc do pracy.</p>
+      <p><strong>Mam bardzo mało czasu. Czy mindfulness jest dla mnie?</strong><br>Tak! Właśnie dla osób zabieganych powstało mikromindfulness. 3 świadome oddechy trwają mniej niż 30 sekund, a potrafią zresetować poziom kortyzolu.</p>
+      <p><strong>Czy mindfulness jest religią?</strong><br>Nie. Choć korzenie wywodzą się z tradycji wschodnich, współczesna praktyka jest całkowicie świecka i oparta na badaniach medycznych oraz neuronauce.</p>
+
+      <div class="summary-box bg-slate-100 dark:bg-white/5 p-8 rounded-3xl border border-synapse-primary/20">
+        <h3>Twoje Zadanie na Dziś</h3>
+        <p>Wybierz jedną czynność, którą zwykle robisz automatycznie (np. mycie zębów lub picie herbaty) i wykonaj ją z pełną uwagą przez 2 minuty. Zauważaj każdy szczegół. Pamiętaj: <strong>Konsekwencja jest ważniejsza niż perfekcja.</strong> 5 minut dziennie zmieni Twoje życie bardziej niż godzina raz w miesiącu. ✨</p>
       </div>
     `
   }

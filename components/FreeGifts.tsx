@@ -6,17 +6,45 @@ import { GiftItem } from '../types';
 const gifts: GiftItem[] = [
   {
     id: 'g1',
-    title: 'Checklista: Twój Pierwszy E-book',
-    description: '10 kroków, które musisz wykonać, zanim zaczniesz pisać. Uniknij podstawowych błędów.',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1456324504439-367cee13d643?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60',
-    downloadUrl: '#'
+    title: 'Postaw wirtualną kawę',
+    description: 'Podoba Ci się to co robię? Możesz mnie wesprzeć stawiając wirtualną małą czarną. Dzięki temu mam energię do dalszego tworzenia i dzielenia się wiedzą!',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60',
+    downloadUrl: 'https://www.naffy.io/Synapse_Creative/postaw-kawe-qbg'
   },
   {
     id: 'g2',
-    title: '50 Promtów do ChatuGPT dla Twórców',
-    description: 'Gotowe formuły, które pomogą Ci wymyślić tytuł, spis treści i plan promocji.',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60',
-    downloadUrl: '#'
+    title: 'Bajka: Przygody Małego Odkrywcy',
+    description: 'Fascynująca bajka dla najmłodszych, która rozbudza ciekawość świata i uczy poprzez zabawę. Idealna lektura na dobranoc dla Twojego dziecka.',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1503944583220-79d8926ad5e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60',
+    downloadUrl: 'https://www.naffy.io/Synapse_Creative/przygody-malego-odkrywcy-bajka-YIt'
+  },
+  {
+    id: 'g3',
+    title: 'Matko, obiad ogarnij! (14 dni)',
+    description: 'Gotowy plan posiłków na dwa tygodnie. Oszczędź czas, pieniądze i nerwy, wiedząc dokładnie co ugotować każdego dnia. Proste i szybkie przepisy.',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1498837167922-ddd27525d352?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60',
+    downloadUrl: 'https://www.naffy.io/Synapse_Creative/matko-obiad-ogarnij-na-14-dni-lsI'
+  },
+  {
+    id: 'g4',
+    title: 'Witaj w klubie niewyspanych',
+    description: 'Masz dość nieprzespanych nocy? Praktyczny poradnik, który pomoże Tobie i Twojemu dziecku odzyskać spokojny sen. Znajdź wyjście z tunelu zmęczenia.',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1531353826977-0941b4779a1c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60',
+    downloadUrl: 'https://www.naffy.io/Synapse_Creative/witaj-w-klubie-niewyspanych-ale-nie-martw-sie-wlasnie-znalazlas-wyjscie-beZ'
+  },
+  {
+    id: 'g5',
+    title: 'Kaizen: Sposób na życie',
+    description: 'Odkryj japońską filozofię ciągłego doskonalenia. Metoda małych kroków, która pozwoli Ci osiągnąć wielkie cele bez stresu i wypalenia.',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1528747045269-390fe33c19f2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60',
+    downloadUrl: 'https://www.naffy.io/Synapse_Creative/kaizen-sposob-na-zycie-SHp'
+  },
+  {
+    id: 'g6',
+    title: 'Planer Celów na 2026',
+    description: 'Przygotuj się na nadchodzący rok już teraz. Ustrukturyzowany planer, który pomoże Ci zdefiniować i zrealizować marzenia krok po kroku.',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1506784983877-45594efa4cbe?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60',
+    downloadUrl: 'https://www.naffy.io/Synapse_Creative/planer-celow-na-2026-pkd'
   }
 ];
 
@@ -41,37 +69,39 @@ export const FreeGifts: React.FC = () => {
           </div>
         </FadeIn>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mx-auto">
           {gifts.map((gift, index) => (
-            <FadeIn key={gift.id} delay={index * 150}>
-               <div className="flex flex-col md:flex-row bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-[1.02]">
-                  <div className="w-full md:w-1/3 h-48 md:h-auto relative">
+            <FadeIn key={gift.id} delay={index * 100}>
+               <div className="flex flex-col h-full bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1">
+                  <div className="w-full h-48 relative overflow-hidden group">
                      <img 
                         src={gift.thumbnailUrl} 
                         alt={gift.title} 
-                        className="w-full h-full object-cover absolute inset-0"
+                        className="w-full h-full object-cover absolute inset-0 transition-transform duration-500 group-hover:scale-110"
                      />
-                     <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent md:bg-gradient-to-t"></div>
-                     <div className="absolute top-4 left-4 md:hidden text-white font-bold bg-synapse-accent px-3 py-1 rounded-full text-xs">FREE</div>
+                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                     <div className="absolute bottom-4 left-4 text-white font-bold bg-synapse-accent px-3 py-1 rounded-full text-xs shadow-md">
+                        POBIERZ
+                     </div>
                   </div>
-                  <div className="p-6 md:w-2/3 flex flex-col justify-between">
+                  <div className="p-6 flex flex-col justify-between flex-grow">
                      <div>
-                        <div className="hidden md:inline-block text-white font-bold bg-synapse-accent px-3 py-1 rounded-full text-xs mb-3">FREE</div>
-                        <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">{gift.title}</h3>
-                        <p className="text-slate-600 dark:text-gray-400 text-sm mb-4 leading-relaxed">
+                        <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 line-clamp-2">{gift.title}</h3>
+                        <p className="text-slate-600 dark:text-gray-400 text-sm mb-6 leading-relaxed">
                           {gift.description}
                         </p>
                      </div>
-                     <div className="flex gap-3">
-                        <a 
-                          href={gift.downloadUrl} 
-                          className="flex-1 py-2 px-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-lg text-center font-bold text-sm hover:opacity-90 transition-opacity"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          {t.gifts.download}
-                        </a>
-                     </div>
+                     <a 
+                        href={gift.downloadUrl} 
+                        className="w-full py-3 px-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-xl text-center font-bold text-sm hover:opacity-90 transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 group/btn"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <span>{t.gifts.open}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 group-hover/btn:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                      </a>
                   </div>
                </div>
             </FadeIn>

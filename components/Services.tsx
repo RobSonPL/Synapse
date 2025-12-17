@@ -52,7 +52,7 @@ export const Services: React.FC<ServicesProps> = ({ cart, toggleCartItem }) => {
           </div>
         </FadeIn>
 
-        {/* Featured: Publishing Focus - Styled like a premium Portfolio card but larger */}
+        {/* Featured: Publishing Focus */}
         <FadeIn className="mb-20">
           <div id="service-featured" className="relative rounded-3xl overflow-hidden bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-2xl group transition-all duration-500 hover:shadow-synapse-primary/20">
             <div className="absolute inset-0 bg-gradient-to-br from-synapse-primary/5 to-synapse-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
@@ -96,7 +96,7 @@ export const Services: React.FC<ServicesProps> = ({ cart, toggleCartItem }) => {
           </div>
         </FadeIn>
 
-        {/* Pricing Cards - Reworked to match Portfolio grid style */}
+        {/* Pricing Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               { id: 'publish', icon: <BookIcon />, title: t.services.toc_publish, color: 'emerald', isTop: true },
@@ -119,34 +119,30 @@ export const Services: React.FC<ServicesProps> = ({ cart, toggleCartItem }) => {
                   <ul className="space-y-5 flex-grow">
                       {servicesData.filter(s => s.category === cat.id).map(item => (
                           <li key={item.id} className="flex justify-between items-center border-b border-slate-100 dark:border-white/5 pb-4 last:border-0 group/item">
-                              <div className="flex items-center flex-1 gap-4">
+                              <div className="flex items-center flex-1 gap-3">
                                   {item.imageUrl && (
-                                    <a href={item.link} target="_blank" rel="noopener noreferrer" className="block flex-shrink-0 group/img overflow-hidden rounded-xl border border-slate-200 dark:border-white/10 w-20 h-14 shadow-sm">
+                                    <a href={item.link} target="_blank" rel="noopener noreferrer" className="block flex-shrink-0 group/img overflow-hidden rounded-lg border border-slate-200 dark:border-white/10 w-10 h-7 shadow-sm">
                                        <img src={item.imageUrl} alt={item.name} className="w-full h-full object-cover group-hover/img:scale-125 transition-transform duration-700 bg-slate-100" />
                                     </a>
                                   )}
                                   <div className="flex-1">
-                                    <span className="text-slate-700 dark:text-gray-200 text-sm font-bold block mb-0.5 line-clamp-1 group-hover/item:text-synapse-primary transition-colors">{item.name}</span>
-                                    <span className="text-xs text-synapse-primary font-black uppercase tracking-wider">{item.price}</span>
+                                    <span className="text-slate-700 dark:text-gray-200 text-[13px] font-bold block mb-0.5 line-clamp-1 group-hover/item:text-synapse-primary transition-colors">{item.name}</span>
+                                    <span className="text-[10px] text-synapse-primary font-black uppercase tracking-wider">{item.price}</span>
                                   </div>
                               </div>
                               <button 
                                   onClick={() => toggleCartItem(item)}
-                                  className={`ml-3 p-2.5 rounded-xl transition-all duration-300 flex-shrink-0 shadow-sm ${
+                                  className={`ml-2 p-2 rounded-lg transition-all duration-300 flex-shrink-0 shadow-sm ${
                                       isInCart(item.id) 
-                                      ? 'bg-synapse-primary text-white hover:bg-red-500 hover:rotate-12' 
-                                      : 'bg-slate-100 dark:bg-white/10 text-slate-400 hover:bg-synapse-primary hover:text-white hover:-rotate-12'
+                                      ? 'bg-synapse-primary text-white' 
+                                      : 'bg-slate-100 dark:bg-white/10 text-slate-400 hover:bg-synapse-primary hover:text-white'
                                   }`}
                               >
-                                  {isInCart(item.id) ? <CheckIcon className="w-5 h-5" /> : <PlusIcon className="w-5 h-5" />}
+                                  {isInCart(item.id) ? <CheckIcon className="w-4 h-4" /> : <PlusIcon className="w-4 h-4" />}
                               </button>
                           </li>
                       ))}
                   </ul>
-                  
-                  <div className="mt-8 pt-6 border-t border-slate-100 dark:border-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    <p className="text-[10px] text-slate-400 uppercase tracking-widest font-black text-center">Dodaj do zapytania powyżej</p>
-                  </div>
                 </div>
               </FadeIn>
             ))}

@@ -12,7 +12,6 @@ export const GraphicPortfolio: React.FC = () => {
     const files = e.target.files;
     if (!files) return;
 
-    // Fixed: Explicitly type 'file' as File to resolve the 'unknown' type error when calling readAsDataURL.
     Array.from(files).forEach((file: File) => {
       const reader = new FileReader();
       reader.onload = (event) => {
@@ -59,11 +58,11 @@ export const GraphicPortfolio: React.FC = () => {
           </FadeIn>
         </div>
 
-        <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
+        <div className="columns-2 sm:columns-4 lg:columns-6 gap-4 space-y-4">
           {allGraphics.map((graphic, index) => (
-            <FadeIn key={graphic.id} delay={index * 50}>
+            <FadeIn key={graphic.id} delay={index * 30}>
               <div 
-                className="relative group overflow-hidden rounded-3xl bg-slate-200 dark:bg-slate-800 cursor-zoom-in break-inside-avoid shadow-lg hover:shadow-synapse-primary/30 transition-all duration-500"
+                className="relative group overflow-hidden rounded-xl bg-slate-200 dark:bg-slate-800 cursor-zoom-in break-inside-avoid shadow-sm hover:shadow-synapse-primary/30 transition-all duration-500"
                 onClick={() => setSelectedImg(graphic.url)}
               >
                 <img 
@@ -72,8 +71,8 @@ export const GraphicPortfolio: React.FC = () => {
                   className="w-full h-auto transition-transform duration-1000 group-hover:scale-110"
                   loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-8">
-                   <h3 className="text-white text-xl font-bold translate-y-4 group-hover:translate-y-0 transition-transform duration-500">{graphic.title}</h3>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-4">
+                   <h3 className="text-white text-[10px] font-bold truncate transition-transform duration-500">{graphic.title}</h3>
                 </div>
               </div>
             </FadeIn>

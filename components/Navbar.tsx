@@ -33,7 +33,7 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme, onNavigat
         isExternal: false,
         action: () => onNavigate('blog') 
     },
-    { label: t.nav.gifts, href: '#gifts', isExternal: false },
+    { label: "PREZENTY", href: '#gifts', isExternal: false },
     { label: t.nav.health, href: config.links.health, isExternal: true },
   ];
 
@@ -50,12 +50,14 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme, onNavigat
     return l === 'OFERTA' || l === 'BLOG' || l === 'PORTFOLIO' || l === 'PREZENTY';
   };
 
-  const getSpecialBaseStyles = (label: string) => {
+  const getSpecialStyles = (label: string) => {
     const l = label.toUpperCase();
+    const common = 'border-[1px] bg-white/5 dark:bg-white/5 backdrop-blur-md shadow-sm transition-all duration-500 hover:-translate-y-0.5 active:scale-95 transform flex items-center gap-2 overflow-hidden';
+    
     if (l === 'PREZENTY') {
-      return 'border-amber-500/50 text-amber-600 dark:text-amber-400 hover:border-amber-500 hover:bg-amber-500/10 hover:shadow-[0_0_15px_rgba(245,158,11,0.2)]';
+      return `${common} border-amber-500/40 text-amber-600 dark:text-amber-400 hover:border-amber-500 hover:bg-amber-500/10 hover:shadow-[0_0_20px_rgba(245,158,11,0.2)]`;
     }
-    return 'border-synapse-primary/50 text-synapse-primary hover:border-synapse-primary hover:bg-synapse-primary/10 hover:shadow-[0_0_15px_rgba(14,165,233,0.2)]';
+    return `${common} border-synapse-primary/40 text-synapse-primary hover:border-synapse-primary hover:bg-synapse-primary/10 hover:shadow-[0_0_20px_rgba(14,165,233,0.2)]`;
   };
 
   const getSpecialDotColor = (label: string) => {
@@ -121,12 +123,12 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme, onNavigat
                       target={item.isExternal ? "_blank" : undefined}
                       rel={item.isExternal ? "noopener noreferrer" : undefined}
                       onClick={(e) => !item.isExternal && handleNavClick(e, item)}
-                      className={`relative group px-5 py-2 rounded-full border-[1px] bg-white/5 dark:bg-white/5 backdrop-blur-sm font-black text-[9px] uppercase tracking-[0.25em] transition-all duration-500 hover:-translate-y-0.5 active:scale-95 transform flex items-center gap-2 overflow-hidden shadow-sm ${getSpecialBaseStyles(item.label)}`}
+                      className={`relative group px-5 py-2.5 rounded-full font-semibold text-[10px] uppercase tracking-[0.25em] ${getSpecialStyles(item.label)}`}
                     >
-                      <span className={`w-1 h-1 rounded-full group-hover:scale-150 transition-transform duration-300 animate-pulse ${getSpecialDotColor(item.label)}`}></span>
+                      <span className={`w-1.5 h-1.5 rounded-full group-hover:scale-150 transition-transform duration-300 animate-pulse ${getSpecialDotColor(item.label)}`}></span>
                       <span className="relative z-10">{item.label}</span>
-                      {/* Glossy Shimmer Effect */}
-                      <span className="absolute inset-0 w-1/2 h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-[20deg] -translate-x-full group-hover:translate-x-[250%] transition-transform duration-1000"></span>
+                      {/* Premium Shimmer */}
+                      <span className="absolute inset-0 w-1/3 h-full bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-[25deg] -translate-x-full group-hover:translate-x-[400%] transition-transform duration-1000 ease-in-out"></span>
                     </a>
                   );
                 }
@@ -226,7 +228,7 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme, onNavigat
                 onClick={(e) => !item.isExternal && handleNavClick(e, item)}
                 className={`block px-5 py-4 rounded-2xl text-lg font-black transition-all ${
                   isSpecial
-                    ? `border-[1px] bg-white/5 shadow-sm ${getSpecialBaseStyles(item.label)}`
+                    ? `${getSpecialStyles(item.label)} border-[1px] shadow-sm`
                     : item.isExternal 
                       ? "bg-gradient-to-r from-synapse-primary to-synapse-accent text-white shadow-lg"
                       : "text-slate-700 dark:text-gray-200 hover:bg-slate-100 dark:hover:bg-white/5"

@@ -1,6 +1,7 @@
 import React from 'react';
 import { FadeIn } from './FadeIn';
 import { SynapseLogo } from './Icons';
+import { config } from '../data/config';
 
 interface FooterProps {
   onOpenAdmin: () => void;
@@ -45,8 +46,8 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAdmin }) => {
                 <ul className="space-y-3 text-slate-600 dark:text-gray-400">
                   <li>Brzeg, Polska</li>
                   <li>
-                    <a href="mailto:turobert@icloud.com" className="text-synapse-primary hover:text-synapse-accent transition-colors font-medium">
-                      turobert@icloud.com
+                    <a href={`mailto:${config.contactEmail}`} className="text-synapse-primary hover:text-synapse-accent transition-colors font-medium">
+                      {config.contactEmail}
                     </a>
                   </li>
                 </ul>
@@ -55,13 +56,13 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAdmin }) => {
 
             {/* Socials */}
             <div className="flex gap-4 mt-4">
-                 <a href="#" className="w-10 h-10 rounded-full bg-slate-200 dark:bg-white/5 hover:bg-synapse-primary hover:text-white flex items-center justify-center transition-all duration-300 group">
+                 <a href={config.socials.instagram} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-slate-200 dark:bg-white/5 hover:bg-synapse-primary hover:text-white flex items-center justify-center transition-all duration-300 group">
                     <span className="text-xs font-bold">IG</span>
                  </a>
-                 <a href="#" className="w-10 h-10 rounded-full bg-slate-200 dark:bg-white/5 hover:bg-synapse-primary hover:text-white flex items-center justify-center transition-all duration-300 group">
+                 <a href={config.socials.linkedin} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-slate-200 dark:bg-white/5 hover:bg-synapse-primary hover:text-white flex items-center justify-center transition-all duration-300 group">
                     <span className="text-xs font-bold">LI</span>
                  </a>
-                 <a href="#" className="w-10 h-10 rounded-full bg-slate-200 dark:bg-white/5 hover:bg-synapse-primary hover:text-white flex items-center justify-center transition-all duration-300 group">
+                 <a href={config.socials.facebook} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-slate-200 dark:bg-white/5 hover:bg-synapse-primary hover:text-white flex items-center justify-center transition-all duration-300 group">
                     <span className="text-xs font-bold">FB</span>
                  </a>
             </div>
@@ -69,15 +70,14 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAdmin }) => {
           
           <div className="border-t border-slate-200 dark:border-white/5 pt-8 flex justify-center items-center px-4">
             <p className="text-slate-500 dark:text-gray-600 text-sm">
-              &copy;
-              {' '}{new Date().getFullYear()} Synapse Creative{' '}
               <span 
                 onClick={onOpenAdmin} 
-                className="cursor-pointer hover:text-synapse-primary transition-colors font-bold select-none"
-                title="Panel Administratora"
+                className="cursor-default hover:text-synapse-primary transition-colors select-none"
+                title="Synapse Admin"
               >
-                (Robert)
-              </span>.
+                &copy;
+              </span>
+              {' '}{new Date().getFullYear()} Synapse Creative (Robert).
             </p>
           </div>
         </FadeIn>

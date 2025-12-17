@@ -7,30 +7,30 @@ import { BlogPost } from '../types';
 const blogPosts: BlogPost[] = [
   {
     id: '1',
-    title: 'Trendy w Self-Publishingu 2024',
-    date: '2024-03-15',
-    excerpt: 'Kompleksowy raport o tym, jak zmienia się rynek e-booków w Polsce i na świecie.',
-    type: 'pdf',
-    fileUrl: '#', // Placeholder link
-    thumbnailUrl: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60'
+    title: 'Rewolucja 2026: Jak AI Zmienia Self-Publishing w Złoto?',
+    date: '2025-12-17',
+    excerpt: 'Rok 2026 to najlepszy moment w historii, by zostać niezależnym autorem. AI staje się Twoim ghostwriterem, redaktorem i marketingowcem. Zobacz mapę drogową do sukcesu.',
+    type: 'article',
+    fileUrl: '#', // TODO: Add link to full article/PDF
+    thumbnailUrl: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
   },
   {
     id: '2',
-    title: 'AI w procesie twórczym',
-    date: '2024-02-28',
-    excerpt: 'Prezentacja ze szkolenia dotyczącego wykorzystania Gemini i GPT w pisaniu.',
-    type: 'presentation',
-    fileUrl: '#',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60'
+    title: 'Google Deep Research: Koniec ery nudnych PDF-ów!',
+    date: '2025-02-22',
+    excerpt: 'Twoje narzędzie do walki z chaosem informacyjnym. Wyobraź sobie analityka, który czyta tysiące stron w sekundę i podaje Ci na tacy tylko to, co ważne.',
+    type: 'article',
+    fileUrl: '#', // TODO: Add link to full article/PDF
+    thumbnailUrl: 'https://images.unsplash.com/photo-1518186285589-2f7649de83e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
   },
   {
     id: '3',
-    title: 'Psychologia koloru w okładkach',
-    date: '2024-01-10',
-    excerpt: 'Dlaczego niebieski budzi zaufanie, a czerwony sprzedaje? Analiza case study.',
+    title: 'AI: Twój Cyfrowy Ratownik czy Emocjonalna Pułapka?',
+    date: '2025-02-20',
+    excerpt: 'Psychologia relacji z chatbotami. Czy to rewolucja w dbaniu o zdrowie psychiczne, czy niebezpieczny substytut bliskości? Analiza efektu Elizy 2.0.',
     type: 'article',
-    fileUrl: '#',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60'
+    fileUrl: '#', // TODO: Add link to full article/PDF
+    thumbnailUrl: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
   }
 ];
 

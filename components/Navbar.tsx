@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { NavItem, Language } from '../types';
 import { SunIcon, MoonIcon, SynapseLogo } from './Icons';
 import { useLanguage } from '../contexts/LanguageContext';
+import { config } from '../data/config';
 
 interface NavbarProps {
   darkMode: boolean;
@@ -13,12 +14,12 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme }) => {
   const { language, setLanguage, t } = useLanguage();
 
   const navItems: NavItem[] = [
-    { label: t.nav.ebooks, href: 'https://www.naffy.io/Synapse_Creative', isExternal: true },
+    { label: t.nav.ebooks, href: config.links.ebooks, isExternal: true },
     { label: "BUY now !", href: '#services', isExternal: false },
-    { label: t.nav.mentalHealth, href: 'https://hipnozamonikasidorowska.pl/', isExternal: true },
+    { label: t.nav.mentalHealth, href: config.links.mentalHealth, isExternal: true },
     { label: t.nav.blog, href: '#blog', isExternal: false },
     { label: t.nav.gifts, href: '#gifts', isExternal: false },
-    { label: t.nav.health, href: 'https://pl4557135.e-naturessunshine.com/', isExternal: true },
+    { label: t.nav.health, href: config.links.health, isExternal: true },
   ];
 
   const languages: { code: Language; flag: string }[] = [

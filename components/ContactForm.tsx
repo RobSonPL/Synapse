@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FadeIn } from './FadeIn';
 import { ServiceItem } from '../types';
 import { TrashIcon, CartIcon } from './Icons';
+import { config } from '../data/config';
 
 interface ContactFormProps {
   cart: ServiceItem[];
@@ -48,7 +49,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ cart, removeFromCart }
                     it opens in a new tab and doesn't disrupt the user's session.
                 */}
                 <form 
-                    action="https://formsubmit.co/turobert@icloud.com" 
+                    action={`https://formsubmit.co/${config.contactEmail}`}
                     method="POST" 
                     target="_blank"
                     className="space-y-6"
@@ -119,7 +120,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ cart, removeFromCart }
                             Potrzebujesz szybszej odpowiedzi?
                         </p>
                         <a 
-                            href="https://wa.me/48884060680" 
+                            href={config.socials.whatsapp} 
                             target="_blank" 
                             rel="noopener noreferrer" 
                             className="flex items-center gap-2 px-6 py-3 rounded-full bg-[#25D366]/10 text-[#25D366] font-bold hover:bg-[#25D366]/20 transition-all duration-200 border border-[#25D366]/20"

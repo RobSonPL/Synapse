@@ -46,8 +46,8 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme, onNavigat
   ];
 
   const isYellowItem = (href: string) => href === '#gifts' || href === '#services';
-  const isEmeraldItem = (href: string) => href.includes('flic.kr');
   const isHypnosisLink = (href: string) => href.includes('hipnozamonikasidorowska');
+  const isPortfolioLink = (label: string) => label === "Portfolio";
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, item: NavItem) => {
     if (item.action) {
@@ -96,7 +96,20 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme, onNavigat
           <div className="hidden lg:flex items-center gap-6">
             <div className="flex items-center space-x-1">
               {navItems.map((item) => (
-                item.isExternal ? (
+                isPortfolioLink(item.label) ? (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="relative group px-6 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 hover:border-synapse-primary/50 transition-all duration-500 hover:-translate-y-0.5 active:scale-95"
+                  >
+                    <span className="relative z-10 text-sm font-black uppercase tracking-[0.15em] bg-clip-text text-transparent bg-gradient-to-r from-synapse-primary via-purple-500 to-synapse-accent animate-gradient-x">
+                      {item.label}
+                    </span>
+                    <span className="absolute bottom-2 left-6 right-6 h-[1px] bg-gradient-to-r from-synapse-primary to-synapse-accent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></span>
+                  </a>
+                ) : item.isExternal ? (
                   <a
                     key={item.label}
                     href={item.href}
@@ -119,14 +132,12 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme, onNavigat
                     className={`relative group px-4 py-2 text-sm font-bold transition-all duration-300 hover:scale-110 ${
                       isYellowItem(item.href) 
                         ? 'text-amber-600 dark:text-amber-400' 
-                        : isEmeraldItem(item.href)
-                          ? 'text-emerald-600 dark:text-emerald-400'
-                          : 'text-slate-600 dark:text-gray-300 hover:text-synapse-primary dark:hover:text-white'
+                        : 'text-slate-600 dark:text-gray-300 hover:text-synapse-primary dark:hover:text-white'
                     }`}
                   >
                     {item.label}
                     <span className={`absolute bottom-0 left-0 w-full h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center ${
-                       isYellowItem(item.href) ? 'bg-amber-500' : isEmeraldItem(item.href) ? 'bg-emerald-500' : 'bg-synapse-primary'
+                       isYellowItem(item.href) ? 'bg-amber-500' : 'bg-synapse-primary'
                     }`}></span>
                   </a>
                 )
@@ -194,7 +205,9 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme, onNavigat
               onClick={(e) => handleNavClick(e, item)}
               className={`block px-5 py-4 rounded-2xl text-lg font-black transition-all ${
                 item.isExternal 
-                  ? "bg-gradient-to-r from-synapse-primary to-synapse-accent text-white shadow-lg"
+                  ? isPortfolioLink(item.label)
+                    ? "border-2 border-synapse-primary/30 text-transparent bg-clip-text bg-gradient-to-r from-synapse-primary via-purple-500 to-synapse-accent"
+                    : "bg-gradient-to-r from-synapse-primary to-synapse-accent text-white shadow-lg"
                   : "text-slate-700 dark:text-gray-200 hover:bg-slate-100 dark:hover:bg-white/5"
               }`}
             >

@@ -45,9 +45,24 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme, onNavigat
     { code: 'fr', flag: '🇫🇷' },
   ];
 
-  const isYellowItem = (href: string) => href === '#gifts' || href === '#services';
+  const isSpecialItem = (label: string) => {
+    const l = label.toUpperCase();
+    return l === 'OFERTA' || l === 'BLOG' || l === 'PORTFOLIO' || l === 'PREZENTY';
+  };
+
+  const getSpecialStyles = (label: string) => {
+    const l = label.toUpperCase();
+    if (l === 'PREZENTY') {
+      return 'border-amber-500 text-amber-600 dark:text-amber-400 hover:bg-amber-500 hover:shadow-[0_0_20px_rgba(245,158,11,0.4)]';
+    }
+    return 'border-synapse-primary text-synapse-primary hover:bg-synapse-primary hover:shadow-[0_0_20px_rgba(14,165,233,0.4)]';
+  };
+
+  const getSpecialDotColor = (label: string) => {
+    return label.toUpperCase() === 'PREZENTY' ? 'bg-amber-500' : 'bg-synapse-primary';
+  };
+
   const isHypnosisLink = (href: string) => href.includes('hipnozamonikasidorowska');
-  const isPortfolioLink = (label: string) => label === "Portfolio";
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, item: NavItem) => {
     if (item.action) {
@@ -94,54 +109,56 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme, onNavigat
           </div>
 
           <div className="hidden lg:flex items-center gap-6">
-            <div className="flex items-center space-x-1">
-              {navItems.map((item) => (
-                isPortfolioLink(item.label) ? (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="relative group px-6 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 hover:border-synapse-primary/50 transition-all duration-500 hover:-translate-y-0.5 active:scale-95"
-                  >
-                    <span className="relative z-10 text-sm font-black uppercase tracking-[0.15em] bg-clip-text text-transparent bg-gradient-to-r from-synapse-primary via-purple-500 to-synapse-accent animate-gradient-x">
+            <div className="flex items-center space-x-2">
+              {navItems.map((item) => {
+                const isSpecial = isSpecialItem(item.label);
+                
+                if (isSpecial) {
+                  return (
+                    <a
+                      key={item.label}
+                      href={item.href}
+                      target={item.isExternal ? "_blank" : undefined}
+                      rel={item.isExternal ? "noopener noreferrer" : undefined}
+                      onClick={(e) => !item.isExternal && handleNavClick(e, item)}
+                      className={`relative group px-5 py-2.5 rounded-full border-2 bg-slate-900/5 dark:bg-white/5 backdrop-blur-md font-black text-[10px] uppercase tracking-[0.25em] transition-all duration-500 hover:text-white hover:-translate-y-1 active:scale-95 transform flex items-center gap-2 overflow-hidden ${getSpecialStyles(item.label)}`}
+                    >
+                      <span className={`w-1.5 h-1.5 rounded-full group-hover:bg-white animate-pulse ${getSpecialDotColor(item.label)}`}></span>
+                      <span className="relative z-10">{item.label}</span>
+                      <span className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500"></span>
+                    </a>
+                  );
+                }
+
+                return (
+                  item.isExternal ? (
+                    <a
+                      key={item.label}
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`relative group px-5 py-2.5 rounded-full text-white font-bold text-xs uppercase tracking-widest shadow-lg hover:shadow-synapse-primary/40 transition-all duration-500 hover:-translate-y-1 active:scale-95 transform overflow-hidden ${
+                        isHypnosisLink(item.href) 
+                          ? 'bg-gradient-to-r from-amber-500 to-orange-500' 
+                          : 'bg-gradient-to-r from-synapse-primary to-synapse-accent'
+                      }`}
+                    >
+                      <span className="relative z-10">{item.label}</span>
+                      <span className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500"></span>
+                    </a>
+                  ) : (
+                    <a
+                      key={item.label}
+                      href={item.href}
+                      onClick={(e) => handleNavClick(e, item)}
+                      className="relative group px-4 py-2 text-sm font-bold text-slate-600 dark:text-gray-300 hover:text-synapse-primary dark:hover:text-white transition-all duration-300 hover:scale-110"
+                    >
                       {item.label}
-                    </span>
-                    <span className="absolute bottom-2 left-6 right-6 h-[1px] bg-gradient-to-r from-synapse-primary to-synapse-accent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></span>
-                  </a>
-                ) : item.isExternal ? (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`relative group px-5 py-2.5 rounded-full text-white font-bold text-xs uppercase tracking-widest shadow-lg hover:shadow-synapse-primary/40 transition-all duration-500 hover:-translate-y-1 active:scale-95 transform overflow-hidden ${
-                      isHypnosisLink(item.href) 
-                        ? 'bg-gradient-to-r from-amber-500 to-orange-500' 
-                        : 'bg-gradient-to-r from-synapse-primary to-synapse-accent'
-                    }`}
-                  >
-                    <span className="relative z-10">{item.label}</span>
-                    <span className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500"></span>
-                  </a>
-                ) : (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    onClick={(e) => handleNavClick(e, item)}
-                    className={`relative group px-4 py-2 text-sm font-bold transition-all duration-300 hover:scale-110 ${
-                      isYellowItem(item.href) 
-                        ? 'text-amber-600 dark:text-amber-400' 
-                        : 'text-slate-600 dark:text-gray-300 hover:text-synapse-primary dark:hover:text-white'
-                    }`}
-                  >
-                    {item.label}
-                    <span className={`absolute bottom-0 left-0 w-full h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center ${
-                       isYellowItem(item.href) ? 'bg-amber-500' : 'bg-synapse-primary'
-                    }`}></span>
-                  </a>
-                )
-              ))}
+                      <span className="absolute bottom-0 left-0 w-full h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center bg-synapse-primary"></span>
+                    </a>
+                  )
+                );
+              })}
             </div>
 
             <div className="flex items-center gap-4 pl-4 border-l border-slate-200 dark:border-white/10">
@@ -196,24 +213,29 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme, onNavigat
 
       <div className={`lg:hidden overflow-hidden transition-all duration-700 ease-in-out ${isOpen ? 'max-h-[80vh] opacity-100' : 'max-h-0 opacity-0'}`}>
         <div className="px-4 pt-4 pb-8 space-y-2 bg-white dark:bg-synapse-dark border-t border-slate-100 dark:border-white/10 shadow-2xl">
-          {navItems.map((item) => (
-            <a
-              key={item.label}
-              href={item.href}
-              target={item.isExternal ? "_blank" : undefined}
-              rel={item.isExternal ? "noopener noreferrer" : undefined}
-              onClick={(e) => handleNavClick(e, item)}
-              className={`block px-5 py-4 rounded-2xl text-lg font-black transition-all ${
-                item.isExternal 
-                  ? isPortfolioLink(item.label)
-                    ? "border-2 border-synapse-primary/30 text-transparent bg-clip-text bg-gradient-to-r from-synapse-primary via-purple-500 to-synapse-accent"
-                    : "bg-gradient-to-r from-synapse-primary to-synapse-accent text-white shadow-lg"
-                  : "text-slate-700 dark:text-gray-200 hover:bg-slate-100 dark:hover:bg-white/5"
-              }`}
-            >
-              {item.label}
-            </a>
-          ))}
+          {navItems.map((item) => {
+            const isSpecial = isSpecialItem(item.label);
+            
+            return (
+              <a
+                key={item.label}
+                href={item.href}
+                target={item.isExternal ? "_blank" : undefined}
+                rel={item.isExternal ? "noopener noreferrer" : undefined}
+                onClick={(e) => !item.isExternal && handleNavClick(e, item)}
+                className={`block px-5 py-4 rounded-2xl text-lg font-black transition-all ${
+                  isSpecial
+                    ? `border-2 bg-white/5 shadow-inner ${getSpecialStyles(item.label)}`
+                    : item.isExternal 
+                      ? "bg-gradient-to-r from-synapse-primary to-synapse-accent text-white shadow-lg"
+                      : "text-slate-700 dark:text-gray-200 hover:bg-slate-100 dark:hover:bg-white/5"
+                }`}
+              >
+                {item.label}
+                {isSpecial && <span className={`ml-2 text-[10px] animate-pulse ${getSpecialDotColor(item.label).replace('bg-', 'text-')}`}>●</span>}
+              </a>
+            );
+          })}
           <div className="grid grid-cols-5 gap-2 pt-6">
             {languages.map((lang) => (
               <button

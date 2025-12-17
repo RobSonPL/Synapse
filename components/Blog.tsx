@@ -1,20 +1,11 @@
 import React from 'react';
 import { FadeIn } from './FadeIn';
 import { useLanguage } from '../contexts/LanguageContext';
-import { blogPostsData } from '../data/blogData';
+import { useData } from '../contexts/DataContext';
 
-// This is the Home Page "preview" section for the blog
 export const Blog: React.FC = () => {
   const { t } = useLanguage();
-
-  // We need to trigger the global navigation to switch to blog view
-  // Since this component is deep in the tree and App controls state,
-  // we will use a simple href that Navbar intercepts, OR we rely on the button
-  // finding the nav context. For simplicity in this architecture, we link to the anchor
-  // but clicking "Read" should ideally open the full blog. 
-  
-  // NOTE: In a real app with React Router, this would be a Link.
-  // Here, we'll direct users to the Navbar's "Blog" button essentially by visual cue.
+  const { blogPosts } = useData();
 
   return (
     <section id="blog" className="py-24 bg-white dark:bg-slate-900 transition-colors duration-300">
@@ -32,7 +23,7 @@ export const Blog: React.FC = () => {
         </FadeIn>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {blogPostsData.slice(0, 3).map((post, index) => (
+          {blogPosts.slice(0, 3).map((post, index) => (
             <FadeIn key={post.id} delay={index * 100}>
               <div className="group h-full bg-slate-50 dark:bg-white/5 rounded-2xl overflow-hidden border border-slate-200 dark:border-white/10 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 flex flex-col">
                 <div className="relative h-56 overflow-hidden w-full">
@@ -59,26 +50,10 @@ export const Blog: React.FC = () => {
                     {post.excerpt}
                   </p>
                   
-                  {/* Since we don't have access to onNavigate here easily without prop drilling through App -> Home -> Blog,
-                      we will direct user to scroll top or click the main Blog Nav item for now, OR simulate a click on the navbar blog item via ID if desperate.
-                      Better approach: Make the button trigger the Navbar 'Blog' click logic via DOM (hacky) or leave as visual preview. 
-                      
-                      Let's change the button to simply say "See in Blog" and scroll up to Nav? 
-                      No, let's use a global event or just accept that clicking this might not open the reader view directly in this architecture without Context.
-                      
-                      Actually, let's make the button trigger a custom event that App.tsx listens to? No, too complex.
-                      
-                      Simplest fix: We assume the user clicks "Blog" in the menu to see full articles, 
-                      BUT to make this button work, we can make it an anchor that goes to top, and the user navigates.
-                      
-                      BETTER: I will leave the button to simply act as a visual cue, but users should use the top nav "Blog" to enter the blog mode.
-                   */}
                    <button 
                     className="mt-auto inline-flex items-center justify-center w-full px-4 py-3 rounded-xl border-2 border-synapse-primary/20 hover:border-synapse-primary text-synapse-primary hover:bg-synapse-primary hover:text-white transition-all duration-300 font-bold text-sm"
                     onClick={() => {
-                        // Find the blog nav item and click it
-                        // This is a bit of a hack but avoids massive refactoring
-                        const blogNav = Array.from(document.querySelectorAll('nav a')).find(el => el.textContent === 'Blog');
+                        const blogNav = Array.from(document.querySelectorAll('nav a')).find(el => el.textContent?.includes('Blog'));
                         if (blogNav) (blogNav as HTMLElement).click();
                     }}
                    >

@@ -25,7 +25,7 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme, onNavigat
   const navItems: NavItem[] = [
     { label: t.nav.ebooks, href: config.links.ebooks, isExternal: true },
     { label: "OFERTA", href: '#services', isExternal: false },
-    { label: "Portfolio", href: '#graphic-portfolio', isExternal: false },
+    { label: "Portfolio", href: 'https://flic.kr/s/aHBqjCE6TV', isExternal: true },
     { label: t.nav.mentalHealth, href: config.links.mentalHealth, isExternal: true },
     { 
         label: t.nav.blog, 
@@ -46,7 +46,7 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme, onNavigat
   ];
 
   const isYellowItem = (href: string) => href === '#gifts' || href === '#services';
-  const isEmeraldItem = (href: string) => href === '#graphic-portfolio';
+  const isEmeraldItem = (href: string) => href.includes('flic.kr');
   const isHypnosisLink = (href: string) => href.includes('hipnozamonikasidorowska');
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, item: NavItem) => {
@@ -189,6 +189,8 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme, onNavigat
             <a
               key={item.label}
               href={item.href}
+              target={item.isExternal ? "_blank" : undefined}
+              rel={item.isExternal ? "noopener noreferrer" : undefined}
               onClick={(e) => handleNavClick(e, item)}
               className={`block px-5 py-4 rounded-2xl text-lg font-black transition-all ${
                 item.isExternal 

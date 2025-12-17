@@ -80,6 +80,22 @@ export const GraphicPortfolio: React.FC = () => {
           ))}
         </div>
 
+        <FadeIn delay={300}>
+          <div className="mt-16 text-center">
+            <a 
+              href="https://flic.kr/s/aHBqjCE6TV" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-synapse-primary to-synapse-accent text-white font-bold rounded-full shadow-lg hover:shadow-synapse-primary/30 hover:scale-105 active:scale-95 transition-all duration-300"
+            >
+              <span>Zobacz pełne portfolio na Flickr</span>
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </a>
+          </div>
+        </FadeIn>
+
         {allGraphics.length === 0 && (
           <div className="text-center py-24 text-slate-400 border-2 border-dashed border-slate-200 dark:border-white/5 rounded-3xl animate-pulse">
              Sekcja gotowa na Twoje arcydzieła.

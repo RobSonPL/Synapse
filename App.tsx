@@ -15,6 +15,7 @@ import { FreeGifts } from './components/FreeGifts';
 import { BlogPage } from './components/BlogPage';
 import { BlogPostView } from './components/BlogPostView';
 import { LanguageProvider } from './contexts/LanguageContext';
+import { DataProvider } from './contexts/DataContext';
 import { ServiceItem, BlogPost } from './types';
 
 function App() {
@@ -64,49 +65,51 @@ function App() {
 
   return (
     <LanguageProvider>
-      <div className="min-h-screen transition-colors duration-300 ease-in-out bg-synapse-light dark:bg-synapse-dark selection:bg-synapse-primary selection:text-white">
-        <Navbar 
-            darkMode={darkMode} 
-            toggleTheme={toggleTheme} 
-            onNavigate={handleNavigate}
-            currentView={currentView}
-        />
-        
-        <main>
-          {currentView === 'home' && (
-            <>
-              <Hero />
-              <FreeGifts />
-              <About />
-              <Portfolio />
-              <GraphicPortfolio />
-              <Services cart={cart} toggleCartItem={toggleCartItem} />
-              <Testimonials />
-              <CallToAction />
-              <Blog />
-              <ContactForm cart={cart} removeFromCart={removeFromCart} />
-            </>
-          )}
+      <DataProvider>
+        <div className="min-h-screen transition-colors duration-300 ease-in-out bg-synapse-light dark:bg-synapse-dark selection:bg-synapse-primary selection:text-white">
+          <Navbar 
+              darkMode={darkMode} 
+              toggleTheme={toggleTheme} 
+              onNavigate={handleNavigate}
+              currentView={currentView}
+          />
+          
+          <main>
+            {currentView === 'home' && (
+              <>
+                <Hero />
+                <FreeGifts />
+                <About />
+                <Portfolio />
+                <GraphicPortfolio />
+                <Services cart={cart} toggleCartItem={toggleCartItem} />
+                <Testimonials />
+                <CallToAction />
+                <Blog />
+                <ContactForm cart={cart} removeFromCart={removeFromCart} />
+              </>
+            )}
 
-          {currentView === 'blog' && (
-             <BlogPage 
-                onArticleClick={handleArticleClick}
-                onBack={() => handleNavigate('home')}
-             />
-          )}
+            {currentView === 'blog' && (
+               <BlogPage 
+                  onArticleClick={handleArticleClick}
+                  onBack={() => handleNavigate('home')}
+               />
+            )}
 
-          {currentView === 'article' && selectedArticle && (
-              <BlogPostView 
-                post={selectedArticle}
-                onBack={() => handleNavigate('blog')}
-              />
-          )}
-        </main>
+            {currentView === 'article' && selectedArticle && (
+                <BlogPostView 
+                  post={selectedArticle}
+                  onBack={() => handleNavigate('blog')}
+                />
+            )}
+          </main>
 
-        <Footer onOpenAdmin={() => setShowAdmin(true)} />
-        
-        {showAdmin && <ProjectGenerator onClose={() => setShowAdmin(false)} />}
-      </div>
+          <Footer onOpenAdmin={() => setShowAdmin(true)} />
+          
+          {showAdmin && <ProjectGenerator onClose={() => setShowAdmin(false)} />}
+        </div>
+      </DataProvider>
     </LanguageProvider>
   );
 }

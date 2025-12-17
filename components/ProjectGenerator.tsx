@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { XMarkIcon, CheckIcon } from './Icons';
-import { projectsData } from '../data/projectsData';
+import { useData } from '../contexts/DataContext';
+import { BlogPost } from '../types';
 
 interface ProjectGeneratorProps {
   onClose: () => void;
@@ -9,8 +10,10 @@ interface ProjectGeneratorProps {
 type GeneratorMode = 'project' | 'blog';
 
 export const ProjectGenerator: React.FC<ProjectGeneratorProps> = ({ onClose }) => {
+  const { projects, addProject, addBlogPost } = useData();
   const [mode, setMode] = useState<GeneratorMode>('project');
   const [copied, setCopied] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
 
   // Project State
   const [projectData, setProjectData] = useState({
@@ -48,7 +51,6 @@ export const ProjectGenerator: React.FC<ProjectGeneratorProps> = ({ onClose }) =
     }
   };
 
-  // Insert Image HTML Helper
   const insertImageTag = () => {
     const imgTag = `\n\n<img src="https://placehold.co/800x400" alt="Opis zdjęcia" class="w-full rounded-2xl my-8 shadow-lg" />\n\n`;
     setBlogData(prev => ({
@@ -57,9 +59,9 @@ export const ProjectGenerator: React.FC<ProjectGeneratorProps> = ({ onClose }) =
     }));
   };
 
-  // Generate Project Code
+  // Generate Project Data for UI
   const projectPreviewUrl = getMshotsUrl(projectData.link);
-  const nextProjectId = Math.max(...projectsData.map(p => p.id), 0) + 1;
+  const nextProjectId = Math.max(...projects.map(p => p.id), 0) + 1;
 
   const generatedProjectCode = `  {
     id: ${nextProjectId},
@@ -69,27 +71,18 @@ export const ProjectGenerator: React.FC<ProjectGeneratorProps> = ({ onClose }) =
     link: "${projectData.link}"
   },`;
 
-  // Helper to format basic text to HTML (Simple Simulation of PDF to HTML)
-  // Smart enough to NOT wrap existing HTML tags like <img> or <h3> in <p>
   const formatContent = (text: string) => {
       if (!text) return '';
-      
       return text.split('\n\n').map(block => {
           const trimmed = block.trim();
           if (!trimmed) return '';
-          
-          // If it starts with an HTML tag, assume it's already formatted/image
-          if (trimmed.startsWith('<')) {
-              return trimmed;
-          }
-          // Otherwise wrap in paragraph
+          if (trimmed.startsWith('<')) return trimmed;
           return `<p>${trimmed}</p>`;
       }).join('\n      ');
   };
 
   const formattedBody = formatContent(blogData.pdfContent);
 
-  // Generate Blog Code
   const generatedBlogCode = `  {
     id: '${Date.now()}',
     title: "${blogData.title}",
@@ -112,11 +105,38 @@ export const ProjectGenerator: React.FC<ProjectGeneratorProps> = ({ onClose }) =
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const handleSaveAndClose = () => {
-    handleCopy();
+  const handleSaveToApp = () => {
+    if (mode === 'project') {
+      if (!projectData.title || !projectData.link) return;
+      addProject({
+        title: projectData.title,
+        category: projectData.category || 'Portfolio',
+        imageUrl: projectPreviewUrl,
+        link: projectData.link
+      });
+    } else {
+      if (!blogData.title || !blogData.pdfContent) return;
+      const newPost: BlogPost = {
+        id: `post-${Date.now()}`,
+        title: blogData.title,
+        date: blogData.date,
+        readTime: blogData.readTime,
+        excerpt: blogData.excerpt,
+        type: 'article',
+        thumbnailUrl: blogData.thumbnailUrl || 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+        author: blogData.author,
+        content: formattedBody
+      };
+      addBlogPost(newPost);
+    }
+
+    setIsSaved(true);
+    handleCopy(); // Also copy code to clipboard as requested
+    
+    // Auto close after brief success message
     setTimeout(() => {
         onClose();
-    }, 800);
+    }, 1200);
   };
 
   return (
@@ -152,13 +172,12 @@ export const ProjectGenerator: React.FC<ProjectGeneratorProps> = ({ onClose }) =
         <div className="p-6 overflow-y-auto flex-1">
           <p className="text-sm text-slate-500 dark:text-gray-400 mb-6 bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-100 dark:border-blue-500/30">
             {mode === 'project' 
-                ? "Wypełnij dane, kliknij Zapisz, a kod skopiuje się do schowka. Wklej go do data/projectsData.ts"
-                : "Wklej tekst. Użyj przycisku 'Wstaw Obrazek', aby dodać grafikę (wymagany link URL). Kod wklej do data/blogData.ts"
+                ? "Wypełnij dane i kliknij 'Zapisz Projekt'. Nowa realizacja pojawi się natychmiast w galerii i zostanie zapisana w pamięci przeglądarki."
+                : "Wklej tekst posta. Kliknij 'Zapisz Post', aby dodać go do bloga. Użyj przycisku 'Wstaw Obrazek', aby dodać grafikę."
             }
           </p>
 
           {mode === 'project' ? (
-              // PROJECT FORM
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 <div className="space-y-4">
                   <div>
@@ -204,7 +223,6 @@ export const ProjectGenerator: React.FC<ProjectGeneratorProps> = ({ onClose }) =
                 </div>
               </div>
           ) : (
-              // BLOG FORM
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 <div className="space-y-4">
                      <div>
@@ -281,9 +299,8 @@ export const ProjectGenerator: React.FC<ProjectGeneratorProps> = ({ onClose }) =
               </div>
           )}
 
-          {/* Code Output */}
           <div className="relative border-t border-slate-200 dark:border-white/10 pt-4">
-            <label className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-1">Wygenerowany Kod</label>
+            <label className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-1">Kod do zapisu stałego (opcjonalnie)</label>
             <pre className="bg-slate-900 text-green-400 p-4 rounded-xl text-sm overflow-x-auto font-mono border border-slate-700 max-h-32">
               {codeToCopy}
             </pre>
@@ -293,7 +310,7 @@ export const ProjectGenerator: React.FC<ProjectGeneratorProps> = ({ onClose }) =
                 copied ? 'bg-green-500 text-white' : 'bg-white text-slate-900 hover:bg-slate-200'
               }`}
             >
-              {copied ? <CheckIcon /> : 'Kopiuj'}
+              {copied ? <CheckIcon /> : 'Kopiuj Kod'}
             </button>
           </div>
         </div>
@@ -302,11 +319,14 @@ export const ProjectGenerator: React.FC<ProjectGeneratorProps> = ({ onClose }) =
              <button onClick={onClose} className="px-4 py-2 text-slate-500 hover:text-slate-700 dark:text-gray-400 dark:hover:text-white">Anuluj</button>
              
              <button 
-                onClick={handleSaveAndClose} 
-                className="px-6 py-2 bg-gradient-to-r from-synapse-primary to-synapse-accent text-white rounded-lg font-bold shadow-lg hover:shadow-synapse-primary/30 transform hover:scale-105 transition-all flex items-center gap-2"
+                onClick={handleSaveToApp} 
+                disabled={isSaved}
+                className={`px-6 py-2 rounded-lg font-bold shadow-lg transform hover:scale-105 transition-all flex items-center gap-2 ${
+                    isSaved ? 'bg-green-600 text-white' : 'bg-gradient-to-r from-synapse-primary to-synapse-accent text-white hover:shadow-synapse-primary/30'
+                }`}
              >
-                <CheckIcon />
-                {copied ? "Gotowe" : "Zapisz"}
+                {isSaved ? <CheckIcon /> : <span className="text-xl">💾</span>}
+                {isSaved ? "Dodano!" : mode === 'project' ? "Zapisz Projekt" : "Zapisz Post"}
              </button>
         </div>
       </div>

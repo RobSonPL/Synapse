@@ -1,10 +1,11 @@
 import React from 'react';
 import { FadeIn } from './FadeIn';
-import { projectsData } from '../data/projectsData';
+import { useData } from '../contexts/DataContext';
 
 export const Portfolio: React.FC = () => {
+  const { projects } = useData();
   // Sort projects by ID descending to show newest first
-  const sortedProjects = [...projectsData].sort((a, b) => b.id - a.id);
+  const sortedProjects = [...projects].sort((a, b) => b.id - a.id);
 
   return (
     <section id="portfolio" className="py-24 bg-white dark:bg-slate-900 relative transition-colors duration-300">

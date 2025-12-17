@@ -1,7 +1,7 @@
 import React from 'react';
 import { FadeIn } from './FadeIn';
 import { BlogPost } from '../types';
-import { blogPostsData } from '../data/blogData';
+import { useData } from '../contexts/DataContext';
 
 interface BlogPageProps {
   onArticleClick: (article: BlogPost) => void;
@@ -9,6 +9,8 @@ interface BlogPageProps {
 }
 
 export const BlogPage: React.FC<BlogPageProps> = ({ onArticleClick, onBack }) => {
+  const { blogPosts } = useData();
+
   return (
     <div className="pt-32 pb-20 bg-slate-50 dark:bg-synapse-dark min-h-screen transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -36,7 +38,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onArticleClick, onBack }) =>
         </FadeIn>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {blogPostsData.map((post, index) => (
+          {blogPosts.map((post, index) => (
             <FadeIn key={post.id} delay={index * 100}>
               <article 
                 onClick={() => onArticleClick(post)}

@@ -14,6 +14,8 @@ export const blogPostsData: BlogPost[] = [
       <p class="lead">Czy pamiętasz ten moment, gdy pierwszy raz pomyślałeś o wydaniu własnej książki? 💭 To mieszanka ekscytacji i paraliżującego strachu. 'Czy to jest dość dobre?', 'Kto to przeczyta?', 'Jak ja to w ogóle ogarnę?'. Jeśli czytasz ten tekst, to znaczy, że płomień w Tobie wciąż się pali. 🔥</p>
       
       <p>I mam dla Ciebie niesamowitą wiadomość: rok 2026 to absolutnie najlepszy moment w historii ludzkości, by zostać niezależnym autorem. Dlaczego? Ponieważ nie jesteś już sam. Technologia, która jeszcze niedawno brzmiała jak sci-fi, dziś wyciąga do Ciebie pomocną dłoń. 🤝 Przygotuj się na podróż do przyszłości, gdzie Twoja kreatywność dostaje turbodoładowanie, o jakim marzyli klasycy literatury!</p>
+      
+      <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="w-full rounded-2xl my-8 shadow-lg" alt="Książka i AI" />
 
       <h2>🔮 Co Nas Czeka w 2026? Krajobraz Nowej Ery Twórczości</h2>
       <p>Świat pędzi do przodu, a rynek wydawniczy przechodzi metamorfozę, której nie widzieliśmy od czasu wynalezienia druku. To już nie jest walka 'człowiek kontra maszyna'. To taniec. 💃🕺 W 2026 roku self-publishing przestaje być 'planem B'. Staje się elitarną ścieżką dla świadomych twórców, którzy wiedzą, jak wykorzystać potęgę AI.</p>

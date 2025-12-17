@@ -1,6 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BlogPost } from '../types';
 import { FadeIn } from './FadeIn';
+import { ShareIcon, CheckIcon } from './Icons';
+import { config } from '../data/config';
 
 interface BlogPostViewProps {
   post: BlogPost;
@@ -8,11 +10,44 @@ interface BlogPostViewProps {
 }
 
 export const BlogPostView: React.FC<BlogPostViewProps> = ({ post, onBack }) => {
-  
+  const [copied, setCopied] = useState(false);
+
   // Scroll to top when opening article
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [post]);
+
+  const handleComment = () => {
+    // Open email client with pre-filled subject
+    const subject = encodeURIComponent(`Komentarz do artykułu: ${post.title}`);
+    window.open(`mailto:${config.contactEmail}?subject=${subject}`, '_blank');
+  };
+
+  const handleShare = async () => {
+    const shareData = {
+      title: post.title,
+      text: `Przeczytaj ten artykuł: ${post.title}`,
+      url: window.location.href // Note: In a real routing app, this would be specific article URL
+    };
+
+    // Use Web Share API if available (Mobile/Supported Browsers)
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+      } catch (err) {
+        console.log('Error sharing:', err);
+      }
+    } else {
+      // Fallback: Copy to clipboard
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      } catch (err) {
+        console.error('Failed to copy:', err);
+      }
+    }
+  };
 
   return (
     <div className="bg-white dark:bg-synapse-dark min-h-screen transition-colors duration-300">
@@ -77,12 +112,19 @@ export const BlogPostView: React.FC<BlogPostViewProps> = ({ post, onBack }) => {
                 <p className="text-slate-600 dark:text-gray-400 mb-6">
                     Jeśli ten artykuł był dla Ciebie wartościowy, udostępnij go lub napisz do mnie, co o nim myślisz!
                 </p>
-                <div className="flex gap-4">
-                     <button className="px-6 py-3 bg-slate-100 dark:bg-white/10 rounded-xl font-bold text-slate-700 dark:text-white hover:bg-slate-200 dark:hover:bg-white/20 transition-colors">
-                        Skomentuj
+                <div className="flex flex-wrap gap-4">
+                     <button 
+                        onClick={handleComment}
+                        className="px-6 py-3 bg-slate-100 dark:bg-white/10 rounded-xl font-bold text-slate-700 dark:text-white hover:bg-slate-200 dark:hover:bg-white/20 transition-colors"
+                     >
+                        Skomentuj (Email)
                      </button>
-                     <button className="px-6 py-3 bg-synapse-primary text-white rounded-xl font-bold hover:bg-synapse-accent transition-colors shadow-lg shadow-synapse-primary/30">
-                        Udostępnij
+                     <button 
+                        onClick={handleShare}
+                        className="px-6 py-3 bg-synapse-primary text-white rounded-xl font-bold hover:bg-synapse-accent transition-colors shadow-lg shadow-synapse-primary/30 flex items-center gap-2"
+                     >
+                        {copied ? <CheckIcon /> : <ShareIcon />}
+                        {copied ? 'Link Skopiowany!' : 'Udostępnij'}
                      </button>
                 </div>
             </div>

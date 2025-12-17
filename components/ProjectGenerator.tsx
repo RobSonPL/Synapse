@@ -48,6 +48,15 @@ export const ProjectGenerator: React.FC<ProjectGeneratorProps> = ({ onClose }) =
     }
   };
 
+  // Insert Image HTML Helper
+  const insertImageTag = () => {
+    const imgTag = `\n\n<img src="https://placehold.co/800x400" alt="Opis zdjęcia" class="w-full rounded-2xl my-8 shadow-lg" />\n\n`;
+    setBlogData(prev => ({
+        ...prev,
+        pdfContent: prev.pdfContent + imgTag
+    }));
+  };
+
   // Generate Project Code
   const projectPreviewUrl = getMshotsUrl(projectData.link);
   const nextProjectId = Math.max(...projectsData.map(p => p.id), 0) + 1;
@@ -61,11 +70,21 @@ export const ProjectGenerator: React.FC<ProjectGeneratorProps> = ({ onClose }) =
   },`;
 
   // Helper to format basic text to HTML (Simple Simulation of PDF to HTML)
+  // Smart enough to NOT wrap existing HTML tags like <img> or <h3> in <p>
   const formatContent = (text: string) => {
       if (!text) return '';
-      // Basic formatting: newlines to paragraphs
-      const paragraphs = text.split('\n\n').map(p => `<p>${p.trim()}</p>`).join('\n      ');
-      return paragraphs;
+      
+      return text.split('\n\n').map(block => {
+          const trimmed = block.trim();
+          if (!trimmed) return '';
+          
+          // If it starts with an HTML tag, assume it's already formatted/image
+          if (trimmed.startsWith('<')) {
+              return trimmed;
+          }
+          // Otherwise wrap in paragraph
+          return `<p>${trimmed}</p>`;
+      }).join('\n      ');
   };
 
   const formattedBody = formatContent(blogData.pdfContent);
@@ -126,7 +145,7 @@ export const ProjectGenerator: React.FC<ProjectGeneratorProps> = ({ onClose }) =
                 className={`flex-1 py-3 font-semibold text-sm transition-colors ${mode === 'blog' ? 'bg-synapse-primary/10 text-synapse-primary border-b-2 border-synapse-primary' : 'text-slate-500 hover:text-slate-800 dark:text-gray-400 dark:hover:text-white'}`}
                 onClick={() => setMode('blog')}
             >
-                Import PDF / Nowy Post
+                Nowy Post
             </button>
         </div>
 
@@ -134,7 +153,7 @@ export const ProjectGenerator: React.FC<ProjectGeneratorProps> = ({ onClose }) =
           <p className="text-sm text-slate-500 dark:text-gray-400 mb-6 bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-100 dark:border-blue-500/30">
             {mode === 'project' 
                 ? "Wypełnij dane, kliknij Zapisz, a kod skopiuje się do schowka. Wklej go do data/projectsData.ts"
-                : "Wklej treść z PDF-a w pole 'Treść Artykułu'. System automatycznie sformatuje ją na HTML. Kod wklej do data/blogData.ts"
+                : "Wklej tekst. Użyj przycisku 'Wstaw Obrazek', aby dodać grafikę (wymagany link URL). Kod wklej do data/blogData.ts"
             }
           </p>
 
@@ -242,15 +261,20 @@ export const ProjectGenerator: React.FC<ProjectGeneratorProps> = ({ onClose }) =
                 </div>
 
                 <div className="space-y-4">
-                    <label className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-1 flex justify-between">
-                        <span>Treść Artykułu (Wklej tekst z PDF)</span>
-                        <span className="text-xs text-synapse-primary">Automatyczne formatowanie HTML</span>
+                    <label className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-1 flex justify-between items-center">
+                        <span>Treść Artykułu (Wklej tekst)</span>
+                        <button 
+                            onClick={insertImageTag}
+                            className="text-xs bg-synapse-primary/10 hover:bg-synapse-primary text-synapse-primary hover:text-white px-2 py-1 rounded transition-colors"
+                        >
+                            + Wstaw Obrazek (HTML)
+                        </button>
                     </label>
                     <textarea
                         name="pdfContent"
                         value={blogData.pdfContent}
                         onChange={handleBlogChange}
-                        placeholder="Wklej tutaj cały tekst artykułu..."
+                        placeholder="Wklej tutaj tekst..."
                         className="w-full h-[400px] px-3 py-2 rounded-lg bg-slate-50 dark:bg-black/20 border border-slate-300 dark:border-white/10 focus:ring-2 focus:ring-synapse-primary outline-none text-slate-900 dark:text-white font-mono text-xs"
                     ></textarea>
                 </div>

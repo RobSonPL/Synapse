@@ -47,7 +47,7 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme, onNavigat
 
   const isSpecialItem = (label: string) => {
     const l = label.toUpperCase();
-    return l === 'OFERTA' || l === 'BLOG' || l === 'PORTFOLIO' || l === 'PREZENTY';
+    return l === 'OFERTA' || l === 'BLOG' || l === 'PORTFOLIO' || l === 'PREZENTY' || l === t.nav.blog.toUpperCase();
   };
 
   const getSpecialStyles = (label: string) => {
@@ -55,9 +55,9 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme, onNavigat
     const common = 'border-[1px] bg-white/5 dark:bg-white/5 backdrop-blur-md shadow-sm transition-all duration-500 hover:-translate-y-0.5 active:scale-95 transform flex items-center gap-2 overflow-hidden';
     
     if (l === 'PREZENTY') {
-      return `${common} border-amber-500/40 text-amber-600 dark:text-amber-400 hover:border-amber-500 hover:bg-amber-500/10 hover:shadow-[0_0_20px_rgba(245,158,11,0.2)]`;
+      return `${common} border-amber-500/40 text-amber-600 dark:text-amber-400 hover:border-amber-500 hover:bg-amber-500/10 hover:shadow-[0_0_20px_rgba(245,158,11,0.25)]`;
     }
-    return `${common} border-synapse-primary/40 text-synapse-primary hover:border-synapse-primary hover:bg-synapse-primary/10 hover:shadow-[0_0_20px_rgba(14,165,233,0.2)]`;
+    return `${common} border-synapse-primary/40 text-synapse-primary hover:border-synapse-primary hover:bg-synapse-primary/10 hover:shadow-[0_0_20px_rgba(14,165,233,0.25)]`;
   };
 
   const getSpecialDotColor = (label: string) => {
@@ -123,7 +123,7 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme, onNavigat
                       target={item.isExternal ? "_blank" : undefined}
                       rel={item.isExternal ? "noopener noreferrer" : undefined}
                       onClick={(e) => !item.isExternal && handleNavClick(e, item)}
-                      className={`relative group px-5 py-2.5 rounded-full font-semibold text-[10px] uppercase tracking-[0.25em] ${getSpecialStyles(item.label)}`}
+                      className={`relative group px-5 py-2.5 rounded-full font-black text-[9px] uppercase tracking-[0.25em] ${getSpecialStyles(item.label)}`}
                     >
                       <span className={`w-1.5 h-1.5 rounded-full group-hover:scale-150 transition-transform duration-300 animate-pulse ${getSpecialDotColor(item.label)}`}></span>
                       <span className="relative z-10">{item.label}</span>

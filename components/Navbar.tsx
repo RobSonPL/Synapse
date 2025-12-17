@@ -1,14 +1,7 @@
 import React, { useState } from 'react';
-import { NavItem } from '../types';
+import { NavItem, Language } from '../types';
 import { SunIcon, MoonIcon, SynapseLogo } from './Icons';
-
-const navItems: NavItem[] = [
-  { label: 'E-booki', href: 'https://www.naffy.io/Synapse_Creative', isExternal: true },
-  { label: 'Szkolenia', href: '#', isExternal: true },
-  { label: 'E-kursy', href: '#', isExternal: true },
-  { label: 'Zdrowie i Witaminy', href: 'https://pl4557135.e-naturessunshine.com/', isExternal: true },
-  { label: 'Wellness', href: '#', isExternal: true },
-];
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface NavbarProps {
   darkMode: boolean;
@@ -17,6 +10,23 @@ interface NavbarProps {
 
 export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const { language, setLanguage, t } = useLanguage();
+
+  const navItems: NavItem[] = [
+    { label: t.nav.ebooks, href: 'https://www.naffy.io/Synapse_Creative', isExternal: true },
+    { label: t.nav.courses, href: '#', isExternal: true },
+    { label: t.nav.blog, href: '#blog', isExternal: false },
+    { label: t.nav.gifts, href: '#gifts', isExternal: false },
+    { label: t.nav.health, href: 'https://pl4557135.e-naturessunshine.com/', isExternal: true },
+  ];
+
+  const languages: { code: Language; flag: string }[] = [
+    { code: 'pl', flag: '🇵🇱' },
+    { code: 'en', flag: '🇬🇧' },
+    { code: 'de', flag: '🇩🇪' },
+    { code: 'es', flag: '🇪🇸' },
+    { code: 'fr', flag: '🇫🇷' },
+  ];
 
   return (
     <nav className="fixed w-full z-50 top-0 left-0 bg-white/80 dark:bg-synapse-dark/80 backdrop-blur-md border-b border-gray-200 dark:border-white/10 transition-colors duration-300">
@@ -32,7 +42,7 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme }) => {
           </div>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center gap-2 lg:gap-4">
+          <div className="hidden lg:flex items-center gap-2 lg:gap-4">
             <div className="flex items-baseline space-x-1">
               {navItems.map((item) => (
                 item.isExternal ? (
@@ -60,6 +70,27 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme }) => {
               ))}
             </div>
 
+            <div className="h-6 w-px bg-slate-300 dark:bg-white/20 mx-2"></div>
+
+            {/* Language Switcher */}
+            <div className="relative group">
+              <button className="flex items-center gap-1 text-sm font-medium text-slate-600 dark:text-gray-300 hover:text-synapse-primary transition-colors">
+                <span>{languages.find(l => l.code === language)?.flag}</span>
+                <span className="uppercase">{language}</span>
+              </button>
+              <div className="absolute right-0 mt-2 w-16 py-1 bg-white dark:bg-slate-800 rounded-lg shadow-xl border border-slate-200 dark:border-white/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top-right">
+                {languages.map((lang) => (
+                  <button
+                    key={lang.code}
+                    onClick={() => setLanguage(lang.code)}
+                    className={`block w-full text-left px-3 py-2 text-sm ${language === lang.code ? 'bg-synapse-primary/10 text-synapse-primary' : 'text-slate-700 dark:text-gray-300 hover:bg-slate-100 dark:hover:bg-white/5'}`}
+                  >
+                    {lang.flag} <span className="uppercase">{lang.code}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
             {/* Theme Toggle Button */}
             <button
               onClick={toggleTheme}
@@ -71,7 +102,7 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme }) => {
           </div>
 
           {/* Mobile menu button */}
-          <div className="-mr-2 flex gap-4 md:hidden">
+          <div className="-mr-2 flex gap-4 lg:hidden">
             <button
               onClick={toggleTheme}
               className="p-2 rounded-full bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-yellow-300 hover:bg-slate-200 dark:hover:bg-white/20 transition-all duration-200 focus:outline-none"
@@ -99,7 +130,7 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme }) => {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden bg-white dark:bg-synapse-dark border-b border-slate-200 dark:border-white/10 transition-colors duration-300">
+        <div className="lg:hidden bg-white dark:bg-synapse-dark border-b border-slate-200 dark:border-white/10 transition-colors duration-300">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             {navItems.map((item) => (
               <a
@@ -117,6 +148,19 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme }) => {
                 {item.label}
               </a>
             ))}
+            
+            {/* Mobile Language Selector */}
+            <div className="flex gap-2 px-3 py-2 border-t border-slate-100 dark:border-white/5 mt-2">
+              {languages.map((lang) => (
+                 <button
+                    key={lang.code}
+                    onClick={() => setLanguage(lang.code)}
+                    className={`px-3 py-1 rounded text-sm ${language === lang.code ? 'bg-synapse-primary text-white' : 'bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-gray-300'}`}
+                  >
+                    {lang.flag}
+                  </button>
+              ))}
+            </div>
           </div>
         </div>
       )}

@@ -1,7 +1,9 @@
 import React from 'react';
 import { FadeIn } from './FadeIn';
+import { useLanguage } from '../contexts/LanguageContext';
 
 export const Hero: React.FC = () => {
+  const { t } = useLanguage();
   
   const scrollToServices = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -9,6 +11,14 @@ export const Hero: React.FC = () => {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
+  };
+
+  const scrollToContact = (e: React.MouseEvent) => {
+      e.preventDefault();
+      const element = document.getElementById('contact-form');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
   };
 
   return (
@@ -22,32 +32,35 @@ export const Hero: React.FC = () => {
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
         <FadeIn>
-          <div className="inline-block mb-6 px-4 py-1.5 rounded-full border border-synapse-primary/30 bg-white/50 dark:bg-synapse-primary/10 backdrop-blur-sm">
-              <span className="text-synapse-primary font-semibold text-sm tracking-wide uppercase">
-                  Wydawnictwo Cyfrowe & AI
-              </span>
+          <div className="inline-block mb-6 px-4 py-1.5 rounded-full border border-slate-200 dark:border-white/10 bg-white/50 dark:bg-white/5 backdrop-blur-sm text-sm font-semibold text-slate-600 dark:text-slate-300 shadow-sm">
+            <span className="mr-2">✨</span> {t.hero.badge}
           </div>
           
-          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-8">
-            <span className="block text-slate-900 dark:text-white mb-2 transition-colors duration-300">Twoja wiedza zasługuje na</span>
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-synapse-primary via-blue-500 to-synapse-accent">
-              Profesjonalny E-book
+          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-8 leading-tight">
+            {t.hero.titleStart} <br className="hidden md:block" />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-synapse-primary to-synapse-accent">
+              {t.hero.titleEnd}
             </span>
           </h1>
 
-          <p className="mt-4 max-w-2xl mx-auto text-xl text-slate-600 dark:text-gray-300 leading-relaxed transition-colors duration-300">
-            Pomagam ekspertom i twórcom przekuć pomysły w dochodowe produkty cyfrowe. Od redakcji tekstu, przez design okładki, aż po wsparcie AI w promocji.
+          <p className="max-w-2xl mx-auto text-xl text-slate-600 dark:text-gray-400 mb-10 leading-relaxed">
+            {t.hero.subtitle}
           </p>
 
-          <div className="mt-10 flex flex-wrap justify-center gap-4">
-            <button 
-              onClick={scrollToServices}
-              className="px-8 py-4 rounded-full bg-synapse-dark text-white dark:bg-white dark:text-synapse-dark font-bold text-lg hover:bg-slate-800 dark:hover:bg-gray-100 transition-colors shadow-lg hover:scale-105 transform duration-200 cursor-pointer"
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a 
+              href="#contact-form"
+              onClick={scrollToContact}
+              className="w-full sm:w-auto px-8 py-4 rounded-full bg-gradient-to-r from-synapse-primary to-synapse-accent text-white font-bold text-lg shadow-lg hover:shadow-synapse-primary/40 hover:scale-105 active:scale-95 transition-all duration-300"
             >
-              Stwórz E-booka
-            </button>
-            <a href="https://www.naffy.io/Synapse_Creative" target="_blank" rel="noopener noreferrer" className="px-8 py-4 rounded-full border border-slate-300 text-slate-700 hover:bg-slate-100 dark:border-white/20 dark:hover:bg-white/10 dark:text-white font-semibold text-lg transition-colors backdrop-blur-sm">
-              Zobacz Moje Publikacje
+              {t.hero.ctaPrimary}
+            </a>
+            <a 
+              href="#services" 
+              onClick={scrollToServices}
+              className="w-full sm:w-auto px-8 py-4 rounded-full bg-white dark:bg-white/10 text-slate-700 dark:text-white border border-slate-200 dark:border-white/10 font-bold text-lg hover:bg-slate-50 dark:hover:bg-white/20 transition-all duration-300 backdrop-blur-sm"
+            >
+              {t.hero.ctaSecondary}
             </a>
           </div>
         </FadeIn>

@@ -14,7 +14,8 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme }) => {
 
   const navItems: NavItem[] = [
     { label: t.nav.ebooks, href: 'https://www.naffy.io/Synapse_Creative', isExternal: true },
-    { label: t.nav.courses, href: '#', isExternal: true },
+    { label: "BUY now !", href: '#services', isExternal: false },
+    { label: t.nav.mentalHealth, href: 'https://hipnozamonikasidorowska.pl/', isExternal: true },
     { label: t.nav.blog, href: '#blog', isExternal: false },
     { label: t.nav.gifts, href: '#gifts', isExternal: false },
     { label: t.nav.health, href: 'https://pl4557135.e-naturessunshine.com/', isExternal: true },
@@ -29,7 +30,22 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme }) => {
   ];
 
   // Helper to determine if an item should be yellow
-  const isYellowItem = (href: string) => href === '#blog' || href === '#gifts';
+  const isYellowItem = (href: string) => href === '#blog' || href === '#gifts' || href === '#services';
+
+  // Helper to check for the specific Hypnosis link
+  const isHypnosisLink = (href: string) => href.includes('hipnozamonikasidorowska');
+
+  // Handle smooth scroll for internal links
+  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith('#')) {
+      e.preventDefault();
+      const element = document.getElementById(href.substring(1));
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+        setIsOpen(false);
+      }
+    }
+  };
 
   return (
     <nav className="fixed w-full z-50 top-0 left-0 bg-white/80 dark:bg-synapse-dark/80 backdrop-blur-md border-b border-gray-200 dark:border-white/10 transition-colors duration-300">
@@ -37,7 +53,7 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme }) => {
         <div className="flex items-center justify-between h-20">
           
           {/* Logo Area */}
-          <div className="flex-shrink-0 flex items-center gap-3 cursor-pointer group" onClick={() => window.scrollTo(0,0)}>
+          <div className="flex-shrink-0 flex items-center gap-3 cursor-pointer group" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
              <SynapseLogo className="w-10 h-10 group-hover:scale-110 transition-transform duration-300 animate-[pulse_3s_ease-in-out_infinite]" />
              <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-synapse-primary dark:from-white dark:to-synapse-primary">
                Synapse
@@ -54,7 +70,11 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme }) => {
                     href={item.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="relative group px-4 py-2 rounded-full bg-gradient-to-r from-synapse-primary to-synapse-accent text-white font-semibold text-sm shadow-md shadow-synapse-primary/30 hover:shadow-xl hover:shadow-synapse-primary/50 transition-all duration-300 hover:scale-110 active:scale-95 transform overflow-hidden"
+                    className={`relative group px-4 py-2 rounded-full text-white font-semibold text-sm shadow-md hover:shadow-xl transition-all duration-300 hover:scale-110 active:scale-95 transform overflow-hidden ${
+                      isHypnosisLink(item.href) 
+                        ? 'bg-gradient-to-r from-amber-500 to-yellow-500 hover:shadow-amber-500/50' 
+                        : 'bg-gradient-to-r from-synapse-primary to-synapse-accent shadow-synapse-primary/30 hover:shadow-synapse-primary/50'
+                    }`}
                   >
                     <span className="relative z-10">{item.label}</span>
                     <span className="absolute inset-0 rounded-full bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300"></span>
@@ -64,6 +84,7 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme }) => {
                   <a
                     key={item.label}
                     href={item.href}
+                    onClick={(e) => handleScroll(e, item.href)}
                     className={`relative group px-3 py-2 text-sm font-bold transition-all duration-300 hover:scale-110 transform ${
                       isYellowItem(item.href) 
                         ? 'text-yellow-600 dark:text-yellow-400 hover:text-yellow-500 dark:hover:text-yellow-300' 
@@ -146,16 +167,24 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme }) => {
               <a
                 key={item.label}
                 href={item.href}
+                onClick={(e) => {
+                    if (!item.isExternal) {
+                        handleScroll(e, item.href);
+                    } else {
+                        setIsOpen(false);
+                    }
+                }}
                 target={item.isExternal ? "_blank" : "_self"}
                 rel={item.isExternal ? "noopener noreferrer" : ""}
                 className={`block px-3 py-2 rounded-md text-base font-bold ${
                   item.isExternal 
-                    ? "bg-gradient-to-r from-synapse-primary to-synapse-accent text-white my-1 shadow-md" 
+                    ? isHypnosisLink(item.href) 
+                      ? "bg-gradient-to-r from-amber-500 to-yellow-500 text-white my-1 shadow-md"
+                      : "bg-gradient-to-r from-synapse-primary to-synapse-accent text-white my-1 shadow-md" 
                     : isYellowItem(item.href)
                       ? "text-yellow-600 dark:text-yellow-400 hover:bg-yellow-50 dark:hover:bg-yellow-900/20"
                       : "text-slate-600 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10"
                 }`}
-                onClick={() => setIsOpen(false)}
               >
                 {item.label}
               </a>

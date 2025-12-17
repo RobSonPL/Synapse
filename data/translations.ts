@@ -6,6 +6,7 @@ export const translations = {
       ebooks: 'E-booki',
       courses: 'Szkolenia',
       health: 'Zdrowie',
+      mentalHealth: 'Zdrowie psychiczne',
       blog: 'Blog',
       gifts: 'Prezenty',
       contact: 'Kontakt'
@@ -53,6 +54,7 @@ export const translations = {
       ebooks: 'E-books',
       courses: 'Courses',
       health: 'Health',
+      mentalHealth: 'Mental Health',
       blog: 'Blog',
       gifts: 'Gifts',
       contact: 'Contact'
@@ -100,6 +102,7 @@ export const translations = {
       ebooks: 'E-Books',
       courses: 'Schulungen',
       health: 'Gesundheit',
+      mentalHealth: 'Psychische Gesundheit',
       blog: 'Blog',
       gifts: 'Geschenke',
       contact: 'Kontakt'
@@ -147,6 +150,7 @@ export const translations = {
       ebooks: 'Libros electrónicos',
       courses: 'Cursos',
       health: 'Salud',
+      mentalHealth: 'Salud mental',
       blog: 'Blog',
       gifts: 'Regalos',
       contact: 'Contacto'
@@ -194,6 +198,7 @@ export const translations = {
       ebooks: 'E-books',
       courses: 'Formations',
       health: 'Santé',
+      mentalHealth: 'Santé mentale',
       blog: 'Blog',
       gifts: 'Cadeaux',
       contact: 'Contact'

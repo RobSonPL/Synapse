@@ -50,12 +50,12 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme, onNavigat
     return l === 'OFERTA' || l === 'BLOG' || l === 'PORTFOLIO' || l === 'PREZENTY';
   };
 
-  const getSpecialStyles = (label: string) => {
+  const getSpecialBaseStyles = (label: string) => {
     const l = label.toUpperCase();
     if (l === 'PREZENTY') {
-      return 'border-amber-500 text-amber-600 dark:text-amber-400 hover:bg-amber-500 hover:shadow-[0_0_20px_rgba(245,158,11,0.4)]';
+      return 'border-amber-500/50 text-amber-600 dark:text-amber-400 hover:border-amber-500 hover:bg-amber-500/10 hover:shadow-[0_0_15px_rgba(245,158,11,0.2)]';
     }
-    return 'border-synapse-primary text-synapse-primary hover:bg-synapse-primary hover:shadow-[0_0_20px_rgba(14,165,233,0.4)]';
+    return 'border-synapse-primary/50 text-synapse-primary hover:border-synapse-primary hover:bg-synapse-primary/10 hover:shadow-[0_0_15px_rgba(14,165,233,0.2)]';
   };
 
   const getSpecialDotColor = (label: string) => {
@@ -92,7 +92,7 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme, onNavigat
   return (
     <nav className={`fixed w-full z-50 top-0 left-0 transition-all duration-500 ${
       scrolled 
-        ? 'py-3 bg-white/90 dark:bg-synapse-dark/90 backdrop-blur-lg border-b border-gray-200 dark:border-white/10 shadow-lg' 
+        ? 'py-3 bg-white/80 dark:bg-synapse-dark/80 backdrop-blur-lg border-b border-gray-200 dark:border-white/10 shadow-lg' 
         : 'py-5 bg-transparent border-b border-transparent'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -121,11 +121,12 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme, onNavigat
                       target={item.isExternal ? "_blank" : undefined}
                       rel={item.isExternal ? "noopener noreferrer" : undefined}
                       onClick={(e) => !item.isExternal && handleNavClick(e, item)}
-                      className={`relative group px-5 py-2.5 rounded-full border-2 bg-slate-900/5 dark:bg-white/5 backdrop-blur-md font-black text-[10px] uppercase tracking-[0.25em] transition-all duration-500 hover:text-white hover:-translate-y-1 active:scale-95 transform flex items-center gap-2 overflow-hidden ${getSpecialStyles(item.label)}`}
+                      className={`relative group px-5 py-2 rounded-full border-[1px] bg-white/5 dark:bg-white/5 backdrop-blur-sm font-black text-[9px] uppercase tracking-[0.25em] transition-all duration-500 hover:-translate-y-0.5 active:scale-95 transform flex items-center gap-2 overflow-hidden shadow-sm ${getSpecialBaseStyles(item.label)}`}
                     >
-                      <span className={`w-1.5 h-1.5 rounded-full group-hover:bg-white animate-pulse ${getSpecialDotColor(item.label)}`}></span>
+                      <span className={`w-1 h-1 rounded-full group-hover:scale-150 transition-transform duration-300 animate-pulse ${getSpecialDotColor(item.label)}`}></span>
                       <span className="relative z-10">{item.label}</span>
-                      <span className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500"></span>
+                      {/* Glossy Shimmer Effect */}
+                      <span className="absolute inset-0 w-1/2 h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-[20deg] -translate-x-full group-hover:translate-x-[250%] transition-transform duration-1000"></span>
                     </a>
                   );
                 }
@@ -225,7 +226,7 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme, onNavigat
                 onClick={(e) => !item.isExternal && handleNavClick(e, item)}
                 className={`block px-5 py-4 rounded-2xl text-lg font-black transition-all ${
                   isSpecial
-                    ? `border-2 bg-white/5 shadow-inner ${getSpecialStyles(item.label)}`
+                    ? `border-[1px] bg-white/5 shadow-sm ${getSpecialBaseStyles(item.label)}`
                     : item.isExternal 
                       ? "bg-gradient-to-r from-synapse-primary to-synapse-accent text-white shadow-lg"
                       : "text-slate-700 dark:text-gray-200 hover:bg-slate-100 dark:hover:bg-white/5"

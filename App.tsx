@@ -3,8 +3,8 @@ import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Services } from './components/Services';
 import { Portfolio } from './components/Portfolio';
+import { GraphicPortfolio } from './components/GraphicPortfolio';
 import { Testimonials } from './components/Testimonials';
-import { CreativeSpark } from './components/CreativeSpark';
 import { About } from './components/About';
 import { Footer } from './components/Footer';
 import { ContactForm } from './components/ContactForm';
@@ -18,12 +18,10 @@ import { LanguageProvider } from './contexts/LanguageContext';
 import { ServiceItem, BlogPost } from './types';
 
 function App() {
-  // Default to false for Light Mode
   const [darkMode, setDarkMode] = useState(false);
   const [cart, setCart] = useState<ServiceItem[]>([]);
   const [showAdmin, setShowAdmin] = useState(false);
   
-  // Routing State
   const [currentView, setCurrentView] = useState<'home' | 'blog' | 'article'>('home');
   const [selectedArticle, setSelectedArticle] = useState<BlogPost | null>(null);
 
@@ -81,10 +79,10 @@ function App() {
               <FreeGifts />
               <About />
               <Portfolio />
+              <GraphicPortfolio />
               <Services cart={cart} toggleCartItem={toggleCartItem} />
               <Testimonials />
               <CallToAction />
-              <CreativeSpark />
               <Blog />
               <ContactForm cart={cart} removeFromCart={removeFromCart} />
             </>
@@ -107,7 +105,6 @@ function App() {
 
         <Footer onOpenAdmin={() => setShowAdmin(true)} />
         
-        {/* Admin Panel Modal */}
         {showAdmin && <ProjectGenerator onClose={() => setShowAdmin(false)} />}
       </div>
     </LanguageProvider>

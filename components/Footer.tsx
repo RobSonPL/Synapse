@@ -69,14 +69,15 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAdmin }) => {
           
           <div className="border-t border-slate-200 dark:border-white/5 pt-8 flex justify-center items-center px-4">
             <p className="text-slate-500 dark:text-gray-600 text-sm">
+              &copy;
+              {' '}{new Date().getFullYear()} Synapse Creative{' '}
               <span 
                 onClick={onOpenAdmin} 
-                className="cursor-pointer hover:text-synapse-primary transition-colors font-bold"
+                className="cursor-pointer hover:text-synapse-primary transition-colors font-bold select-none"
                 title="Panel Administratora"
               >
-                &copy;
-              </span> 
-              {' '}{new Date().getFullYear()} Synapse Creative (Robert).
+                (Robert)
+              </span>.
             </p>
           </div>
         </FadeIn>

@@ -6,16 +6,35 @@ interface ProjectGeneratorProps {
   onClose: () => void;
 }
 
+type GeneratorMode = 'project' | 'blog';
+
 export const ProjectGenerator: React.FC<ProjectGeneratorProps> = ({ onClose }) => {
-  const [formData, setFormData] = useState({
+  const [mode, setMode] = useState<GeneratorMode>('project');
+  const [copied, setCopied] = useState(false);
+
+  // Project State
+  const [projectData, setProjectData] = useState({
     title: '',
     category: '',
     link: ''
   });
-  const [copied, setCopied] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  // Blog State
+  const [blogData, setBlogData] = useState({
+    title: '',
+    date: new Date().toISOString().split('T')[0],
+    excerpt: '',
+    type: 'pdf' as 'pdf' | 'presentation' | 'article',
+    fileUrl: '',
+    thumbnailUrl: ''
+  });
+
+  const handleProjectChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setProjectData({ ...projectData, [e.target.name]: e.target.value });
+  };
+
+  const handleBlogChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    setBlogData({ ...blogData, [e.target.name]: e.target.value });
   };
 
   const getMshotsUrl = (url: string) => {
@@ -28,20 +47,33 @@ export const ProjectGenerator: React.FC<ProjectGeneratorProps> = ({ onClose }) =
     }
   };
 
-  const previewUrl = getMshotsUrl(formData.link);
-  const nextId = Math.max(...projectsData.map(p => p.id), 0) + 1;
+  // Generate Project Code
+  const projectPreviewUrl = getMshotsUrl(projectData.link);
+  const nextProjectId = Math.max(...projectsData.map(p => p.id), 0) + 1;
 
-  // Generate the actual code string
-  const generatedCode = `  {
-    id: ${nextId},
-    title: "${formData.title}",
-    category: "${formData.category}",
-    imageUrl: "${previewUrl}",
-    link: "${formData.link}"
+  const generatedProjectCode = `  {
+    id: ${nextProjectId},
+    title: "${projectData.title}",
+    category: "${projectData.category}",
+    imageUrl: "${projectPreviewUrl}",
+    link: "${projectData.link}"
   },`;
 
+  // Generate Blog Code
+  const generatedBlogCode = `  {
+    id: '${Date.now()}',
+    title: "${blogData.title}",
+    date: "${blogData.date}",
+    excerpt: "${blogData.excerpt}",
+    type: "${blogData.type}",
+    fileUrl: "${blogData.fileUrl}",
+    thumbnailUrl: "${blogData.thumbnailUrl || 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60'}"
+  },`;
+
+  const codeToCopy = mode === 'project' ? generatedProjectCode : generatedBlogCode;
+
   const handleCopy = () => {
-    navigator.clipboard.writeText(generatedCode);
+    navigator.clipboard.writeText(codeToCopy);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -53,71 +85,163 @@ export const ProjectGenerator: React.FC<ProjectGeneratorProps> = ({ onClose }) =
         {/* Header */}
         <div className="p-4 border-b border-slate-200 dark:border-white/10 flex justify-between items-center bg-slate-50 dark:bg-white/5">
           <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <span className="text-synapse-primary">⚡</span> Generator Projektów
+            <span className="text-synapse-primary">⚡</span> Generator Treści
           </h2>
           <button onClick={onClose} className="p-2 hover:bg-slate-200 dark:hover:bg-white/10 rounded-full transition-colors text-slate-500">
             <XMarkIcon />
           </button>
         </div>
 
+        {/* Tabs */}
+        <div className="flex border-b border-slate-200 dark:border-white/10">
+            <button 
+                className={`flex-1 py-3 font-semibold text-sm transition-colors ${mode === 'project' ? 'bg-synapse-primary/10 text-synapse-primary border-b-2 border-synapse-primary' : 'text-slate-500 hover:text-slate-800 dark:text-gray-400 dark:hover:text-white'}`}
+                onClick={() => setMode('project')}
+            >
+                Nowy Projekt (Portfolio)
+            </button>
+            <button 
+                className={`flex-1 py-3 font-semibold text-sm transition-colors ${mode === 'blog' ? 'bg-synapse-primary/10 text-synapse-primary border-b-2 border-synapse-primary' : 'text-slate-500 hover:text-slate-800 dark:text-gray-400 dark:hover:text-white'}`}
+                onClick={() => setMode('blog')}
+            >
+                Nowy Post (Blog/PDF)
+            </button>
+        </div>
+
         <div className="p-6 overflow-y-auto">
           <p className="text-sm text-slate-500 dark:text-gray-400 mb-6 bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-100 dark:border-blue-500/30">
-            Ponieważ strona nie posiada bazy danych, ten panel pomoże Ci wygenerować kod. 
-            Wypełnij dane, skopiuj wynik i wklej go na koniec listy w pliku <code>data/projectsData.ts</code>.
+            {mode === 'project' 
+                ? "Wypełnij dane, skopiuj wynik i wklej go na koniec listy w pliku `data/projectsData.ts`."
+                : "Wypełnij dane, skopiuj wynik i wklej go na koniec listy `blogPosts` w pliku `components/Blog.tsx`."
+            }
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-1">Tytuł Projektu</label>
-                <input
-                  name="title"
-                  value={formData.title}
-                  onChange={handleChange}
-                  placeholder="np. Nowa Strona Firmowa"
-                  className="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-black/20 border border-slate-300 dark:border-white/10 focus:ring-2 focus:ring-synapse-primary outline-none text-slate-900 dark:text-white"
-                />
+          {mode === 'project' ? (
+              // PROJECT FORM
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-1">Tytuł Projektu</label>
+                    <input
+                      name="title"
+                      value={projectData.title}
+                      onChange={handleProjectChange}
+                      placeholder="np. Nowa Strona Firmowa"
+                      className="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-black/20 border border-slate-300 dark:border-white/10 focus:ring-2 focus:ring-synapse-primary outline-none text-slate-900 dark:text-white"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-1">Kategoria</label>
+                    <input
+                      name="category"
+                      value={projectData.category}
+                      onChange={handleProjectChange}
+                      placeholder="np. Web Design"
+                      className="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-black/20 border border-slate-300 dark:border-white/10 focus:ring-2 focus:ring-synapse-primary outline-none text-slate-900 dark:text-white"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-1">Link do strony</label>
+                    <input
+                      name="link"
+                      value={projectData.link}
+                      onChange={handleProjectChange}
+                      placeholder="https://..."
+                      className="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-black/20 border border-slate-300 dark:border-white/10 focus:ring-2 focus:ring-synapse-primary outline-none text-slate-900 dark:text-white"
+                    />
+                  </div>
+                </div>
+                <div className="bg-slate-100 dark:bg-black/40 rounded-xl border border-slate-200 dark:border-white/5 p-2 flex flex-col items-center justify-center min-h-[200px]">
+                  {projectData.link ? (
+                    <>
+                      <p className="text-xs text-slate-400 mb-2">Podgląd Miniatury (Automatyczny)</p>
+                      <img src={projectPreviewUrl} alt="Preview" className="rounded-lg shadow-md w-full object-cover aspect-[4/3]" />
+                    </>
+                  ) : (
+                    <p className="text-slate-400 text-sm">Wpisz link, aby zobaczyć podgląd</p>
+                  )}
+                </div>
               </div>
-              <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-1">Kategoria</label>
-                <input
-                  name="category"
-                  value={formData.category}
-                  onChange={handleChange}
-                  placeholder="np. Web Design"
-                  className="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-black/20 border border-slate-300 dark:border-white/10 focus:ring-2 focus:ring-synapse-primary outline-none text-slate-900 dark:text-white"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-1">Link do strony</label>
-                <input
-                  name="link"
-                  value={formData.link}
-                  onChange={handleChange}
-                  placeholder="https://..."
-                  className="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-black/20 border border-slate-300 dark:border-white/10 focus:ring-2 focus:ring-synapse-primary outline-none text-slate-900 dark:text-white"
-                />
-              </div>
-            </div>
+          ) : (
+              // BLOG FORM
+              <div className="space-y-4 mb-6">
+                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-1">Tytuł Posta</label>
+                        <input
+                            name="title"
+                            value={blogData.title}
+                            onChange={handleBlogChange}
+                            className="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-black/20 border border-slate-300 dark:border-white/10 focus:ring-2 focus:ring-synapse-primary outline-none text-slate-900 dark:text-white"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-1">Data</label>
+                        <input
+                            type="date"
+                            name="date"
+                            value={blogData.date}
+                            onChange={handleBlogChange}
+                            className="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-black/20 border border-slate-300 dark:border-white/10 focus:ring-2 focus:ring-synapse-primary outline-none text-slate-900 dark:text-white"
+                        />
+                    </div>
+                 </div>
+                 
+                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-1">Typ Treści</label>
+                        <select
+                            name="type"
+                            value={blogData.type}
+                            onChange={handleBlogChange}
+                            className="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-black/20 border border-slate-300 dark:border-white/10 focus:ring-2 focus:ring-synapse-primary outline-none text-slate-900 dark:text-white"
+                        >
+                            <option value="pdf">PDF (Dokument)</option>
+                            <option value="presentation">Prezentacja</option>
+                            <option value="article">Artykuł (Link)</option>
+                        </select>
+                    </div>
+                    <div>
+                         <label className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-1">Link do pliku/strony</label>
+                         <input
+                            name="fileUrl"
+                            value={blogData.fileUrl}
+                            onChange={handleBlogChange}
+                            placeholder="https://..."
+                            className="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-black/20 border border-slate-300 dark:border-white/10 focus:ring-2 focus:ring-synapse-primary outline-none text-slate-900 dark:text-white"
+                        />
+                    </div>
+                 </div>
 
-            {/* Preview */}
-            <div className="bg-slate-100 dark:bg-black/40 rounded-xl border border-slate-200 dark:border-white/5 p-2 flex flex-col items-center justify-center min-h-[200px]">
-              {formData.link ? (
-                <>
-                  <p className="text-xs text-slate-400 mb-2">Podgląd Miniatury (Automatyczny)</p>
-                  <img src={previewUrl} alt="Preview" className="rounded-lg shadow-md w-full object-cover aspect-[4/3]" />
-                </>
-              ) : (
-                <p className="text-slate-400 text-sm">Wpisz link, aby zobaczyć podgląd</p>
-              )}
-            </div>
-          </div>
+                 <div>
+                    <label className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-1">Link do miniatury (opcjonalne)</label>
+                    <input
+                        name="thumbnailUrl"
+                        value={blogData.thumbnailUrl}
+                        onChange={handleBlogChange}
+                        placeholder="https://images.unsplash.com..."
+                        className="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-black/20 border border-slate-300 dark:border-white/10 focus:ring-2 focus:ring-synapse-primary outline-none text-slate-900 dark:text-white"
+                    />
+                 </div>
+
+                 <div>
+                    <label className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-1">Krótki opis (Excerpt)</label>
+                    <textarea
+                        name="excerpt"
+                        value={blogData.excerpt}
+                        onChange={handleBlogChange}
+                        rows={2}
+                        className="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-black/20 border border-slate-300 dark:border-white/10 focus:ring-2 focus:ring-synapse-primary outline-none text-slate-900 dark:text-white"
+                    ></textarea>
+                 </div>
+              </div>
+          )}
 
           {/* Code Output */}
           <div className="relative">
             <label className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-1">Wygenerowany Kod</label>
             <pre className="bg-slate-900 text-green-400 p-4 rounded-xl text-sm overflow-x-auto font-mono border border-slate-700">
-              {generatedCode}
+              {codeToCopy}
             </pre>
             <button
               onClick={handleCopy}

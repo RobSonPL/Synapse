@@ -28,6 +28,9 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme }) => {
     { code: 'fr', flag: '🇫🇷' },
   ];
 
+  // Helper to determine if an item should be yellow
+  const isYellowItem = (href: string) => href === '#blog' || href === '#gifts';
+
   return (
     <nav className="fixed w-full z-50 top-0 left-0 bg-white/80 dark:bg-synapse-dark/80 backdrop-blur-md border-b border-gray-200 dark:border-white/10 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -35,7 +38,7 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme }) => {
           
           {/* Logo Area */}
           <div className="flex-shrink-0 flex items-center gap-3 cursor-pointer group" onClick={() => window.scrollTo(0,0)}>
-             <SynapseLogo className="w-10 h-10 group-hover:scale-110 transition-transform duration-300" />
+             <SynapseLogo className="w-10 h-10 group-hover:scale-110 transition-transform duration-300 animate-[pulse_3s_ease-in-out_infinite]" />
              <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-synapse-primary dark:from-white dark:to-synapse-primary">
                Synapse
              </span>
@@ -51,20 +54,27 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme }) => {
                     href={item.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="relative group px-4 py-2 rounded-full bg-gradient-to-r from-synapse-primary to-synapse-accent text-white font-semibold text-sm shadow-md shadow-synapse-primary/30 hover:shadow-xl hover:shadow-synapse-primary/50 transition-all duration-300 hover:scale-105 active:scale-95 transform"
+                    className="relative group px-4 py-2 rounded-full bg-gradient-to-r from-synapse-primary to-synapse-accent text-white font-semibold text-sm shadow-md shadow-synapse-primary/30 hover:shadow-xl hover:shadow-synapse-primary/50 transition-all duration-300 hover:scale-110 active:scale-95 transform overflow-hidden"
                   >
-                    {item.label}
-                    <span className="absolute inset-0 rounded-full bg-white opacity-0 group-hover:opacity-20 transition-opacity"></span>
+                    <span className="relative z-10">{item.label}</span>
+                    <span className="absolute inset-0 rounded-full bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300"></span>
+                    <span className="absolute -inset-full top-0 block -skew-x-12 bg-gradient-to-r from-transparent to-white opacity-40 group-hover:animate-shine" />
                   </a>
                 ) : (
                   <a
                     key={item.label}
                     href={item.href}
-                    className="relative group px-3 py-2 text-sm font-medium text-slate-600 dark:text-gray-300 transition-colors duration-300 hover:text-synapse-primary dark:hover:text-white hover:scale-105 transform"
+                    className={`relative group px-3 py-2 text-sm font-bold transition-all duration-300 hover:scale-110 transform ${
+                      isYellowItem(item.href) 
+                        ? 'text-yellow-600 dark:text-yellow-400 hover:text-yellow-500 dark:hover:text-yellow-300' 
+                        : 'text-slate-600 dark:text-gray-300 hover:text-synapse-primary dark:hover:text-white'
+                    }`}
                   >
                     {item.label}
                     {/* Animated Underline */}
-                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-synapse-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+                    <span className={`absolute bottom-0 left-0 w-full h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left ${
+                       isYellowItem(item.href) ? 'bg-yellow-500' : 'bg-synapse-primary'
+                    }`}></span>
                   </a>
                 )
               ))}
@@ -74,16 +84,16 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme }) => {
 
             {/* Language Switcher */}
             <div className="relative group">
-              <button className="flex items-center gap-1 text-sm font-medium text-slate-600 dark:text-gray-300 hover:text-synapse-primary transition-colors">
-                <span>{languages.find(l => l.code === language)?.flag}</span>
+              <button className="flex items-center gap-1 text-sm font-medium text-slate-600 dark:text-gray-300 hover:text-synapse-primary transition-all duration-300 hover:scale-105">
+                <span className="text-lg shadow-sm">{languages.find(l => l.code === language)?.flag}</span>
                 <span className="uppercase">{language}</span>
               </button>
-              <div className="absolute right-0 mt-2 w-16 py-1 bg-white dark:bg-slate-800 rounded-lg shadow-xl border border-slate-200 dark:border-white/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top-right">
+              <div className="absolute right-0 mt-2 w-16 py-1 bg-white dark:bg-slate-800 rounded-lg shadow-xl border border-slate-200 dark:border-white/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top-right z-50">
                 {languages.map((lang) => (
                   <button
                     key={lang.code}
                     onClick={() => setLanguage(lang.code)}
-                    className={`block w-full text-left px-3 py-2 text-sm ${language === lang.code ? 'bg-synapse-primary/10 text-synapse-primary' : 'text-slate-700 dark:text-gray-300 hover:bg-slate-100 dark:hover:bg-white/5'}`}
+                    className={`block w-full text-left px-3 py-2 text-sm transition-colors ${language === lang.code ? 'bg-synapse-primary/10 text-synapse-primary' : 'text-slate-700 dark:text-gray-300 hover:bg-slate-100 dark:hover:bg-white/5'}`}
                   >
                     {lang.flag} <span className="uppercase">{lang.code}</span>
                   </button>
@@ -94,7 +104,7 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme }) => {
             {/* Theme Toggle Button */}
             <button
               onClick={toggleTheme}
-              className="ml-2 p-2 rounded-full bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-yellow-300 hover:bg-slate-200 dark:hover:bg-white/20 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-synapse-primary hover:scale-110 active:scale-95 transform"
+              className="ml-2 p-2 rounded-full bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-yellow-300 hover:bg-slate-200 dark:hover:bg-white/20 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-synapse-primary hover:scale-110 active:scale-95 transform shadow-sm hover:shadow-md"
               aria-label="Toggle Theme"
             >
               {darkMode ? <SunIcon /> : <MoonIcon />}
@@ -138,10 +148,12 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme }) => {
                 href={item.href}
                 target={item.isExternal ? "_blank" : "_self"}
                 rel={item.isExternal ? "noopener noreferrer" : ""}
-                className={`block px-3 py-2 rounded-md text-base font-medium ${
+                className={`block px-3 py-2 rounded-md text-base font-bold ${
                   item.isExternal 
-                    ? "bg-gradient-to-r from-synapse-primary to-synapse-accent text-white my-1" 
-                    : "text-slate-600 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10"
+                    ? "bg-gradient-to-r from-synapse-primary to-synapse-accent text-white my-1 shadow-md" 
+                    : isYellowItem(item.href)
+                      ? "text-yellow-600 dark:text-yellow-400 hover:bg-yellow-50 dark:hover:bg-yellow-900/20"
+                      : "text-slate-600 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10"
                 }`}
                 onClick={() => setIsOpen(false)}
               >

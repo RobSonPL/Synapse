@@ -1,9 +1,9 @@
+
 import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Services } from './components/Services';
 import { Portfolio } from './components/Portfolio';
-import { GraphicPortfolio } from './components/GraphicPortfolio';
 import { Testimonials } from './components/Testimonials';
 import { About } from './components/About';
 import { Footer } from './components/Footer';
@@ -81,7 +81,6 @@ function App() {
                 <FreeGifts />
                 <About />
                 <Portfolio />
-                <GraphicPortfolio />
                 <Services cart={cart} toggleCartItem={toggleCartItem} />
                 <Testimonials />
                 <CallToAction />

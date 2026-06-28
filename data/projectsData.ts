@@ -84,5 +84,19 @@ export const projectsData: Project[] = [
     category: "Wizytówka Online",
     imageUrl: "https://s.wordpress.com/mshots/v1/https%3A%2F%2Fvist-card.vercel.app?w=800&h=600",
     link: "https://vist-card.vercel.app"
+  },
+  {
+    id: 13,
+    title: "Wesoły Masaż",
+    category: "Zdrowie & Wellness",
+    imageUrl: "https://s.wordpress.com/mshots/v1/https%3A%2F%2Fwesolymasaz.pl?w=800&h=600",
+    link: "https://wesolymasaz.pl"
+  },
+  {
+    id: 14,
+    title: "Trzeźwy App",
+    category: "Aplikacja Web",
+    imageUrl: "https://s.wordpress.com/mshots/v1/https%3A%2F%2Ftrzezwy.base44.app?w=800&h=600",
+    link: "https://trzezwy.base44.app"
   }
 ];

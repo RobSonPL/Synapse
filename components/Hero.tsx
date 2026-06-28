@@ -1,6 +1,7 @@
 import React from 'react';
 import { FadeIn } from './FadeIn';
 import { useLanguage } from '../contexts/LanguageContext';
+import { StatsCounter } from './StatsCounter';
 
 export const Hero: React.FC = () => {
   const { t } = useLanguage();
@@ -63,6 +64,8 @@ export const Hero: React.FC = () => {
               {t.hero.ctaSecondary}
             </a>
           </div>
+          
+          <StatsCounter />
         </FadeIn>
       </div>
     </section>

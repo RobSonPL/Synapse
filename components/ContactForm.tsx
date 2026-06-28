@@ -17,6 +17,8 @@ export const ContactForm: React.FC<ContactFormProps> = ({ cart, removeFromCart }
     email: '',
     message: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -29,6 +31,39 @@ export const ContactForm: React.FC<ContactFormProps> = ({ cart, removeFromCart }
   const cartSummary = cart.length > 0 
     ? cart.map(item => `- ${item.name} (${item.price})`).join('\n')
     : 'Brak wybranych dodatkowych usług.';
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    try {
+      const response = await fetch(`https://formsubmit.co/ajax/${config.contactEmail}`, {
+        method: "POST",
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          _subject: `Nowe zapytanie ze strony: ${formData.name}`,
+          _template: "table",
+          Wybrane_Usługi: cartSummary
+        })
+      });
+
+      if (response.ok) {
+        setIsSuccess(true);
+        setFormData({ name: '', email: '', message: '' });
+        setTimeout(() => setIsSuccess(false), 5000); // Hide toast after 5 seconds
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <section id="contact-form" className="py-24 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-white/10 transition-colors duration-300">
@@ -44,17 +79,19 @@ export const ContactForm: React.FC<ContactFormProps> = ({ cart, removeFromCart }
                 </p>
                 
                 {/* 
-                    STANDARD HTML FORM SUBMISSION 
-                    target="_blank" ensures that if there is an error (like running from local file), 
-                    it opens in a new tab and doesn't disrupt the user's session.
+                    AJAX FORM SUBMISSION 
                 */}
                 <form 
-                    action={`https://formsubmit.co/${config.contactEmail}`}
-                    method="POST" 
-                    target="_blank"
-                    className="space-y-6"
-                    encType="multipart/form-data"
+                    onSubmit={handleSubmit}
+                    className="space-y-6 relative"
                 >
+                    {/* Success Toast */}
+                    <div className={`absolute -top-16 left-0 right-0 bg-green-500 text-white p-4 rounded-xl shadow-lg flex items-center gap-3 transition-all duration-500 transform ${isSuccess ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'}`}>
+                        <svg className="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <p className="font-medium">Wiadomość została wysłana! Odezwiemy się wkrótce.</p>
+                    </div>
                     {/* --- CONFIGURATION FIELDS FOR FORMSUBMIT --- */}
                     {/* Disable Captcha if you want cleaner UX, keep true if you get spam */}
                     <input type="hidden" name="_captcha" value="false" />
@@ -110,9 +147,17 @@ export const ContactForm: React.FC<ContactFormProps> = ({ cart, removeFromCart }
 
                     <button 
                         type="submit" 
-                        className="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-synapse-primary to-synapse-accent text-white font-bold text-lg shadow-lg hover:shadow-synapse-primary/40 transform hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2"
+                        disabled={isSubmitting}
+                        className="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-synapse-primary to-synapse-accent text-white font-bold text-lg shadow-lg hover:shadow-synapse-primary/40 transform hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none"
                     >
-                        Wyślij Wiadomość
+                        {isSubmitting ? (
+                          <div className="flex items-center gap-2">
+                             <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                             <span>Wysyłanie...</span>
+                          </div>
+                        ) : (
+                          "Wyślij Wiadomość"
+                        )}
                     </button>
                     
                     <div className="pt-4 border-t border-slate-200 dark:border-white/10 mt-6 flex flex-col items-center">

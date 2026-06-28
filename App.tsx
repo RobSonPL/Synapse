@@ -14,6 +14,7 @@ import { Blog } from './components/Blog';
 import { FreeGifts } from './components/FreeGifts';
 import { BlogPage } from './components/BlogPage';
 import { BlogPostView } from './components/BlogPostView';
+import { ScrollProgress } from './components/ScrollProgress';
 import { LanguageProvider } from './contexts/LanguageContext';
 import { DataProvider } from './contexts/DataContext';
 import { ServiceItem, BlogPost } from './types';
@@ -67,6 +68,7 @@ function App() {
     <LanguageProvider>
       <DataProvider>
         <div className="min-h-screen transition-colors duration-300 ease-in-out bg-synapse-light dark:bg-synapse-dark selection:bg-synapse-primary selection:text-white">
+          <ScrollProgress />
           <Navbar 
               darkMode={darkMode} 
               toggleTheme={toggleTheme} 

@@ -9,6 +9,7 @@ export const About: React.FC = () => {
 
   // Link do Twojego certyfikatu Me+AI (CampusAI) - zaktualizowany na link online
   const certUrl = "https://elearning-courses.ams3.digitaloceanspaces.com/c/cert_68acc43a160b105f6039a37f_68a6157ff3be51df1dd62819.png"; 
+  const certUrl2 = "https://elearning-courses.ams3.digitaloceanspaces.com/c/4D02C4C4F55C.jpg";
   
   // Link do Twojego zdjęcia profilowego
   const profileUrl = "https://drive.google.com/thumbnail?id=1d4yAeltqegM_hIAJ_uUsKmERdUSg8G_C&sz=w1000";
@@ -115,15 +116,43 @@ export const About: React.FC = () => {
                 </div>
               </div>
 
-              {/* Drugi slot na certyfikat / Zapowiedź */}
-              <div className="bg-slate-50/50 dark:bg-white/5 border border-dashed border-slate-200 dark:border-white/10 rounded-3xl p-8 flex flex-col items-center justify-center text-center opacity-70 group hover:opacity-100 transition-opacity">
-                 <div className="w-16 h-16 rounded-full bg-slate-100 dark:bg-white/5 flex items-center justify-center mb-6 text-slate-300 group-hover:text-synapse-primary transition-colors duration-500">
-                    <AwardIcon className="w-8 h-8" />
-                 </div>
-                 <h4 className="text-xl font-bold text-slate-700 dark:text-gray-300 mb-2">Ciągły Rozwój</h4>
-                 <p className="text-sm text-slate-500 dark:text-gray-500 max-w-xs mx-auto leading-relaxed">
-                   Świat AI zmienia się z dnia na dzień. Inwestuję czas w naukę, aby Twoje e-booki zawsze były o krok przed konkurencją.
-                 </p>
+              {/* Drugi certyfikat */}
+              <div 
+                className="group relative bg-slate-50 dark:bg-white/5 rounded-3xl p-8 border border-slate-200 dark:border-white/10 hover:border-synapse-primary/50 transition-all duration-500 cursor-zoom-in overflow-hidden shadow-sm hover:shadow-xl"
+                onClick={() => setSelectedCert(certUrl2)}
+              >
+                <div className="flex flex-col md:flex-row gap-8 items-center md:items-start relative z-10">
+                  <div className="w-full md:w-56 aspect-[1.414/1] bg-white dark:bg-slate-800 rounded-lg overflow-hidden shadow-2xl border border-slate-200 dark:border-white/10 shrink-0">
+                    <img 
+                      src={certUrl2} 
+                      alt="Me+AI Certificate - CampusAI" 
+                      onError={() => setCertError(true)}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    />
+                  </div>
+                  <div className="flex-1 text-center md:text-left">
+                    <div className="inline-block px-3 py-1 rounded-full bg-synapse-primary/10 text-synapse-primary text-[10px] font-black uppercase tracking-[0.2em] mb-4">
+                      CampusAI
+                    </div>
+                    <h4 className="text-2xl font-black text-slate-900 dark:text-white mb-4 leading-tight">Me+AI Certificate</h4>
+                    
+                    <div className="relative mb-6">
+                      <p className="text-slate-600 dark:text-gray-300 text-sm leading-relaxed italic">
+                        Praktyczne wykorzystanie narzędzi generatywnej sztucznej inteligencji, tworzenie strukturalnych promptów oraz krytyczna analiza modeli AI.
+                      </p>
+                    </div>
+
+                    <div className="flex flex-wrap gap-2 justify-center md:justify-start">
+                       {['Generative AI', 'Structured Prompts', 'Task Decomposition'].map(tag => (
+                         <span key={tag} className="px-2 py-1 bg-white dark:bg-white/10 border border-slate-200 dark:border-white/5 rounded-md text-[9px] font-bold text-slate-500 dark:text-gray-400 uppercase tracking-widest">{tag}</span>
+                       ))}
+                    </div>
+                  </div>
+                </div>
+                {/* Lupa Overlay */}
+                <div className="absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-all duration-500 bg-synapse-primary text-white p-3 rounded-full shadow-lg transform translate-y-2 group-hover:translate-y-0">
+                  <SearchIcon className="h-5 w-5" />
+                </div>
               </div>
             </div>
           </div>

@@ -1,5 +1,6 @@
 {
   "name": "Synapse Creative",
   "description": "Profesjonalna strona dla agencji kreatywnej oferującej e-booki, kursy, AI i storytelling.",
-  "requestFramePermissions": []
+  "requestFramePermissions": [],
+  "majorCapabilities": []
 }

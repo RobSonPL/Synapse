@@ -9,7 +9,9 @@ export const translations = {
       mentalHealth: 'Zdrowie psychiczne',
       blog: 'Blog',
       gifts: 'Prezenty',
-      contact: 'Kontakt'
+      contact: 'Kontakt',
+      services: 'Oferta',
+      portfolio: 'Portfolio'
     },
     hero: {
       badge: 'Wydawnictwo Cyfrowe & AI',
@@ -57,7 +59,9 @@ export const translations = {
       mentalHealth: 'Mental Health',
       blog: 'Blog',
       gifts: 'Gifts',
-      contact: 'Contact'
+      contact: 'Contact',
+      services: 'Services',
+      portfolio: 'Portfolio'
     },
     hero: {
       badge: 'Digital Publishing & AI',
@@ -105,7 +109,9 @@ export const translations = {
       mentalHealth: 'Psychische Gesundheit',
       blog: 'Blog',
       gifts: 'Geschenke',
-      contact: 'Kontakt'
+      contact: 'Kontakt',
+      services: 'Dienstleistungen',
+      portfolio: 'Portfolio'
     },
     hero: {
       badge: 'Digitaler Verlag & KI',
@@ -153,7 +159,9 @@ export const translations = {
       mentalHealth: 'Salud mental',
       blog: 'Blog',
       gifts: 'Regalos',
-      contact: 'Contacto'
+      contact: 'Contacto',
+      services: 'Servicios',
+      portfolio: 'Portafolio'
     },
     hero: {
       badge: 'Publicación Digital e IA',
@@ -201,7 +209,9 @@ export const translations = {
       mentalHealth: 'Santé mentale',
       blog: 'Blog',
       gifts: 'Cadeaux',
-      contact: 'Contact'
+      contact: 'Contact',
+      services: 'Services',
+      portfolio: 'Portfolio'
     },
     hero: {
       badge: 'Édition Numérique & IA',

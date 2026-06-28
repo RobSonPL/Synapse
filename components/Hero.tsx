@@ -2,6 +2,8 @@ import React from 'react';
 import { FadeIn } from './FadeIn';
 import { useLanguage } from '../contexts/LanguageContext';
 import { StatsCounter } from './StatsCounter';
+import { Particles } from './Particles';
+import { EventTicker } from './EventTicker';
 
 export const Hero: React.FC = () => {
   const { t } = useLanguage();
@@ -26,6 +28,9 @@ export const Hero: React.FC = () => {
     <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden transition-colors duration-300">
       
       {/* Background Elements */}
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
+        <Particles />
+      </div>
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-7xl pointer-events-none">
         <div className="absolute top-20 right-0 w-72 h-72 bg-synapse-primary/20 rounded-full blur-[100px] animate-pulse-slow"></div>
         <div className="absolute bottom-20 left-0 w-96 h-96 bg-synapse-accent/20 rounded-full blur-[100px] animate-pulse-slow" style={{ animationDelay: '2s' }}></div>
@@ -65,6 +70,8 @@ export const Hero: React.FC = () => {
             </a>
           </div>
           
+          <EventTicker />
+
           <StatsCounter />
         </FadeIn>
       </div>

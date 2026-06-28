@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState, ReactNode } from 'react';
+import React, { ReactNode } from 'react';
+import { motion } from 'framer-motion';
 
 interface FadeInProps {
   children: ReactNode;
@@ -7,44 +8,19 @@ interface FadeInProps {
 }
 
 export const FadeIn: React.FC<FadeInProps> = ({ children, delay = 0, className = '' }) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const domRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-            // Stop observing once visible to keep it visible
-            if (domRef.current) observer.unobserve(domRef.current);
-          }
-        });
-      },
-      { threshold: 0.1 } // Trigger when 10% of the element is visible
-    );
-
-    const currentElement = domRef.current;
-    if (currentElement) {
-      observer.observe(currentElement);
-    }
-
-    return () => {
-      if (currentElement) {
-        observer.unobserve(currentElement);
-      }
-    };
-  }, []);
-
   return (
-    <div
-      ref={domRef}
-      className={`${className} transition-all duration-1000 ease-out transform ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
-      }`}
-      style={{ transitionDelay: `${delay}ms` }}
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-10%" }}
+      transition={{ 
+        duration: 0.8, 
+        delay: delay / 1000,
+        ease: [0.21, 0.47, 0.32, 0.98]
+      }}
+      className={className}
     >
       {children}
-    </div>
+    </motion.div>
   );
 };

@@ -147,6 +147,55 @@ export const Services: React.FC<ServicesProps> = ({ cart, toggleCartItem }) => {
               </FadeIn>
             ))}
         </div>
+
+        {/* Recommendations Section based on Cart contents */}
+        {cart.length > 0 && (
+          <FadeIn delay={200} className="mt-16">
+            <div className="p-8 rounded-3xl bg-slate-100 dark:bg-slate-800/50 border border-slate-200 dark:border-white/10">
+              <h3 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white mb-6">
+                Dodaj do zamówienia: Polecane kursy i e-booki
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {[
+                  { id: 'r1', name: 'E-book: Jak pisać skuteczne prompty AI?', price: '49 zł', category: 'web', icon: '🤖' },
+                  { id: 'r2', name: 'Kurs: Automatyzacja firmy w 7 dni', price: '299 zł', category: 'web', icon: '⚙️' },
+                  { id: 'r3', name: 'E-book: Sekrety wydawania własnej książki', price: '39 zł', category: 'publish', icon: '📖' },
+                  { id: 'r4', name: 'Szablon: 100 angażujących postów (Social Media)', price: '19 zł', category: 'text', icon: '📱' },
+                ]
+                .sort((a, b) => {
+                  const aMatches = cart.some(c => c.category === a.category);
+                  const bMatches = cart.some(c => c.category === b.category);
+                  return (aMatches === bMatches) ? 0 : aMatches ? -1 : 1;
+                })
+                .slice(0, 2)
+                .map((rec) => (
+                  <div key={rec.id} className="flex items-center justify-between p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 flex items-center justify-center bg-slate-50 dark:bg-slate-800 rounded-xl text-2xl">
+                        {rec.icon}
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-slate-900 dark:text-white text-sm">{rec.name}</h4>
+                        <span className="text-synapse-primary font-black text-xs uppercase tracking-wider">{rec.price}</span>
+                      </div>
+                    </div>
+                    <button 
+                      onClick={() => toggleCartItem({ id: rec.id, name: rec.name, price: rec.price, category: rec.category as any })}
+                      className={`p-2.5 rounded-xl transition-all duration-300 ${
+                        isInCart(rec.id) 
+                        ? 'bg-synapse-primary text-white shadow-lg' 
+                        : 'bg-slate-100 dark:bg-white/10 text-slate-400 hover:bg-synapse-primary hover:text-white hover:shadow-lg'
+                      }`}
+                    >
+                      {isInCart(rec.id) ? <CheckIcon className="w-4 h-4" /> : <PlusIcon className="w-4 h-4" />}
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </FadeIn>
+        )}
+
       </div>
     </section>
   );

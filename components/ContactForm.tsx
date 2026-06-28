@@ -56,6 +56,15 @@ export const ContactForm: React.FC<ContactFormProps> = ({ cart, removeFromCart }
       if (response.ok) {
         setIsSuccess(true);
         setFormData({ name: '', email: '', message: '' });
+        
+        // Track GA4 event
+        if (typeof window !== 'undefined' && (window as any).gtag) {
+          (window as any).gtag('event', 'generate_lead', {
+            'event_category': 'form',
+            'event_label': 'Contact Form Submission'
+          });
+        }
+
         setTimeout(() => setIsSuccess(false), 5000); // Hide toast after 5 seconds
       }
     } catch (error) {

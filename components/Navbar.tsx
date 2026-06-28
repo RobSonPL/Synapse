@@ -23,9 +23,10 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme, onNavigat
   }, []);
 
   const navItems: NavItem[] = [
+    { label: "WESOŁY MASAŻ", href: 'https://wesolymasaz.pl', isExternal: true },
     { label: t.nav.ebooks, href: config.links.ebooks, isExternal: true },
-    { label: "OFERTA", href: '#services', isExternal: false },
-    { label: "Portfolio", href: 'https://flic.kr/s/aHBqjCE6TV', isExternal: true },
+    { label: t.nav.services || "OFERTA", href: '#services', isExternal: false },
+    { label: t.nav.portfolio || "Portfolio", href: 'https://flic.kr/s/aHBqjCE6TV', isExternal: true },
     { label: t.nav.mentalHealth, href: config.links.mentalHealth, isExternal: true },
     { 
         label: t.nav.blog, 
@@ -33,35 +34,34 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme, onNavigat
         isExternal: false,
         action: () => onNavigate('blog') 
     },
-    { label: "PREZENTY", href: '#gifts', isExternal: false },
+    { label: t.nav.gifts || "PREZENTY", href: '#gifts', isExternal: false },
     { label: t.nav.health, href: config.links.health, isExternal: true },
   ];
 
   const languages: { code: Language; flag: string }[] = [
     { code: 'pl', flag: '🇵🇱' },
     { code: 'en', flag: '🇬🇧' },
-    { code: 'de', flag: '🇩🇪' },
-    { code: 'es', flag: '🇪🇸' },
-    { code: 'fr', flag: '🇫🇷' },
   ];
 
-  const isSpecialItem = (label: string) => {
-    const l = label.toUpperCase();
-    return l === 'OFERTA' || l === 'BLOG' || l === 'PORTFOLIO' || l === 'PREZENTY' || l === t.nav.blog.toUpperCase();
+  const isSpecialItem = (href: string) => {
+    return href === 'https://wesolymasaz.pl' || href === '#services' || href === '#blog' || href === 'https://flic.kr/s/aHBqjCE6TV' || href === '#gifts';
   };
 
-  const getSpecialStyles = (label: string) => {
-    const l = label.toUpperCase();
+  const getSpecialStyles = (href: string) => {
     const common = 'border-[1px] bg-white/5 dark:bg-white/5 backdrop-blur-md shadow-sm transition-all duration-500 hover:-translate-y-0.5 active:scale-95 transform flex items-center gap-2 overflow-hidden';
     
-    if (l === 'PREZENTY') {
+    if (href === 'https://wesolymasaz.pl') {
+      return `${common} border-pink-500/60 bg-gradient-to-r from-pink-500 to-rose-500 text-white hover:border-pink-500 hover:shadow-[0_0_20px_rgba(236,72,153,0.5)] !scale-110 mx-2 shadow-lg`;
+    }
+    if (href === '#gifts') {
       return `${common} border-amber-500/40 text-amber-600 dark:text-amber-400 hover:border-amber-500 hover:bg-amber-500/10 hover:shadow-[0_0_20px_rgba(245,158,11,0.25)]`;
     }
     return `${common} border-synapse-primary/40 text-synapse-primary hover:border-synapse-primary hover:bg-synapse-primary/10 hover:shadow-[0_0_20px_rgba(14,165,233,0.25)]`;
   };
 
-  const getSpecialDotColor = (label: string) => {
-    return label.toUpperCase() === 'PREZENTY' ? 'bg-amber-500' : 'bg-synapse-primary';
+  const getSpecialDotColor = (href: string) => {
+    if (href === 'https://wesolymasaz.pl') return 'bg-white';
+    return href === '#gifts' ? 'bg-amber-500' : 'bg-synapse-primary';
   };
 
   const isHypnosisLink = (href: string) => href.includes('hipnozamonikasidorowska');
@@ -113,7 +113,7 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme, onNavigat
           <div className="hidden lg:flex items-center gap-6">
             <div className="flex items-center space-x-2">
               {navItems.map((item) => {
-                const isSpecial = isSpecialItem(item.label);
+                const isSpecial = isSpecialItem(item.href);
                 
                 if (isSpecial) {
                   return (
@@ -123,9 +123,9 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme, onNavigat
                       target={item.isExternal ? "_blank" : undefined}
                       rel={item.isExternal ? "noopener noreferrer" : undefined}
                       onClick={(e) => !item.isExternal && handleNavClick(e, item)}
-                      className={`relative group px-5 py-2.5 rounded-full font-black text-[9px] uppercase tracking-[0.25em] ${getSpecialStyles(item.label)}`}
+                      className={`relative group px-5 py-2.5 rounded-full font-black text-[9px] uppercase tracking-[0.25em] ${getSpecialStyles(item.href)}`}
                     >
-                      <span className={`w-1.5 h-1.5 rounded-full group-hover:scale-150 transition-transform duration-300 animate-pulse ${getSpecialDotColor(item.label)}`}></span>
+                      <span className={`w-1.5 h-1.5 rounded-full group-hover:scale-150 transition-transform duration-300 animate-pulse ${getSpecialDotColor(item.href)}`}></span>
                       <span className="relative z-10">{item.label}</span>
                       {/* Premium Shimmer */}
                       <span className="absolute inset-0 w-1/3 h-full bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-[25deg] -translate-x-full group-hover:translate-x-[400%] transition-transform duration-1000 ease-in-out"></span>
@@ -217,7 +217,7 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme, onNavigat
       <div className={`lg:hidden overflow-hidden transition-all duration-700 ease-in-out ${isOpen ? 'max-h-[80vh] opacity-100' : 'max-h-0 opacity-0'}`}>
         <div className="px-4 pt-4 pb-8 space-y-2 bg-white dark:bg-synapse-dark border-t border-slate-100 dark:border-white/10 shadow-2xl">
           {navItems.map((item) => {
-            const isSpecial = isSpecialItem(item.label);
+            const isSpecial = isSpecialItem(item.href);
             
             return (
               <a
@@ -228,14 +228,14 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme, onNavigat
                 onClick={(e) => !item.isExternal && handleNavClick(e, item)}
                 className={`block px-5 py-4 rounded-2xl text-lg font-black transition-all ${
                   isSpecial
-                    ? `${getSpecialStyles(item.label)} border-[1px] shadow-sm`
+                    ? `${getSpecialStyles(item.href)} border-[1px] shadow-sm`
                     : item.isExternal 
                       ? "bg-gradient-to-r from-synapse-primary to-synapse-accent text-white shadow-lg"
                       : "text-slate-700 dark:text-gray-200 hover:bg-slate-100 dark:hover:bg-white/5"
                 }`}
               >
                 {item.label}
-                {isSpecial && <span className={`ml-2 text-[10px] animate-pulse ${getSpecialDotColor(item.label).replace('bg-', 'text-')}`}>●</span>}
+                {isSpecial && <span className={`ml-2 text-[10px] animate-pulse ${getSpecialDotColor(item.href).replace('bg-', 'text-')}`}>●</span>}
               </a>
             );
           })}

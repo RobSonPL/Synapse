@@ -1,9 +1,9 @@
 import React from 'react';
 import { BookIcon, GraphicIcon, PenIcon, PlusIcon, CheckIcon } from './Icons';
 import { FadeIn } from './FadeIn';
-import { servicesData } from '../data/servicesData';
 import { ServiceItem } from '../types';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useData } from '../contexts/DataContext';
 
 interface ServicesProps {
   cart: ServiceItem[];
@@ -12,6 +12,7 @@ interface ServicesProps {
 
 export const Services: React.FC<ServicesProps> = ({ cart, toggleCartItem }) => {
   const { t } = useLanguage();
+  const { services } = useData();
   
   const isInCart = (id: string) => cart.some(item => item.id === id);
 
@@ -117,7 +118,7 @@ export const Services: React.FC<ServicesProps> = ({ cart, toggleCartItem }) => {
                   <h3 className="text-2xl font-black text-slate-900 dark:text-white mb-8 tracking-tight">{cat.title}</h3>
                   
                   <ul className="space-y-5 flex-grow">
-                      {servicesData.filter(s => s.category === cat.id).map(item => (
+                      {services.filter(s => s.category === cat.id).map(item => (
                           <li key={item.id} className="flex justify-between items-center border-b border-slate-100 dark:border-white/5 pb-4 last:border-0 group/item">
                               <div className="flex items-center flex-1 gap-3">
                                   {item.imageUrl && (

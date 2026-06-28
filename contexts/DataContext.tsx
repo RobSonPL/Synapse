@@ -1,13 +1,16 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { Project, BlogPost } from '../types';
+import { Project, BlogPost, ServiceItem } from '../types';
 import { projectsData as initialProjects } from '../data/projectsData';
 import { blogPostsData as initialPosts } from '../data/blogData';
+import { servicesData as initialServices } from '../data/servicesData';
 
 interface DataContextType {
   projects: Project[];
   blogPosts: BlogPost[];
+  services: ServiceItem[];
   addProject: (project: Omit<Project, 'id'>) => void;
   addBlogPost: (post: BlogPost) => void;
+  updateServicePrice: (id: string, newPrice: string) => void;
 }
 
 const DataContext = createContext<DataContextType | undefined>(undefined);
@@ -15,11 +18,13 @@ const DataContext = createContext<DataContextType | undefined>(undefined);
 export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [projects, setProjects] = useState<Project[]>(initialProjects);
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>(initialPosts);
+  const [services, setServices] = useState<ServiceItem[]>(initialServices);
 
   // Load from localStorage on mount
   useEffect(() => {
     const savedProjects = localStorage.getItem('synapse_projects');
     const savedPosts = localStorage.getItem('synapse_posts');
+    const savedServices = localStorage.getItem('synapse_services');
 
     if (savedProjects) {
       try {
@@ -43,6 +48,17 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         setBlogPosts(merged);
       } catch (e) { console.error("Error parsing posts", e); }
     }
+
+    if (savedServices) {
+      try {
+        const parsed = JSON.parse(savedServices) as { id: string; price: string }[];
+        const merged = initialServices.map(service => {
+          const saved = parsed.find(p => p.id === service.id);
+          return saved ? { ...service, price: saved.price } : service;
+        });
+        setServices(merged);
+      } catch (e) { console.error("Error parsing services", e); }
+    }
   }, []);
 
   const addProject = (project: Omit<Project, 'id'>) => {
@@ -64,8 +80,23 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     localStorage.setItem('synapse_posts', JSON.stringify(customOnes));
   };
 
+  const updateServicePrice = (id: string, newPrice: string) => {
+    const updated = services.map(s => s.id === id ? { ...s, price: newPrice } : s);
+    setServices(updated);
+    
+    // Save only the changed prices to local storage
+    const customOnes = updated
+      .filter(s => {
+        const initial = initialServices.find(is => is.id === s.id);
+        return initial && initial.price !== s.price;
+      })
+      .map(s => ({ id: s.id, price: s.price }));
+    
+    localStorage.setItem('synapse_services', JSON.stringify(customOnes));
+  };
+
   return (
-    <DataContext.Provider value={{ projects, blogPosts, addProject, addBlogPost }}>
+    <DataContext.Provider value={{ projects, blogPosts, services, addProject, addBlogPost, updateServicePrice }}>
       {children}
     </DataContext.Provider>
   );

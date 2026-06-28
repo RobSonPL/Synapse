@@ -1,7 +1,8 @@
 export const config = {
   // Adres email, na który będą przychodzić wiadomości z formularza (FormSubmit)
   // Po pierwszym użyciu formularza sprawdź skrzynkę i potwierdź aktywację.
-  contactEmail: 'turobert@icloud.com',
+  contactEmail: 'robert@synapsehub.pl',
+  phone: '509 006 334',
   
   // Linki do social mediów
   socials: {

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NavItem, Language } from '../types';
 import { SunIcon, MoonIcon, SynapseLogo } from './Icons';
-import { User } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { config } from '../data/config';
 import confetti from 'canvas-confetti';
@@ -11,10 +10,9 @@ interface NavbarProps {
   toggleTheme: () => void;
   onNavigate: (view: 'home' | 'blog') => void;
   currentView: 'home' | 'blog' | 'article';
-  onOpenClientLogin?: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme, onNavigate, currentView, onOpenClientLogin }) => {
+export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme, onNavigate, currentView }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [clickCount, setClickCount] = useState(0);
@@ -123,7 +121,7 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme, onNavigat
         ? 'py-3 bg-white/80 dark:bg-synapse-dark/80 backdrop-blur-lg border-b border-gray-200 dark:border-white/10 shadow-lg' 
         : 'py-5 bg-transparent border-b border-transparent'
     }`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
         <div className="flex items-center justify-between">
           
           <div 
@@ -139,8 +137,8 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme, onNavigat
              </span>
           </div>
 
-          <div className="hidden lg:flex items-center gap-6">
-            <div className="flex items-center space-x-2">
+          <div className="hidden lg:flex items-center gap-4">
+            <div className="flex items-center space-x-1 lg:space-x-2">
               {navItems.map((item) => {
                 const isSpecial = isSpecialItem(item.href);
                 
@@ -212,14 +210,6 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme, onNavigat
                   ))}
                 </div>
               </div>
-
-              <button
-                onClick={onOpenClientLogin}
-                className="hidden xl:flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-[10px] font-black uppercase tracking-wider hover:scale-105 transition-transform"
-              >
-                <User className="w-4 h-4" />
-                <span>Strefa Klienta</span>
-              </button>
 
               <button
                 onClick={toggleTheme}

@@ -19,6 +19,11 @@ import { ScrollProgress } from './components/ScrollProgress';
 import { ROICalculator } from './components/ROICalculator';
 import { FAQ } from './components/FAQ';
 import { LiveChat } from './components/LiveChat';
+import { RecentActivity } from './components/RecentActivity';
+import { BusinessQuiz } from './components/BusinessQuiz';
+import { BeforeAfter } from './components/BeforeAfter';
+import { WelcomeBack } from './components/WelcomeBack';
+import { ClientDashboardLogin } from './components/ClientDashboardLogin';
 import { LanguageProvider } from './contexts/LanguageContext';
 import { DataProvider } from './contexts/DataContext';
 import { ServiceItem, BlogPost } from './types';
@@ -27,6 +32,7 @@ function App() {
   const [darkMode, setDarkMode] = useState(false);
   const [cart, setCart] = useState<ServiceItem[]>([]);
   const [showAdmin, setShowAdmin] = useState(false);
+  const [showClientLogin, setShowClientLogin] = useState(false);
   
   const [currentView, setCurrentView] = useState<'home' | 'blog' | 'article'>('home');
   const [selectedArticle, setSelectedArticle] = useState<BlogPost | null>(null);
@@ -79,7 +85,9 @@ function App() {
                 toggleTheme={toggleTheme} 
                 onNavigate={handleNavigate}
                 currentView={currentView}
+                onOpenClientLogin={() => setShowClientLogin(true)}
             />
+            <WelcomeBack />
             
             <main>
               {currentView === 'home' && (
@@ -91,8 +99,10 @@ function App() {
                   <Hero />
                   <FreeGifts />
                   <About />
+                  <BeforeAfter />
                   <Portfolio />
                   <Services cart={cart} toggleCartItem={toggleCartItem} />
+                  <BusinessQuiz />
                   <ROICalculator />
                   <FAQ />
                   <Testimonials />
@@ -132,7 +142,9 @@ function App() {
             <Footer onOpenAdmin={() => setShowAdmin(true)} />
             
             {showAdmin && <ProjectGenerator onClose={() => setShowAdmin(false)} />}
+            <ClientDashboardLogin isOpen={showClientLogin} onClose={() => setShowClientLogin(false)} />
             <LiveChat />
+            <RecentActivity />
           </div>
         </DataProvider>
       </LanguageProvider>

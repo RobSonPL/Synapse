@@ -36,7 +36,7 @@ const testimonials: Testimonial[] = [
 
 export const Testimonials: React.FC = () => {
   return (
-    <section className="py-24 bg-slate-50 dark:bg-synapse-dark relative transition-colors duration-300 border-t border-slate-200 dark:border-white/5">
+    <section className="py-24 bg-slate-50 dark:bg-slate-800/50 relative transition-colors duration-300 border-t border-slate-200 dark:border-white/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <FadeIn>

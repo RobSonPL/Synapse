@@ -110,6 +110,27 @@ export const ROICalculator: React.FC = () => {
                     {yearlyBenefit.toLocaleString('pl-PL')} PLN
                   </div>
                 </div>
+
+                {/* Animated Chart */}
+                <div className="pt-6 mt-2 border-t border-white/20">
+                   <p className="text-xs opacity-80 mb-3">Wizualizacja Zysku vs Koszt</p>
+                   <div className="flex items-end h-24 gap-4">
+                      <div className="flex-1 flex flex-col justify-end items-center gap-2">
+                        <div 
+                          className="w-full bg-white/30 rounded-t-lg transition-all duration-1000 ease-out"
+                          style={{ height: budget > 0 ? '30%' : '5%' }}
+                        ></div>
+                        <span className="text-[10px] font-bold uppercase tracking-wider">Inwestycja</span>
+                      </div>
+                      <div className="flex-1 flex flex-col justify-end items-center gap-2">
+                        <div 
+                          className="w-full bg-green-400 rounded-t-lg transition-all duration-1000 ease-out"
+                          style={{ height: yearlyBenefit > budget ? '100%' : '40%' }}
+                        ></div>
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-green-300">Zysk</span>
+                      </div>
+                   </div>
+                </div>
               </div>
               
               <p className="text-xs opacity-60 mt-8 leading-tight">

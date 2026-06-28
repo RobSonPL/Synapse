@@ -1,12 +1,43 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { FadeIn } from './FadeIn';
 import { useLanguage } from '../contexts/LanguageContext';
 import { StatsCounter } from './StatsCounter';
 import { Particles } from './Particles';
+import Spline from '@splinetool/react-spline';
 import { EventTicker } from './EventTicker';
+import { Volume2, VolumeX } from 'lucide-react';
 
 export const Hero: React.FC = () => {
   const { t } = useLanguage();
+  const [greeting, setGreeting] = useState('');
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  
+  useEffect(() => {
+    const hour = new Date().getHours();
+    if (hour < 5) setGreeting('Dobry wieczór / Dobrej nocy');
+    else if (hour < 12) setGreeting('Dzień dobry');
+    else if (hour < 18) setGreeting('Dzień dobry / Witaj');
+    else setGreeting('Dobry wieczór');
+  }, []);
+
+  const handleSpeak = () => {
+    if (!('speechSynthesis' in window)) return;
+    
+    if (isSpeaking) {
+      window.speechSynthesis.cancel();
+      setIsSpeaking(false);
+      return;
+    }
+
+    const textToSpeak = `${greeting}. ${t.hero.titleStart} ${t.hero.titleEnd}. ${t.hero.subtitle}`;
+    const utterance = new SpeechSynthesisUtterance(textToSpeak);
+    utterance.lang = 'pl-PL';
+    
+    utterance.onend = () => setIsSpeaking(false);
+    
+    setIsSpeaking(true);
+    window.speechSynthesis.speak(utterance);
+  };
   
   const scrollToServices = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -27,8 +58,13 @@ export const Hero: React.FC = () => {
   return (
     <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden transition-colors duration-300">
       
+      {/* 3D Spline Background */}
+      <div className="absolute inset-0 z-0 opacity-40 dark:opacity-60 cursor-crosshair">
+         <Spline scene="https://prod.spline.design/6Wq1Q7YGyM-iab9i/scene.splinecode" />
+      </div>
+
       {/* Background Elements */}
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none z-0">
         <Particles />
       </div>
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-7xl pointer-events-none">
@@ -38,8 +74,15 @@ export const Hero: React.FC = () => {
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
         <FadeIn>
-          <div className="inline-block mb-6 px-4 py-1.5 rounded-full border border-slate-200 dark:border-white/10 bg-white/50 dark:bg-white/5 backdrop-blur-sm text-sm font-semibold text-slate-600 dark:text-slate-300 shadow-sm">
-            <span className="mr-2">✨</span> {t.hero.badge}
+          <div className="inline-flex items-center mb-6 px-4 py-1.5 rounded-full border border-slate-200 dark:border-white/10 bg-white/50 dark:bg-white/5 backdrop-blur-sm text-sm font-semibold text-slate-600 dark:text-slate-300 shadow-sm gap-2">
+            <span>👋 {greeting}! {t.hero.badge}</span>
+            <button 
+              onClick={handleSpeak}
+              className="ml-2 p-1.5 bg-synapse-primary/10 hover:bg-synapse-primary/20 text-synapse-primary rounded-full transition-colors"
+              title="Posłuchaj powitania"
+            >
+              {isSpeaking ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+            </button>
           </div>
           
           <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-8 leading-tight">

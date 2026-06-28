@@ -1,19 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { NavItem, Language } from '../types';
 import { SunIcon, MoonIcon, SynapseLogo } from './Icons';
+import { User } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { config } from '../data/config';
+import confetti from 'canvas-confetti';
 
 interface NavbarProps {
   darkMode: boolean;
   toggleTheme: () => void;
   onNavigate: (view: 'home' | 'blog') => void;
   currentView: 'home' | 'blog' | 'article';
+  onOpenClientLogin?: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme, onNavigate, currentView }) => {
+export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme, onNavigate, currentView, onOpenClientLogin }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [clickCount, setClickCount] = useState(0);
   const { language, setLanguage, t } = useLanguage();
 
   useEffect(() => {
@@ -22,8 +26,26 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme, onNavigat
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (clickCount >= 3) {
+      confetti({
+        particleCount: 150,
+        spread: 100,
+        origin: { y: 0.1, x: 0.1 },
+        colors: ['#0ea5e9', '#ec4899', '#f59e0b']
+      });
+      setClickCount(0);
+    }
+    
+    if (clickCount > 0) {
+      const timer = setTimeout(() => setClickCount(0), 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [clickCount]);
+
   const navItems: NavItem[] = [
     { label: "WESOŁY MASAŻ", href: 'https://wesolymasaz.pl', isExternal: true },
+    { label: "QUIZ BIZNESOWY", href: '#quiz', isExternal: false },
     { label: t.nav.ebooks, href: config.links.ebooks, isExternal: true },
     { label: t.nav.services || "OFERTA", href: '#services', isExternal: false },
     { label: t.nav.portfolio || "Portfolio", href: 'https://flic.kr/s/aHBqjCE6TV', isExternal: true },
@@ -44,7 +66,7 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme, onNavigat
   ];
 
   const isSpecialItem = (href: string) => {
-    return href === 'https://wesolymasaz.pl' || href === '#services' || href === '#blog' || href === 'https://flic.kr/s/aHBqjCE6TV' || href === '#gifts';
+    return href === 'https://wesolymasaz.pl' || href === '#services' || href === '#blog' || href === 'https://flic.kr/s/aHBqjCE6TV' || href === '#gifts' || href === '#quiz';
   };
 
   const getSpecialStyles = (href: string) => {
@@ -56,11 +78,15 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme, onNavigat
     if (href === '#gifts') {
       return `${common} border-amber-500/40 text-amber-600 dark:text-amber-400 hover:border-amber-500 hover:bg-amber-500/10 hover:shadow-[0_0_20px_rgba(245,158,11,0.25)]`;
     }
+    if (href === '#quiz') {
+      return `${common} border-emerald-500/40 text-emerald-600 dark:text-emerald-400 hover:border-emerald-500 hover:bg-emerald-500/10 hover:shadow-[0_0_20px_rgba(16,185,129,0.25)]`;
+    }
     return `${common} border-synapse-primary/40 text-synapse-primary hover:border-synapse-primary hover:bg-synapse-primary/10 hover:shadow-[0_0_20px_rgba(14,165,233,0.25)]`;
   };
 
   const getSpecialDotColor = (href: string) => {
     if (href === 'https://wesolymasaz.pl') return 'bg-white';
+    if (href === '#quiz') return 'bg-emerald-500';
     return href === '#gifts' ? 'bg-amber-500' : 'bg-synapse-primary';
   };
 
@@ -101,8 +127,11 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme, onNavigat
         <div className="flex items-center justify-between">
           
           <div 
-            className="flex-shrink-0 flex items-center gap-3 cursor-pointer group" 
-            onClick={() => onNavigate('home')}
+            className="flex-shrink-0 flex items-center gap-3 cursor-pointer group select-none" 
+            onClick={() => {
+              onNavigate('home');
+              setClickCount(prev => prev + 1);
+            }}
           >
              <SynapseLogo className="w-10 h-10 group-hover:rotate-[360deg] transition-transform duration-1000 ease-in-out" />
              <span className="text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-synapse-primary to-synapse-accent dark:from-white dark:via-synapse-primary dark:to-synapse-accent tracking-tighter">
@@ -183,6 +212,14 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme, onNavigat
                   ))}
                 </div>
               </div>
+
+              <button
+                onClick={onOpenClientLogin}
+                className="hidden xl:flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-[10px] font-black uppercase tracking-wider hover:scale-105 transition-transform"
+              >
+                <User className="w-4 h-4" />
+                <span>Strefa Klienta</span>
+              </button>
 
               <button
                 onClick={toggleTheme}

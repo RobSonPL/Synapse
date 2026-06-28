@@ -13,7 +13,7 @@ export const Blog: React.FC = () => {
   };
 
   return (
-    <section id="blog" className="py-24 bg-white dark:bg-slate-900 transition-colors duration-300">
+    <section id="blog" className="py-24 bg-slate-50 dark:bg-slate-800/50 transition-colors duration-300">
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
         <FadeIn>
           <div className="text-center mb-16">

@@ -52,7 +52,7 @@ export const FreeGifts: React.FC = () => {
   const { t } = useLanguage();
 
   return (
-    <section id="gifts" className="py-24 bg-gradient-to-b from-slate-50 to-white dark:from-synapse-dark dark:to-slate-900 transition-colors duration-300 relative overflow-hidden">
+    <section id="gifts" className="py-24 bg-slate-50 dark:bg-slate-800/50 transition-colors duration-300 relative overflow-hidden">
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-synapse-primary/5 rounded-full blur-[120px] pointer-events-none animate-pulse-slow"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">

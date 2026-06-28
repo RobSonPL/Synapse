@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FadeIn } from './FadeIn';
 import { AwardIcon, XMarkIcon, SearchIcon } from './Icons';
 
@@ -6,14 +6,26 @@ export const About: React.FC = () => {
   const [imgError, setImgError] = useState(false);
   const [certError, setCertError] = useState(false);
   const [selectedCert, setSelectedCert] = useState<string | null>(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const profileImages = [
+    "/IR_JA_26.png",
+    "/Ja.jpg",
+    "/ja_2.png"
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % profileImages.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, []);
 
   // Link do Twojego certyfikatu Me+AI (CampusAI) - zaktualizowany na link online
   const certUrl = "https://elearning-courses.ams3.digitaloceanspaces.com/c/cert_68acc43a160b105f6039a37f_68a6157ff3be51df1dd62819.png"; 
   const certUrl2 = "https://elearning-courses.ams3.digitaloceanspaces.com/c/4D02C4C4F55C.jpg";
   
-  // Link do Twojego zdjęcia profilowego
-  const profileUrl = "https://drive.google.com/thumbnail?id=1d4yAeltqegM_hIAJ_uUsKmERdUSg8G_C&sz=w1000";
-  const fallbackProfileUrl = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80";
+  const fallbackProfileUrl = "/robert.jpg";
 
   return (
     <section id="about" className="py-20 bg-white dark:bg-slate-900 transition-colors duration-300">
@@ -23,14 +35,22 @@ export const About: React.FC = () => {
           <FadeIn className="w-full md:w-1/2">
              <div className="relative group">
                 <div className="absolute -inset-4 bg-gradient-to-r from-synapse-primary to-synapse-accent rounded-2xl opacity-20 blur-xl group-hover:opacity-40 transition-opacity duration-700"></div>
-                <div className="relative rounded-2xl overflow-hidden shadow-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10">
+                <div className="relative rounded-2xl overflow-hidden shadow-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 group cursor-pointer" onClick={() => setCurrentImageIndex((prev) => (prev + 1) % profileImages.length)}>
                     <img 
-                      src={imgError ? fallbackProfileUrl : profileUrl}
-                      alt="Robert Hałas - Synapse Creative" 
+                      src={imgError ? fallbackProfileUrl : profileImages[currentImageIndex]}
+                      alt="Robert - Synapse Creative" 
                       referrerPolicy="no-referrer"
                       onError={() => setImgError(true)}
                       className="w-full object-cover aspect-[3/4] transition-all duration-700 hover:scale-105"
                     />
+                    <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-10">
+                      {profileImages.map((_, idx) => (
+                        <div 
+                          key={idx} 
+                          className={`w-2 h-2 rounded-full transition-all duration-300 ${idx === currentImageIndex ? 'bg-synapse-primary w-4' : 'bg-white/50'}`}
+                        />
+                      ))}
+                    </div>
                 </div>
              </div>
           </FadeIn>
@@ -47,6 +67,15 @@ export const About: React.FC = () => {
               <p>
                 W Synapse Creative łączę kompetencje twarde (IT, DTP, AI) z miękkimi (Psychologia, Storytelling), aby tworzyć produkty cyfrowe, które realnie rozwiązują problemy.
               </p>
+
+              <div className="my-6 p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-white/5 space-y-3 font-medium">
+                <div className="flex gap-4 items-center"><span className="text-3xl font-black text-synapse-primary">R</span><span className="text-slate-700 dark:text-gray-300">racjonalny, spokojny i opanowany</span></div>
+                <div className="flex gap-4 items-center"><span className="text-3xl font-black text-synapse-primary">O</span><span className="text-slate-700 dark:text-gray-300">odpowiedzialny i godny zaufania</span></div>
+                <div className="flex gap-4 items-center"><span className="text-3xl font-black text-synapse-primary">B</span><span className="text-slate-700 dark:text-gray-300">bezpośredni, szczery do bólu</span></div>
+                <div className="flex gap-4 items-center"><span className="text-3xl font-black text-synapse-primary">E</span><span className="text-slate-700 dark:text-gray-300">empatyczny, rozumiejący ludzi</span></div>
+                <div className="flex gap-4 items-center"><span className="text-3xl font-black text-synapse-primary">R</span><span className="text-slate-700 dark:text-gray-300">rewersyjny, elastyczny w działaniu</span></div>
+                <div className="flex gap-4 items-center"><span className="text-3xl font-black text-synapse-primary">T</span><span className="text-slate-700 dark:text-gray-300">towarzyski i otwarty na nowe</span></div>
+              </div>
               
               <ul className="space-y-3 mt-4">
                  <li className="flex items-start gap-3">

@@ -2,6 +2,10 @@ import React from 'react';
 import { FadeIn } from './FadeIn';
 import { useLanguage } from '../contexts/LanguageContext';
 import { GiftItem } from '../types';
+import { LazyImage } from './LazyImage';
+import { HoloCard3D } from './HoloCard3D';
+import { sound } from '../utils/soundFX';
+import { Download, Sparkles } from 'lucide-react';
 
 const gifts: GiftItem[] = [
   {
@@ -52,46 +56,59 @@ export const FreeGifts: React.FC = () => {
   const { t } = useLanguage();
 
   return (
-    <section id="gifts" className="py-24 bg-slate-50 dark:bg-slate-800/50 transition-colors duration-300 relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-synapse-primary/5 rounded-full blur-[120px] pointer-events-none animate-pulse-slow"></div>
+    <section id="gifts" className="py-24 bg-slate-900/60 dark:bg-slate-950/80 transition-colors duration-300 relative overflow-hidden border-t border-cyan-500/10">
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[140px] pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <FadeIn>
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4 transition-colors duration-300">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 text-[10px] font-mono uppercase tracking-[0.2em] mb-4">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>DARMOWE PUBLIKACJE CYFROWE</span>
+            </div>
+            
+            <h2 className="text-3xl md:text-5xl font-black text-white mb-4 transition-colors duration-300">
               {t.gifts.title}
             </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-synapse-accent to-purple-500 mx-auto rounded-full"></div>
-            <p className="mt-4 text-slate-600 dark:text-gray-400 max-w-2xl mx-auto transition-colors duration-300">
+            <div className="w-24 h-1 bg-gradient-to-r from-cyan-400 to-indigo-500 mx-auto rounded-full shadow-[0_0_15px_rgba(14,165,233,0.5)]"></div>
+            <p className="mt-4 text-slate-400 max-w-2xl mx-auto text-base sm:text-lg transition-colors duration-300">
               {t.gifts.subtitle}
             </p>
           </div>
         </FadeIn>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-5">
           {gifts.map((gift, index) => (
             <FadeIn key={gift.id} delay={index * 50}>
-               <a 
+              <HoloCard3D intensity={10}>
+                <a 
                   href={gift.downloadUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group block relative h-[220px] overflow-hidden rounded-xl shadow-sm border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-white/5 transition-all duration-500 hover:shadow-lg active:scale-[0.98]"
-               >
-                  <img 
+                  onClick={() => sound.playClick()}
+                  className="group block relative h-[250px] overflow-hidden rounded-2xl border border-white/10 bg-slate-900/80 transition-all duration-500 hover:border-cyan-400/60 shadow-lg hover:shadow-[0_0_25px_rgba(14,165,233,0.3)]"
+                >
+                  <LazyImage 
                     src={gift.thumbnailUrl} 
                     alt={gift.title} 
-                    className="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-110"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-70 group-hover:opacity-90"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent"></div>
+                  
                   <div className="absolute inset-0 p-4 flex flex-col justify-end">
-                    <h3 className="text-sm font-black text-white mb-1 tracking-tight truncate">
+                    <span className="text-[9px] font-mono font-bold uppercase tracking-widest text-cyan-400 mb-1">
+                      FREE DOWNLOAD
+                    </span>
+                    <h3 className="text-sm font-black text-white mb-2 tracking-tight line-clamp-2">
                       {gift.title}
                     </h3>
-                    <div className="flex items-center gap-2 text-white font-black text-[8px] uppercase tracking-widest">
-                       <span>Pobierz</span>
+                    <div className="flex items-center gap-1.5 text-cyan-300 font-mono font-bold text-[9px] uppercase tracking-wider group-hover:text-white transition-colors">
+                      <Download className="w-3 h-3 text-cyan-400" />
+                      <span>POBIERZ TERAZ</span>
                     </div>
                   </div>
-               </a>
+                </a>
+              </HoloCard3D>
             </FadeIn>
           ))}
         </div>

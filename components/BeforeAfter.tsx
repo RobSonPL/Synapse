@@ -1,5 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { FadeIn } from './FadeIn';
+import { HoloCard3D } from './HoloCard3D';
+import { sound } from '../utils/soundFX';
+import { Sparkles } from 'lucide-react';
 
 export const BeforeAfter: React.FC = () => {
   const [sliderPosition, setSliderPosition] = useState(50);
@@ -36,72 +39,88 @@ export const BeforeAfter: React.FC = () => {
   }, [isDragging]);
 
   return (
-    <section className="py-24 bg-slate-50 dark:bg-slate-800/50 border-y border-slate-200 dark:border-white/10 transition-colors duration-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <section className="py-28 bg-slate-900/70 border-y border-cyan-500/15 transition-colors duration-300 relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
         <FadeIn>
-          <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-6">
-            Zobacz <span className="text-transparent bg-clip-text bg-gradient-to-r from-synapse-primary to-synapse-accent">Różnicę</span>
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-[10px] font-mono uppercase tracking-[0.2em] mb-4">
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>KWANTOWA TRANSFORMACJA CYFROWA</span>
+          </div>
+
+          <h2 className="text-3xl md:text-5xl font-black text-white mb-6">
+            Zobacz <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-indigo-300 to-purple-400">Różnicę 2030</span>
           </h2>
-          <p className="text-lg text-slate-600 dark:text-gray-300 max-w-2xl mx-auto mb-12">
-            Przed i po wdrożeniu naszych rozwiązań. Od przestarzałego designu do nowoczesnej, wysoko konwertującej platformy.
+          <p className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto mb-12">
+            Przed i po wdrożeniu naszych rozwiązań AI. Od powolnego, generycznego serwisu do futurystycznej, wysoko konwertującej platformy nowej ery.
           </p>
         </FadeIn>
 
         <FadeIn delay={200}>
-          <div 
-            ref={containerRef}
-            className="relative w-full max-w-4xl mx-auto h-[300px] sm:h-[400px] md:h-[500px] rounded-3xl overflow-hidden cursor-ew-resize shadow-2xl select-none"
-            onMouseMove={handleMouseMove}
-            onTouchMove={handleTouchMove}
-            onMouseDown={() => setIsDragging(true)}
-            onTouchStart={() => setIsDragging(true)}
-          >
-            {/* After (Bottom Layer) */}
-            <div className="absolute inset-0 bg-slate-900 flex items-center justify-center p-8 bg-[url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2015&q=80')] bg-cover bg-center">
-              <div className="absolute inset-0 bg-gradient-to-t from-synapse-primary/80 to-slate-900/40"></div>
-              <div className="relative text-left w-full h-full flex flex-col justify-end">
-                <div className="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20 w-max">
-                  <h3 className="text-white text-2xl font-bold mb-2">Po (Zoptymalizowane)</h3>
-                  <ul className="text-white/90 space-y-2 text-sm">
-                    <li>✓ Szybkość ładowania 0.8s</li>
-                    <li>✓ Konwersja +140%</li>
-                    <li>✓ Automatyczna obsługa</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            {/* Before (Top Layer, Clipped) */}
+          <HoloCard3D intensity={6} className="max-w-4xl mx-auto">
             <div 
-              className="absolute inset-0 bg-slate-200 flex items-center justify-center p-8 bg-[url('https://images.unsplash.com/photo-1555421689-d68471e189f2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80')] bg-cover bg-center"
-              style={{ clipPath: `polygon(0 0, ${sliderPosition}% 0, ${sliderPosition}% 100%, 0 100%)` }}
+              ref={containerRef}
+              className="relative w-full h-[340px] sm:h-[420px] md:h-[500px] rounded-3xl overflow-hidden cursor-ew-resize shadow-[0_0_50px_rgba(0,0,0,0.8)] border border-cyan-500/30 select-none"
+              onMouseMove={handleMouseMove}
+              onTouchMove={handleTouchMove}
+              onMouseDown={() => {
+                sound.playHover();
+                setIsDragging(true);
+              }}
+              onTouchStart={() => {
+                sound.playHover();
+                setIsDragging(true);
+              }}
             >
-              <div className="absolute inset-0 bg-black/40"></div>
-              <div className="relative text-left w-full h-full flex flex-col justify-end">
-                <div className="bg-white/90 p-6 rounded-2xl border border-slate-300 w-max">
-                  <h3 className="text-slate-900 text-2xl font-bold mb-2">Przed</h3>
-                  <ul className="text-slate-600 space-y-2 text-sm">
-                    <li>❌ Długi czas ładowania (5s+)</li>
-                    <li>❌ Niska konwersja (1%)</li>
-                    <li>❌ Przestarzały design</li>
-                  </ul>
+              {/* After (Bottom Layer - 2030 Synapse Optimized) */}
+              <div className="absolute inset-0 bg-slate-950 flex items-center justify-center p-8 bg-[url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2015&q=80')] bg-cover bg-center">
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-transparent"></div>
+                <div className="relative text-left w-full h-full flex flex-col justify-end">
+                  <div className="bg-slate-900/90 backdrop-blur-xl p-6 rounded-2xl border border-cyan-400/50 w-max shadow-[0_0_30px_rgba(14,165,233,0.3)]">
+                    <span className="text-[10px] font-mono uppercase tracking-widest text-cyan-400 block mb-1">SYNAPSE 2030 OS</span>
+                    <h3 className="text-white text-2xl font-black mb-3">Po (Architektura 2030)</h3>
+                    <ul className="text-cyan-200/90 space-y-1.5 text-xs font-mono">
+                      <li>⚡ Błyskawiczny czas reakcji: 0.4s</li>
+                      <li>🚀 Wzrost konwersji: +180%</li>
+                      <li>🤖 100% Autonomiczne procesy AI</li>
+                      <li>🔮 Storytelling hipnotyzujący odbiorcę</li>
+                    </ul>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* Slider Line */}
-            <div 
-              className="absolute top-0 bottom-0 w-1 bg-white cursor-ew-resize shadow-[0_0_10px_rgba(0,0,0,0.5)] z-10"
-              style={{ left: `calc(${sliderPosition}% - 2px)` }}
-            >
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-lg border-2 border-synapse-primary text-synapse-primary">
-                <div className="flex gap-1">
-                  <div className="w-1.5 h-1.5 border-l-2 border-b-2 border-current transform rotate-45"></div>
-                  <div className="w-1.5 h-1.5 border-r-2 border-t-2 border-current transform rotate-45"></div>
+              {/* Before (Top Layer, Clipped) */}
+              <div 
+                className="absolute inset-0 bg-slate-800 flex items-center justify-center p-8 bg-[url('https://images.unsplash.com/photo-1555421689-d68471e189f2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80')] bg-cover bg-center"
+                style={{ clipPath: `polygon(0 0, ${sliderPosition}% 0, ${sliderPosition}% 100%, 0 100%)` }}
+              >
+                <div className="absolute inset-0 bg-black/60"></div>
+                <div className="relative text-left w-full h-full flex flex-col justify-end">
+                  <div className="bg-slate-900/90 p-6 rounded-2xl border border-rose-500/40 w-max">
+                    <span className="text-[10px] font-mono uppercase tracking-widest text-rose-400 block mb-1">LEGACY WEB</span>
+                    <h3 className="text-white text-2xl font-bold mb-3">Przed (Przestarzałe)</h3>
+                    <ul className="text-slate-300 space-y-1.5 text-xs font-mono">
+                      <li>❌ Długi czas ładowania: 5.2s+</li>
+                      <li>❌ Niska konwersja: &lt; 1%</li>
+                      <li>❌ Brak automatyzacji & powtarzalna praca</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              {/* Slider Line */}
+              <div 
+                className="absolute top-0 bottom-0 w-[2px] bg-gradient-to-b from-cyan-400 via-white to-purple-500 cursor-ew-resize shadow-[0_0_20px_rgba(0,245,255,0.9)] z-10"
+                style={{ left: `calc(${sliderPosition}% - 1px)` }}
+              >
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-slate-900 rounded-full flex items-center justify-center shadow-[0_0_25px_rgba(0,245,255,0.8)] border-2 border-cyan-400 text-cyan-300">
+                  <div className="flex gap-1">
+                    <div className="w-1.5 h-1.5 border-l-2 border-b-2 border-current transform rotate-45"></div>
+                    <div className="w-1.5 h-1.5 border-r-2 border-t-2 border-current transform rotate-45"></div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          </HoloCard3D>
         </FadeIn>
       </div>
     </section>

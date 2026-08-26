@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FadeIn } from './FadeIn';
 import { AwardIcon, XMarkIcon, SearchIcon } from './Icons';
+import { LazyImage } from './LazyImage';
 
 export const About: React.FC = () => {
   const [imgError, setImgError] = useState(false);
@@ -36,7 +37,7 @@ export const About: React.FC = () => {
              <div className="relative group">
                 <div className="absolute -inset-4 bg-gradient-to-r from-synapse-primary to-synapse-accent rounded-2xl opacity-20 blur-xl group-hover:opacity-40 transition-opacity duration-700"></div>
                 <div className="relative rounded-2xl overflow-hidden shadow-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 group cursor-pointer" onClick={() => setCurrentImageIndex((prev) => (prev + 1) % profileImages.length)}>
-                    <img 
+                    <LazyImage 
                       src={imgError ? fallbackProfileUrl : profileImages[currentImageIndex]}
                       alt="Robert - Synapse Creative" 
                       referrerPolicy="no-referrer"
@@ -113,7 +114,7 @@ export const About: React.FC = () => {
               >
                 <div className="flex flex-col md:flex-row gap-8 items-center md:items-start relative z-10">
                   <div className="w-full md:w-56 aspect-[1.414/1] bg-white dark:bg-slate-800 rounded-lg overflow-hidden shadow-2xl border border-slate-200 dark:border-white/10 shrink-0">
-                    <img 
+                    <LazyImage 
                       src={certUrl} 
                       alt="Me+AI Certificate - CampusAI" 
                       onError={() => setCertError(true)}
@@ -152,7 +153,7 @@ export const About: React.FC = () => {
               >
                 <div className="flex flex-col md:flex-row gap-8 items-center md:items-start relative z-10">
                   <div className="w-full md:w-56 aspect-[1.414/1] bg-white dark:bg-slate-800 rounded-lg overflow-hidden shadow-2xl border border-slate-200 dark:border-white/10 shrink-0">
-                    <img 
+                    <LazyImage 
                       src={certUrl2} 
                       alt="Me+AI Certificate - CampusAI" 
                       onError={() => setCertError(true)}

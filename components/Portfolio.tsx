@@ -1,6 +1,7 @@
 import React from 'react';
 import { FadeIn } from './FadeIn';
 import { useData } from '../contexts/DataContext';
+import { LazyImage } from './LazyImage';
 
 export const Portfolio: React.FC = () => {
   const { projects } = useData();
@@ -32,11 +33,10 @@ export const Portfolio: React.FC = () => {
                 rel="noopener noreferrer"
                 className="group block relative overflow-hidden rounded-xl shadow-md cursor-pointer aspect-[4/3] border border-slate-100 dark:border-white/5 bg-slate-100 dark:bg-white/5"
               >
-                <img 
+                <LazyImage 
                   src={project.imageUrl} 
                   alt={project.title} 
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 filter brightness-90 group-hover:brightness-100 object-top"
-                  loading="lazy"
                 />
                 
                 {/* Overlay */}

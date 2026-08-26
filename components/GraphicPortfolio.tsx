@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { FadeIn } from './FadeIn';
 import { XMarkIcon } from './Icons';
 import { graphicsData, PortfolioGraphic } from '../data/graphicsData';
+import { LazyImage } from './LazyImage';
 
 export const GraphicPortfolio: React.FC = () => {
   const [selectedImg, setSelectedImg] = useState<string | null>(null);
@@ -65,11 +66,10 @@ export const GraphicPortfolio: React.FC = () => {
                 className="relative group overflow-hidden rounded-xl bg-slate-200 dark:bg-slate-800 cursor-zoom-in break-inside-avoid shadow-sm hover:shadow-synapse-primary/30 transition-all duration-500"
                 onClick={() => setSelectedImg(graphic.url)}
               >
-                <img 
+                <LazyImage 
                   src={graphic.url} 
                   alt={graphic.title} 
                   className="w-full h-auto transition-transform duration-1000 group-hover:scale-110"
-                  loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-4">
                    <h3 className="text-white text-[10px] font-bold truncate transition-transform duration-500">{graphic.title}</h3>

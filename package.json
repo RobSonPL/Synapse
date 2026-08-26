@@ -5,20 +5,22 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "node scripts/generate-sitemap.js && tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
     "@google/genai": "^1.31.0",
     "@splinetool/react-spline": "^4.1.0",
     "@types/canvas-confetti": "^1.9.0",
+    "@types/three": "^0.185.4",
     "canvas-confetti": "^1.9.4",
     "framer-motion": "^12.42.0",
     "lucide-react": "^1.21.0",
     "motion": "^12.42.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-helmet-async": "^3.0.0"
+    "react-helmet-async": "^3.0.0",
+    "three": "^0.185.1"
   },
   "devDependencies": {
     "@types/node": "^20.12.7",

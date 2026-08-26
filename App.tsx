@@ -13,16 +13,14 @@ import { ProjectGenerator } from './components/ProjectGenerator';
 import { CallToAction } from './components/CallToAction';
 import { Blog } from './components/Blog';
 import { FreeGifts } from './components/FreeGifts';
+import { NeuralPlayground2030 } from './components/NeuralPlayground2030';
 import { BlogPage } from './components/BlogPage';
 import { BlogPostView } from './components/BlogPostView';
 import { ScrollProgress } from './components/ScrollProgress';
 import { ROICalculator } from './components/ROICalculator';
 import { FAQ } from './components/FAQ';
-import { LiveChat } from './components/LiveChat';
-import { RecentActivity } from './components/RecentActivity';
 import { BusinessQuiz } from './components/BusinessQuiz';
 import { BeforeAfter } from './components/BeforeAfter';
-import { WelcomeBack } from './components/WelcomeBack';
 import { LanguageProvider } from './contexts/LanguageContext';
 import { DataProvider } from './contexts/DataContext';
 import { ServiceItem, BlogPost } from './types';
@@ -84,7 +82,6 @@ function App() {
                 onNavigate={handleNavigate}
                 currentView={currentView}
             />
-            <WelcomeBack />
             
             <main>
               {currentView === 'home' && (
@@ -94,6 +91,7 @@ function App() {
                     <meta name="description" content="Nowoczesna agencja wdrażająca automatyzacje AI i tworząca profesjonalne strony WWW z zaawansowanym storytellingiem dla Twojej firmy." />
                   </Helmet>
                   <Hero />
+                  <NeuralPlayground2030 />
                   <FreeGifts />
                   <About />
                   <BeforeAfter />
@@ -139,8 +137,6 @@ function App() {
             <Footer onOpenAdmin={() => setShowAdmin(true)} />
             
             {showAdmin && <ProjectGenerator onClose={() => setShowAdmin(false)} />}
-            <LiveChat />
-            <RecentActivity />
           </div>
         </DataProvider>
       </LanguageProvider>

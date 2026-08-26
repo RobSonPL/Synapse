@@ -4,6 +4,7 @@ import { SunIcon, MoonIcon, SynapseLogo } from './Icons';
 import { useLanguage } from '../contexts/LanguageContext';
 import { config } from '../data/config';
 import confetti from 'canvas-confetti';
+import { sound } from '../utils/soundFX';
 
 interface NavbarProps {
   darkMode: boolean;
@@ -42,6 +43,7 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme, onNavigat
   }, [clickCount]);
 
   const navItems: NavItem[] = [
+    { label: "QUANTUM LAB", href: '#quantum-lab', isExternal: false },
     { label: "WESOŁY MASAŻ", href: 'https://wesolymasaz.pl', isExternal: true },
     { label: "QUIZ BIZNESOWY", href: '#quiz', isExternal: false },
     { label: t.nav.ebooks, href: config.links.ebooks, isExternal: true },
@@ -64,12 +66,15 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme, onNavigat
   ];
 
   const isSpecialItem = (href: string) => {
-    return href === 'https://wesolymasaz.pl' || href === '#services' || href === '#blog' || href === 'https://flic.kr/s/aHBqjCE6TV' || href === '#gifts' || href === '#quiz';
+    return href === '#quantum-lab' || href === 'https://wesolymasaz.pl' || href === '#services' || href === '#blog' || href === 'https://flic.kr/s/aHBqjCE6TV' || href === '#gifts' || href === '#quiz';
   };
 
   const getSpecialStyles = (href: string) => {
     const common = 'border-[1px] bg-white/5 dark:bg-white/5 backdrop-blur-md shadow-sm transition-all duration-500 hover:-translate-y-0.5 active:scale-95 transform flex items-center gap-2 overflow-hidden';
     
+    if (href === '#quantum-lab') {
+      return `${common} border-cyan-400/70 bg-gradient-to-r from-cyan-500/20 via-indigo-500/20 to-purple-500/20 text-cyan-300 hover:border-cyan-400 hover:shadow-[0_0_25px_rgba(14,165,233,0.5)] font-mono`;
+    }
     if (href === 'https://wesolymasaz.pl') {
       return `${common} border-pink-500/60 bg-gradient-to-r from-pink-500 to-rose-500 text-white hover:border-pink-500 hover:shadow-[0_0_20px_rgba(236,72,153,0.5)] !scale-110 mx-2 shadow-lg`;
     }
@@ -83,6 +88,7 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme, onNavigat
   };
 
   const getSpecialDotColor = (href: string) => {
+    if (href === '#quantum-lab') return 'bg-cyan-400';
     if (href === 'https://wesolymasaz.pl') return 'bg-white';
     if (href === '#quiz') return 'bg-emerald-500';
     return href === '#gifts' ? 'bg-amber-500' : 'bg-synapse-primary';
@@ -91,6 +97,7 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme, onNavigat
   const isHypnosisLink = (href: string) => href.includes('hipnozamonikasidorowska');
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, item: NavItem) => {
+    sound.playClick();
     if (item.action) {
         e.preventDefault();
         item.action();

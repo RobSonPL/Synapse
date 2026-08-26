@@ -2,6 +2,7 @@ import React from 'react';
 import { FadeIn } from './FadeIn';
 import { BlogPost } from '../types';
 import { useData } from '../contexts/DataContext';
+import { LazyImage } from './LazyImage';
 
 interface BlogPageProps {
   onArticleClick: (article: BlogPost) => void;
@@ -43,7 +44,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onArticleClick, onBack }) =>
               >
                 {/* Image Container */}
                 <div className="relative h-36 overflow-hidden">
-                  <img 
+                  <LazyImage 
                     src={post.thumbnailUrl} 
                     alt={post.title} 
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"

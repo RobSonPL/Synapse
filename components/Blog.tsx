@@ -2,6 +2,7 @@ import React from 'react';
 import { FadeIn } from './FadeIn';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useData } from '../contexts/DataContext';
+import { LazyImage } from './LazyImage';
 
 export const Blog: React.FC = () => {
   const { t } = useLanguage();
@@ -35,11 +36,10 @@ export const Blog: React.FC = () => {
                 className="group relative h-[260px] overflow-hidden rounded-2xl shadow-sm border border-slate-100 dark:border-white/5 bg-slate-100 dark:bg-white/5 cursor-pointer transition-all duration-500 hover:shadow-lg hover:shadow-synapse-primary/20"
               >
                 {/* Background Image */}
-                <img 
+                <LazyImage 
                   src={post.thumbnailUrl} 
                   alt={post.title} 
                   className="w-full h-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-110"
-                  loading="lazy"
                 />
                 
                 {/* Immersive Overlay */}

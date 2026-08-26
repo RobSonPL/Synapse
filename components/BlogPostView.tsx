@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { BlogPost } from '../types';
 import { FadeIn } from './FadeIn';
-import { ShareIcon, CheckIcon, FacebookIcon, XIcon, LinkedinIcon } from './Icons';
+import { ShareIcon, CheckIcon, FacebookIcon, XIcon, LinkedinIcon, MailIcon, WhatsAppIcon } from './Icons';
+import { LazyImage } from './LazyImage';
 
 interface BlogPostViewProps {
   post: BlogPost;
@@ -53,7 +54,7 @@ export const BlogPostView: React.FC<BlogPostViewProps> = ({ post, onBack }) => {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const shareOnSocial = (platform: 'fb' | 'x' | 'in') => {
+  const shareOnSocial = (platform: 'fb' | 'x' | 'in' | 'wa' | 'mail') => {
     const url = encodeURIComponent(window.location.href);
     const title = encodeURIComponent(post.title);
     
@@ -61,8 +62,10 @@ export const BlogPostView: React.FC<BlogPostViewProps> = ({ post, onBack }) => {
     if (platform === 'fb') shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
     if (platform === 'x') shareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${title}`;
     if (platform === 'in') shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+    if (platform === 'wa') shareUrl = `https://api.whatsapp.com/send?text=${title} ${url}`;
+    if (platform === 'mail') shareUrl = `mailto:?subject=${title}&body=${url}`;
     
-    window.open(shareUrl, '_blank', 'width=600,height=400');
+    window.open(shareUrl, platform === 'mail' ? '_self' : '_blank', 'width=600,height=400');
   };
 
   const handleAddComment = (e: React.FormEvent) => {
@@ -88,10 +91,28 @@ export const BlogPostView: React.FC<BlogPostViewProps> = ({ post, onBack }) => {
 
   return (
     <div className="bg-white dark:bg-synapse-dark min-h-screen transition-colors duration-300">
-      
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": post.title,
+            "image": [
+              post.thumbnailUrl.startsWith('http') ? post.thumbnailUrl : `https://synapsehub.pl${post.thumbnailUrl}`
+            ],
+            "datePublished": post.date,
+            "author": [{
+                "@type": "Person",
+                "name": post.author,
+                "url": "https://synapsehub.pl"
+            }]
+          })
+        }}
+      />
       {/* Hero Image */}
       <div className="relative h-[50vh] md:h-[60vh] w-full overflow-hidden">
-        <img 
+        <LazyImage 
           src={post.thumbnailUrl} 
           alt={post.title} 
           className="w-full h-full object-cover"
@@ -171,6 +192,20 @@ export const BlogPostView: React.FC<BlogPostViewProps> = ({ post, onBack }) => {
                             title="LinkedIn"
                          >
                             <LinkedinIcon />
+                         </button>
+                         <button 
+                            onClick={() => shareOnSocial('wa')}
+                            className="p-3 bg-white dark:bg-white/10 rounded-2xl text-green-600 hover:bg-green-600 hover:text-white transition-all shadow-sm"
+                            title="WhatsApp"
+                         >
+                            <WhatsAppIcon />
+                         </button>
+                         <button 
+                            onClick={() => shareOnSocial('mail')}
+                            className="p-3 bg-white dark:bg-white/10 rounded-2xl text-red-500 hover:bg-red-500 hover:text-white transition-all shadow-sm"
+                            title="Email"
+                         >
+                            <MailIcon />
                          </button>
                          <button 
                             onClick={handleShareUniversal}

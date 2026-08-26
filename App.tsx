@@ -14,6 +14,8 @@ import { CallToAction } from './components/CallToAction';
 import { Blog } from './components/Blog';
 import { FreeGifts } from './components/FreeGifts';
 import { NeuralPlayground2030 } from './components/NeuralPlayground2030';
+import { LiveChat } from './components/LiveChat';
+import { RecentActivity } from './components/RecentActivity';
 import { BlogPage } from './components/BlogPage';
 import { BlogPostView } from './components/BlogPostView';
 import { ScrollProgress } from './components/ScrollProgress';
@@ -135,6 +137,8 @@ function App() {
             </main>
 
             <Footer onOpenAdmin={() => setShowAdmin(true)} />
+            <RecentActivity />
+            <LiveChat />
             
             {showAdmin && <ProjectGenerator onClose={() => setShowAdmin(false)} />}
           </div>

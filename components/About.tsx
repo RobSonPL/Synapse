@@ -10,9 +10,9 @@ export const About: React.FC = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const profileImages = [
-    "/IR_JA_26.png",
+    "/IR_JA_26.webp",
     "/Ja.jpg",
-    "/ja_2.png"
+    "/ja_2.webp"
   ];
 
   useEffect(() => {

@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
@@ -8,24 +8,32 @@ import { Portfolio } from './components/Portfolio';
 import { Testimonials } from './components/Testimonials';
 import { About } from './components/About';
 import { Footer } from './components/Footer';
-import { ContactForm } from './components/ContactForm';
-import { ProjectGenerator } from './components/ProjectGenerator';
 import { CallToAction } from './components/CallToAction';
 import { Blog } from './components/Blog';
 import { FreeGifts } from './components/FreeGifts';
-import { NeuralPlayground2030 } from './components/NeuralPlayground2030';
-import { LiveChat } from './components/LiveChat';
-import { RecentActivity } from './components/RecentActivity';
-import { BlogPage } from './components/BlogPage';
-import { BlogPostView } from './components/BlogPostView';
 import { ScrollProgress } from './components/ScrollProgress';
-import { ROICalculator } from './components/ROICalculator';
 import { FAQ } from './components/FAQ';
-import { BusinessQuiz } from './components/BusinessQuiz';
 import { BeforeAfter } from './components/BeforeAfter';
 import { LanguageProvider } from './contexts/LanguageContext';
 import { DataProvider } from './contexts/DataContext';
 import { ServiceItem, BlogPost } from './types';
+
+// Lazy load heavy interactive widgets & secondary views for ultra-fast initial load
+const NeuralPlayground2030 = lazy(() => import('./components/NeuralPlayground2030').then(m => ({ default: m.NeuralPlayground2030 })));
+const BusinessQuiz = lazy(() => import('./components/BusinessQuiz').then(m => ({ default: m.BusinessQuiz })));
+const ROICalculator = lazy(() => import('./components/ROICalculator').then(m => ({ default: m.ROICalculator })));
+const ContactForm = lazy(() => import('./components/ContactForm').then(m => ({ default: m.ContactForm })));
+const LiveChat = lazy(() => import('./components/LiveChat').then(m => ({ default: m.LiveChat })));
+const RecentActivity = lazy(() => import('./components/RecentActivity').then(m => ({ default: m.RecentActivity })));
+const BlogPage = lazy(() => import('./components/BlogPage').then(m => ({ default: m.BlogPage })));
+const BlogPostView = lazy(() => import('./components/BlogPostView').then(m => ({ default: m.BlogPostView })));
+const ProjectGenerator = lazy(() => import('./components/ProjectGenerator').then(m => ({ default: m.ProjectGenerator })));
+
+const ComponentLoader = () => (
+  <div className="w-full py-12 flex items-center justify-center">
+    <div className="w-6 h-6 rounded-full border-2 border-cyan-400 border-t-transparent animate-spin" />
+  </div>
+);
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -93,24 +101,30 @@ function App() {
                     <meta name="description" content="Nowoczesna agencja wdrażająca automatyzacje AI i tworząca profesjonalne strony WWW z zaawansowanym storytellingiem dla Twojej firmy." />
                   </Helmet>
                   <Hero />
-                  <NeuralPlayground2030 />
+                  <Suspense fallback={<ComponentLoader />}>
+                    <NeuralPlayground2030 />
+                  </Suspense>
                   <FreeGifts />
                   <About />
                   <BeforeAfter />
                   <Portfolio />
                   <Services cart={cart} toggleCartItem={toggleCartItem} />
-                  <BusinessQuiz />
-                  <ROICalculator />
+                  <Suspense fallback={<ComponentLoader />}>
+                    <BusinessQuiz />
+                    <ROICalculator />
+                  </Suspense>
                   <FAQ />
                   <Testimonials />
                   <CallToAction />
                   <Blog />
-                  <ContactForm cart={cart} removeFromCart={removeFromCart} />
+                  <Suspense fallback={<ComponentLoader />}>
+                    <ContactForm cart={cart} removeFromCart={removeFromCart} />
+                  </Suspense>
                 </>
               )}
 
               {currentView === 'blog' && (
-                 <>
+                 <Suspense fallback={<ComponentLoader />}>
                    <Helmet>
                      <title>Blog - Synapse Creative | Najnowsze trendy w AI i marketingu</title>
                      <meta name="description" content="Czytaj nasze najnowsze artykuły na temat sztucznej inteligencji, storytellingu, automatyzacji biznesu i tworzenia nowoczesnych stron internetowych." />
@@ -119,11 +133,11 @@ function App() {
                       onArticleClick={handleArticleClick}
                       onBack={() => handleNavigate('home')}
                    />
-                 </>
+                 </Suspense>
               )}
 
               {currentView === 'article' && selectedArticle && (
-                  <>
+                  <Suspense fallback={<ComponentLoader />}>
                     <Helmet>
                       <title>{selectedArticle.title} | Synapse Creative</title>
                       <meta name="description" content={selectedArticle.excerpt} />
@@ -132,15 +146,16 @@ function App() {
                       post={selectedArticle}
                       onBack={() => handleNavigate('blog')}
                     />
-                  </>
+                  </Suspense>
               )}
             </main>
 
             <Footer onOpenAdmin={() => setShowAdmin(true)} />
-            <RecentActivity />
-            <LiveChat />
-            
-            {showAdmin && <ProjectGenerator onClose={() => setShowAdmin(false)} />}
+            <Suspense fallback={null}>
+              <RecentActivity />
+              <LiveChat />
+              {showAdmin && <ProjectGenerator onClose={() => setShowAdmin(false)} />}
+            </Suspense>
           </div>
         </DataProvider>
       </LanguageProvider>

@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { FadeIn } from './FadeIn';
 import { useLanguage } from '../contexts/LanguageContext';
 import { StatsCounter } from './StatsCounter';
 import { EventTicker } from './EventTicker';
-import { Scene3D, SceneMode } from './Scene3D';
+import type { SceneMode } from './Scene3D';
 import { HoloCard3D } from './HoloCard3D';
 import { sound } from '../utils/soundFX';
 import { Volume2, VolumeX, Sparkles, ArrowRight, Zap, Radio, Terminal } from 'lucide-react';
+
+const Scene3D = React.lazy(() => import('./Scene3D').then(m => ({ default: m.Scene3D })));
 
 export const Hero: React.FC = () => {
   const { t } = useLanguage();
@@ -79,9 +81,11 @@ export const Hero: React.FC = () => {
   return (
     <section className="relative pt-28 pb-16 lg:pt-36 lg:pb-24 overflow-hidden transition-colors duration-300">
       
-      {/* 3D WebGL Neural Scene */}
+      {/* 3D WebGL Neural Scene (Lazy loaded for instant FCP) */}
       <div className="absolute inset-0 z-0">
-        <Scene3D onModeChange={(mode) => setActive3dMode(mode)} />
+        <Suspense fallback={<div className="absolute inset-0 bg-slate-950/60 pointer-events-none" />}>
+          <Scene3D onModeChange={(mode) => setActive3dMode(mode)} />
+        </Suspense>
       </div>
 
       {/* Cyber Grid Lighting & Depth Vignette */}

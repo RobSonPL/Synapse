@@ -3,7 +3,6 @@ import { NavItem, Language } from '../types';
 import { SunIcon, MoonIcon, SynapseLogo } from './Icons';
 import { useLanguage } from '../contexts/LanguageContext';
 import { config } from '../data/config';
-import confetti from 'canvas-confetti';
 import { sound } from '../utils/soundFX';
 import { ChevronDown, Sparkles, ExternalLink } from 'lucide-react';
 
@@ -40,11 +39,14 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme, onNavigat
 
   useEffect(() => {
     if (clickCount >= 3) {
-      confetti({
-        particleCount: 150,
-        spread: 100,
-        origin: { y: 0.1, x: 0.1 },
-        colors: ['#0ea5e9', '#ec4899', '#f59e0b']
+      import('canvas-confetti').then((module) => {
+        const confetti = module.default;
+        confetti({
+          particleCount: 150,
+          spread: 100,
+          origin: { y: 0.1, x: 0.1 },
+          colors: ['#0ea5e9', '#ec4899', '#f59e0b']
+        });
       });
       setClickCount(0);
     }

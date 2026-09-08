@@ -2,16 +2,18 @@ import React, { useState } from 'react';
 import { XMarkIcon, CheckIcon } from './Icons';
 import { useData } from '../contexts/DataContext';
 import { BlogPost } from '../types';
+import { CRMLeadsPanel } from './CRMLeadsPanel';
+import { Users } from 'lucide-react';
 
 interface ProjectGeneratorProps {
   onClose: () => void;
 }
 
-type GeneratorMode = 'project' | 'blog';
+type GeneratorMode = 'crm' | 'project' | 'blog';
 
 export const ProjectGenerator: React.FC<ProjectGeneratorProps> = ({ onClose }) => {
   const { projects, addProject, addBlogPost } = useData();
-  const [mode, setMode] = useState<GeneratorMode>('project');
+  const [mode, setMode] = useState<GeneratorMode>('crm');
   const [copied, setCopied] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
 
@@ -156,6 +158,13 @@ export const ProjectGenerator: React.FC<ProjectGeneratorProps> = ({ onClose }) =
         {/* Tabs */}
         <div className="flex border-b border-slate-200 dark:border-white/10">
             <button 
+                className={`flex-1 py-3 font-semibold text-sm transition-colors flex items-center justify-center gap-2 ${mode === 'crm' ? 'bg-cyan-500/10 text-cyan-400 border-b-2 border-cyan-400' : 'text-slate-500 hover:text-slate-800 dark:text-gray-400 dark:hover:text-white'}`}
+                onClick={() => setMode('crm')}
+            >
+                <Users className="w-4 h-4" />
+                <span>CRM & Leady (Firestore)</span>
+            </button>
+            <button 
                 className={`flex-1 py-3 font-semibold text-sm transition-colors ${mode === 'project' ? 'bg-synapse-primary/10 text-synapse-primary border-b-2 border-synapse-primary' : 'text-slate-500 hover:text-slate-800 dark:text-gray-400 dark:hover:text-white'}`}
                 onClick={() => setMode('project')}
             >
@@ -170,12 +179,16 @@ export const ProjectGenerator: React.FC<ProjectGeneratorProps> = ({ onClose }) =
         </div>
 
         <div className="p-6 overflow-y-auto flex-1">
-          <p className="text-sm text-slate-500 dark:text-gray-400 mb-6 bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-100 dark:border-blue-500/30">
-            {mode === 'project' 
-                ? "Wypełnij dane i kliknij 'Zapisz Projekt'. Nowa realizacja pojawi się natychmiast w galerii i zostanie zapisana w pamięci przeglądarki."
-                : "Wklej tekst posta. Kliknij 'Zapisz Post', aby dodać go do bloga. Użyj przycisku 'Wstaw Obrazek', aby dodać grafikę."
-            }
-          </p>
+          {mode === 'crm' ? (
+            <CRMLeadsPanel />
+          ) : (
+            <>
+              <p className="text-sm text-slate-500 dark:text-gray-400 mb-6 bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-100 dark:border-blue-500/30">
+                {mode === 'project' 
+                    ? "Wypełnij dane i kliknij 'Zapisz Projekt'. Nowa realizacja pojawi się natychmiast w galerii i zostanie zapisana w pamięci przeglądarki."
+                    : "Wklej tekst posta. Kliknij 'Zapisz Post', aby dodać go do bloga. Użyj przycisku 'Wstaw Obrazek', aby dodać grafikę."
+                }
+              </p>
 
           {mode === 'project' ? (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
@@ -299,35 +312,41 @@ export const ProjectGenerator: React.FC<ProjectGeneratorProps> = ({ onClose }) =
               </div>
           )}
 
-          <div className="relative border-t border-slate-200 dark:border-white/10 pt-4">
-            <label className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-1">Kod do zapisu stałego (opcjonalnie)</label>
-            <pre className="bg-slate-900 text-green-400 p-4 rounded-xl text-sm overflow-x-auto font-mono border border-slate-700 max-h-32">
-              {codeToCopy}
-            </pre>
-            <button
-              onClick={handleCopy}
-              className={`absolute top-12 right-2 px-4 py-2 rounded-lg text-sm font-bold transition-all flex items-center gap-2 ${
-                copied ? 'bg-green-500 text-white' : 'bg-white text-slate-900 hover:bg-slate-200'
-              }`}
-            >
-              {copied ? <CheckIcon /> : 'Kopiuj Kod'}
-            </button>
-          </div>
+              <div className="relative border-t border-slate-200 dark:border-white/10 pt-4">
+                <label className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-1">Kod do zapisu stałego (opcjonalnie)</label>
+                <pre className="bg-slate-900 text-green-400 p-4 rounded-xl text-sm overflow-x-auto font-mono border border-slate-700 max-h-32">
+                  {codeToCopy}
+                </pre>
+                <button
+                  onClick={handleCopy}
+                  className={`absolute top-12 right-2 px-4 py-2 rounded-lg text-sm font-bold transition-all flex items-center gap-2 ${
+                    copied ? 'bg-green-500 text-white' : 'bg-white text-slate-900 hover:bg-slate-200'
+                  }`}
+                >
+                  {copied ? <CheckIcon /> : 'Kopiuj Kod'}
+                </button>
+              </div>
+            </>
+          )}
         </div>
 
         <div className="p-4 bg-slate-50 dark:bg-white/5 border-t border-slate-200 dark:border-white/10 text-right flex justify-end items-center gap-2">
-             <button onClick={onClose} className="px-4 py-2 text-slate-500 hover:text-slate-700 dark:text-gray-400 dark:hover:text-white">Anuluj</button>
-             
-             <button 
-                onClick={handleSaveToApp} 
-                disabled={isSaved}
-                className={`px-6 py-2 rounded-lg font-bold shadow-lg transform hover:scale-105 transition-all flex items-center gap-2 ${
-                    isSaved ? 'bg-green-600 text-white' : 'bg-gradient-to-r from-synapse-primary to-synapse-accent text-white hover:shadow-synapse-primary/30'
-                }`}
-             >
-                {isSaved ? <CheckIcon /> : <span className="text-xl">💾</span>}
-                {isSaved ? "Dodano!" : mode === 'project' ? "Zapisz Projekt" : "Zapisz Post"}
+             <button onClick={onClose} className="px-4 py-2 text-slate-500 hover:text-slate-700 dark:text-gray-400 dark:hover:text-white">
+               {mode === 'crm' ? 'Zamknij Panel' : 'Anuluj'}
              </button>
+             
+             {mode !== 'crm' && (
+               <button 
+                  onClick={handleSaveToApp} 
+                  disabled={isSaved}
+                  className={`px-6 py-2 rounded-lg font-bold shadow-lg transform hover:scale-105 transition-all flex items-center gap-2 ${
+                      isSaved ? 'bg-green-600 text-white' : 'bg-gradient-to-r from-synapse-primary to-synapse-accent text-white hover:shadow-synapse-primary/30'
+                  }`}
+               >
+                  {isSaved ? <CheckIcon /> : <span className="text-xl">💾</span>}
+                  {isSaved ? "Dodano!" : mode === 'project' ? "Zapisz Projekt" : "Zapisz Post"}
+               </button>
+             )}
         </div>
       </div>
     </div>

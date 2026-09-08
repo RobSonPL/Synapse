@@ -1,5 +1,4 @@
-// Removed reference to vite/client to fix "Cannot find type definition file" error.
-// The types might be missing from the local environment's current search path.
+/// <reference types="vite-plugin-pwa/client" />
 
 declare namespace NodeJS {
   interface ProcessEnv {

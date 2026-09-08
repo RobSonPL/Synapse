@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, CheckCircle2, ChevronRight, Briefcase, Zap, Globe, MessageSquare } from 'lucide-react';
 import { FadeIn } from './FadeIn';
+import { saveLead } from '../services/firebase';
 
 type QuizStep = 'start' | 'q1' | 'q2' | 'result' | 'lead';
 
@@ -34,11 +35,28 @@ export const BusinessQuiz: React.FC = () => {
     };
   };
 
-  const submitLead = (e: React.FormEvent) => {
+  const submitLead = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
     
-    // Simulate API call
+    const rec = getRecommendation();
+
+    try {
+      await saveLead({
+        email,
+        source: 'quiz',
+        status: 'new',
+        message: `Rekomendacja: ${rec.title} - ${rec.desc}`,
+        details: {
+          answers,
+          recommendation: rec.title,
+          submittedAt: new Date().toISOString()
+        }
+      });
+    } catch (err) {
+      console.warn('Quiz lead save error:', err);
+    }
+
     if (typeof window !== 'undefined' && (window as any).gtag) {
       (window as any).gtag('event', 'quiz_lead_submit', {
         'event_category': 'lead',

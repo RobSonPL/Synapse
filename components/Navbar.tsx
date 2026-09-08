@@ -5,6 +5,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { config } from '../data/config';
 import { sound } from '../utils/soundFX';
 import { ChevronDown, Sparkles, ExternalLink } from 'lucide-react';
+import { PWAInstallButton } from './PWAInstallButton';
 
 interface NavbarProps {
   darkMode: boolean;
@@ -59,10 +60,10 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme, onNavigat
 
   const primaryNavItems: NavItem[] = [
     { label: t.nav.services || "Oferta", href: '#services', isExternal: false },
-    { label: "Quantum Lab", href: '#quantum-lab', isExternal: false },
+    { label: "Kalkulator ROI", href: '#roi-calculator', isExternal: false },
+    { label: "E-book AI", href: '#ebook-generator', isExternal: false },
+    { label: "Audyt AI", href: '#ai-audit', isExternal: false },
     { label: "Quiz Biznesowy", href: '#quiz', isExternal: false },
-    { label: t.nav.ebooks || "E-booki", href: config.links.ebooks, isExternal: true },
-    { label: t.nav.gifts || "Prezenty", href: '#gifts', isExternal: false },
     { 
       label: t.nav.blog || "Blog", 
       href: '#blog', 
@@ -221,8 +222,9 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme, onNavigat
             </a>
           </div>
 
-          {/* Right Tools (Language + Theme + Mobile Burger) */}
-          <div className="flex items-center gap-3">
+          {/* Right Tools (PWA Install + Language + Theme + Mobile Burger) */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            <PWAInstallButton className="hidden md:flex" />
             
             {/* Language Switcher */}
             <div className="relative group">
@@ -293,6 +295,10 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, toggleTheme, onNavigat
               {item.isExternal && <ExternalLink className="w-4 h-4 text-slate-500" />}
             </a>
           ))}
+
+          <div className="pt-2 pb-1">
+            <PWAInstallButton className="w-full justify-center py-2.5" />
+          </div>
 
           <div className="flex gap-2 pt-4 border-t border-slate-800 mt-3">
             {languages.map((lang) => (

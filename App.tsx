@@ -17,11 +17,14 @@ import { BeforeAfter } from './components/BeforeAfter';
 import { LanguageProvider } from './contexts/LanguageContext';
 import { DataProvider } from './contexts/DataContext';
 import { ServiceItem, BlogPost } from './types';
+import { OfflineIndicator } from './components/OfflineIndicator';
 
 // Lazy load heavy interactive widgets & secondary views for ultra-fast initial load
 const NeuralPlayground2030 = lazy(() => import('./components/NeuralPlayground2030').then(m => ({ default: m.NeuralPlayground2030 })));
 const BusinessQuiz = lazy(() => import('./components/BusinessQuiz').then(m => ({ default: m.BusinessQuiz })));
 const ROICalculator = lazy(() => import('./components/ROICalculator').then(m => ({ default: m.ROICalculator })));
+const EbookOutlineGenerator = lazy(() => import('./components/EbookOutlineGenerator').then(m => ({ default: m.EbookOutlineGenerator })));
+const BusinessAuditor = lazy(() => import('./components/BusinessAuditor').then(m => ({ default: m.BusinessAuditor })));
 const ContactForm = lazy(() => import('./components/ContactForm').then(m => ({ default: m.ContactForm })));
 const LiveChat = lazy(() => import('./components/LiveChat').then(m => ({ default: m.LiveChat })));
 const RecentActivity = lazy(() => import('./components/RecentActivity').then(m => ({ default: m.RecentActivity })));
@@ -112,6 +115,8 @@ function App() {
                   <Suspense fallback={<ComponentLoader />}>
                     <BusinessQuiz />
                     <ROICalculator />
+                    <EbookOutlineGenerator />
+                    <BusinessAuditor />
                   </Suspense>
                   <FAQ />
                   <Testimonials />
@@ -151,6 +156,7 @@ function App() {
             </main>
 
             <Footer onOpenAdmin={() => setShowAdmin(true)} />
+            <OfflineIndicator />
             <Suspense fallback={null}>
               <RecentActivity />
               <LiveChat />

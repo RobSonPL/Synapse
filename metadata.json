@@ -1,7 +1,9 @@
 {
   "name": "Synapse Creative",
   "description": "Futurystyczny ekosystem 2030 dla agencji Synapse Creative: interaktywne sceny WebGL 3D, syntezator proceduralny Web Audio, Quantum AI Lab, e-booki i hipnotyzujący storytelling.",
-  "requestFramePermissions": [],
+  "requestFramePermissions": [
+    "notifications"
+  ],
   "majorCapabilities": [
     "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
   ]

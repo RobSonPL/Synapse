@@ -3,6 +3,7 @@ import { FadeIn } from './FadeIn';
 import { ServiceItem } from '../types';
 import { TrashIcon, CartIcon } from './Icons';
 import { config } from '../data/config';
+import { saveLead } from '../services/firebase';
 
 interface ContactFormProps {
   cart: ServiceItem[];
@@ -37,36 +38,53 @@ export const ContactForm: React.FC<ContactFormProps> = ({ cart, removeFromCart }
     setIsSubmitting(true);
     
     try {
-      const response = await fetch(`https://formsubmit.co/ajax/${config.contactEmail}`, {
-        method: "POST",
-        headers: { 
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          message: formData.message,
-          _subject: `Nowe zapytanie ze strony: ${formData.name}`,
-          _template: "table",
-          Wybrane_Usługi: cartSummary
-        })
+      // 1. Save to Firestore (persists to CRM and works offline)
+      await saveLead({
+        name: formData.name,
+        email: formData.email,
+        message: formData.message,
+        source: 'contact_form',
+        status: 'new',
+        selectedServices: cartSummary,
+        details: {
+          cartCount: cart.length,
+          items: cart.map(i => ({ name: i.name, price: i.price }))
+        }
       });
 
-      if (response.ok) {
-        setIsSuccess(true);
-        setFormData({ name: '', email: '', message: '' });
-        
-        // Track GA4 event
-        if (typeof window !== 'undefined' && (window as any).gtag) {
-          (window as any).gtag('event', 'generate_lead', {
-            'event_category': 'form',
-            'event_label': 'Contact Form Submission'
-          });
-        }
-
-        setTimeout(() => setIsSuccess(false), 5000); // Hide toast after 5 seconds
+      // 2. Dispatch email notification via formsubmit
+      try {
+        await fetch(`https://formsubmit.co/ajax/${config.contactEmail}`, {
+          method: "POST",
+          headers: { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            message: formData.message,
+            _subject: `Nowe zapytanie ze strony: ${formData.name}`,
+            _template: "table",
+            Wybrane_Usługi: cartSummary
+          })
+        });
+      } catch (e) {
+        console.warn('FormSubmit notification error (Firestore backup succeeded):', e);
       }
+
+      setIsSuccess(true);
+      setFormData({ name: '', email: '', message: '' });
+      
+      // Track GA4 event
+      if (typeof window !== 'undefined' && (window as any).gtag) {
+        (window as any).gtag('event', 'generate_lead', {
+          'event_category': 'form',
+          'event_label': 'Contact Form Submission'
+        });
+      }
+
+      setTimeout(() => setIsSuccess(false), 5000); // Hide toast after 5 seconds
     } catch (error) {
       console.error("Error submitting form:", error);
     } finally {

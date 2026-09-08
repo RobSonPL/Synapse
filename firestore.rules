@@ -1,0 +1,19 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /leads/{leadId} {
+      // Anyone can submit a lead (contact inquiry, quiz result, audit, ROI calculation)
+      allow create: if request.resource.data.email is string
+                    && request.resource.data.email.size() > 3
+                    && request.resource.data.status in ['new', 'contacted', 'quoted', 'closed'];
+      
+      // Reading and updating allowed for CRM management
+      allow read, update, delete: if true;
+    }
+    
+    // Connection test document
+    match /test/{docId} {
+      allow read, write: if true;
+    }
+  }
+}

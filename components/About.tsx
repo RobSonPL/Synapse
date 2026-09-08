@@ -11,7 +11,7 @@ export const About: React.FC = () => {
 
   const profileImages = [
     "/IR_JA_26.webp",
-    "/Ja.jpg",
+    "/Ja.webp",
     "/ja_2.webp"
   ];
 
@@ -26,7 +26,7 @@ export const About: React.FC = () => {
   const certUrl = "https://elearning-courses.ams3.digitaloceanspaces.com/c/cert_68acc43a160b105f6039a37f_68a6157ff3be51df1dd62819.png"; 
   const certUrl2 = "https://elearning-courses.ams3.digitaloceanspaces.com/c/4D02C4C4F55C.jpg";
   
-  const fallbackProfileUrl = "/robert.jpg";
+  const fallbackProfileUrl = "/robert.webp";
 
   return (
     <section id="about" className="py-20 bg-white dark:bg-slate-900 transition-colors duration-300">

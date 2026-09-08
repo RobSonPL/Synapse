@@ -1,0 +1,29 @@
+{
+  "entities": {
+    "Lead": {
+      "title": "Lead",
+      "description": "Zgłoszenie potencjalnego klienta z formularza, quizu, kalkulatora lub generatora e-booka.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "source": { "type": "string", "enum": ["contact_form", "quiz", "roi_calculator", "ebook_generator", "audit", "newsletter"] },
+        "status": { "type": "string", "enum": ["new", "contacted", "quoted", "closed"] },
+        "message": { "type": "string" },
+        "selectedServices": { "type": "string" },
+        "details": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["email", "source", "status", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/leads/{leadId}": {
+      "schema": "Lead",
+      "description": "Kolekcja leadów i zapytań ofertowych zebranych ze strony."
+    }
+  }
+}

@@ -32,7 +32,16 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         // Merge initial with saved, avoiding duplicates by ID
         const merged = [...initialProjects];
         parsed.forEach((p: Project) => {
-          if (!merged.find(m => m.id === p.id)) merged.push(p);
+          let cleanP = p;
+          if (cleanP.link && cleanP.link.includes('trzezwy.base44.app')) {
+            cleanP = {
+              ...cleanP,
+              title: cleanP.title === 'Trzeźwy App' ? 'Trzeźwa Mapa' : cleanP.title,
+              link: 'https://trzezwamapa.pl',
+              imageUrl: 'https://s.wordpress.com/mshots/v1/https%3A%2F%2Ftrzezwamapa.pl?w=800&h=600'
+            };
+          }
+          if (!merged.find(m => m.id === cleanP.id)) merged.push(cleanP);
         });
         setProjects(merged);
       } catch (e) { console.error("Error parsing projects", e); }

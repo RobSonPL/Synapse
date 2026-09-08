@@ -22,9 +22,15 @@ export const About: React.FC = () => {
     return () => clearInterval(timer);
   }, []);
 
-  // Link do Twojego certyfikatu Me+AI (CampusAI) - zaktualizowany na link online
-  const certUrl = "https://elearning-courses.ams3.digitaloceanspaces.com/c/cert_68acc43a160b105f6039a37f_68a6157ff3be51df1dd62819.png"; 
-  const certUrl2 = "https://elearning-courses.ams3.digitaloceanspaces.com/c/4D02C4C4F55C.jpg";
+  // Certyfikaty CampusAI (zoptymalizowane miniatury lokalne + wersje pełnowymiarowe + fallback online)
+  const certOnlineUrl1 = "https://elearning-courses.ams3.digitaloceanspaces.com/c/cert_68acc43a160b105f6039a37f_68a6157ff3be51df1dd62819.png"; 
+  const certOnlineUrl2 = "https://elearning-courses.ams3.digitaloceanspaces.com/c/4D02C4C4F55C.jpg";
+
+  const certThumb1 = "/certs/campusai-cert-1-thumb.webp";
+  const certFull1 = "/certs/campusai-cert-1.webp";
+
+  const certThumb2 = "/certs/campusai-cert-2-thumb.webp";
+  const certFull2 = "/certs/campusai-cert-2.webp";
   
   const fallbackProfileUrl = "/robert.webp";
 
@@ -110,14 +116,14 @@ export const About: React.FC = () => {
               {/* Karta Certyfikatu Me+AI */}
               <div 
                 className="group relative bg-slate-50 dark:bg-white/5 rounded-3xl p-8 border border-slate-200 dark:border-white/10 hover:border-synapse-primary/50 transition-all duration-500 cursor-zoom-in overflow-hidden shadow-sm hover:shadow-xl"
-                onClick={() => setSelectedCert(certUrl)}
+                onClick={() => setSelectedCert(certFull1)}
               >
                 <div className="flex flex-col md:flex-row gap-8 items-center md:items-start relative z-10">
                   <div className="w-full md:w-56 aspect-[1.414/1] bg-white dark:bg-slate-800 rounded-lg overflow-hidden shadow-2xl border border-slate-200 dark:border-white/10 shrink-0">
                     <LazyImage 
-                      src={certUrl} 
-                      alt="Me+AI Certificate - CampusAI" 
-                      onError={() => setCertError(true)}
+                      src={certThumb1} 
+                      fallbackSrc={certOnlineUrl1}
+                      alt="Me+AI Certificate - CampusAI Professional" 
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                     />
                   </div>
@@ -149,14 +155,14 @@ export const About: React.FC = () => {
               {/* Drugi certyfikat */}
               <div 
                 className="group relative bg-slate-50 dark:bg-white/5 rounded-3xl p-8 border border-slate-200 dark:border-white/10 hover:border-synapse-primary/50 transition-all duration-500 cursor-zoom-in overflow-hidden shadow-sm hover:shadow-xl"
-                onClick={() => setSelectedCert(certUrl2)}
+                onClick={() => setSelectedCert(certFull2)}
               >
                 <div className="flex flex-col md:flex-row gap-8 items-center md:items-start relative z-10">
                   <div className="w-full md:w-56 aspect-[1.414/1] bg-white dark:bg-slate-800 rounded-lg overflow-hidden shadow-2xl border border-slate-200 dark:border-white/10 shrink-0">
                     <LazyImage 
-                      src={certUrl2} 
+                      src={certThumb2} 
+                      fallbackSrc={certOnlineUrl2}
                       alt="Me+AI Certificate - CampusAI" 
-                      onError={() => setCertError(true)}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                     />
                   </div>
@@ -201,7 +207,8 @@ export const About: React.FC = () => {
           <img 
             src={selectedCert} 
             alt="Podgląd Certyfikatu" 
-            className="max-w-full max-h-full rounded-sm shadow-2xl object-contain animate-in zoom-in-95 duration-500 border-[12px] border-white" 
+            referrerPolicy="no-referrer"
+            className="max-w-full max-h-full rounded-sm shadow-2xl object-contain animate-in zoom-in-95 duration-500 border-[8px] md:border-[12px] border-white dark:border-slate-800" 
           />
         </div>
       )}

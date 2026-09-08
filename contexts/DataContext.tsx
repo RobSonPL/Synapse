@@ -29,19 +29,32 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     if (savedProjects) {
       try {
         const parsed = JSON.parse(savedProjects);
-        // Merge initial with saved, avoiding duplicates by ID
+        // Merge initial with saved, ensuring updated URLs for initial projects
         const merged = [...initialProjects];
         parsed.forEach((p: Project) => {
           let cleanP = p;
-          if (cleanP.link && cleanP.link.includes('trzezwy.base44.app')) {
+          if (cleanP.id === 14 || (cleanP.link && (cleanP.link.includes('trzezwy.base44.app') || cleanP.link.includes('trzezwamapa.pl')))) {
             cleanP = {
               ...cleanP,
-              title: cleanP.title === 'Trzeźwy App' ? 'Trzeźwa Mapa' : cleanP.title,
+              title: 'Trzeźwa Mapa',
               link: 'https://trzezwamapa.pl',
-              imageUrl: 'https://s.wordpress.com/mshots/v1/https%3A%2F%2Ftrzezwamapa.pl?w=800&h=600'
+              imageUrl: '/trzezwamapa-thumb.svg'
             };
           }
-          if (!merged.find(m => m.id === cleanP.id)) merged.push(cleanP);
+          if (cleanP.id === 15 || (cleanP.link && cleanP.link.includes('crm-massage.ai.studio'))) {
+            cleanP = {
+              ...cleanP,
+              title: 'CRM Massage',
+              link: 'https://crm-massage.ai.studio/',
+              imageUrl: '/crm-massage-thumb.svg'
+            };
+          }
+          const existingIndex = merged.findIndex(m => m.id === cleanP.id);
+          if (existingIndex >= 0) {
+            merged[existingIndex] = cleanP;
+          } else {
+            merged.push(cleanP);
+          }
         });
         setProjects(merged);
       } catch (e) { console.error("Error parsing projects", e); }

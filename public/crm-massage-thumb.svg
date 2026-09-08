@@ -1,0 +1,188 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <defs>
+    <linearGradient id="crm-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#090d16" />
+      <stop offset="50%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#080c14" />
+    </linearGradient>
+
+    <linearGradient id="crm-card" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="rgba(30, 41, 59, 0.9)" />
+      <stop offset="100%" stop-color="rgba(15, 23, 42, 0.95)" />
+    </linearGradient>
+
+    <linearGradient id="crm-gold" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#d97706" />
+      <stop offset="50%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#fbbf24" />
+    </linearGradient>
+
+    <linearGradient id="crm-emerald" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#059669" />
+      <stop offset="100%" stop-color="#10b981" />
+    </linearGradient>
+
+    <filter id="crm-shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="rgba(0,0,0,0.6)" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="600" fill="url(#crm-bg)" />
+
+  <!-- Subtle ambient decorative glow -->
+  <circle cx="100" cy="80" r="180" fill="#f59e0b" opacity="0.06" filter="blur(60px)" />
+  <circle cx="700" cy="500" r="220" fill="#10b981" opacity="0.06" filter="blur(80px)" />
+
+  <!-- Top App Navigation Header -->
+  <g transform="translate(30, 24)">
+    <rect width="740" height="60" rx="14" fill="url(#crm-card)" stroke="rgba(245, 158, 11, 0.25)" stroke-width="1" filter="url(#crm-shadow)" />
+
+    <!-- Brand icon & title -->
+    <rect x="20" y="14" width="32" height="32" rx="8" fill="url(#crm-gold)" />
+    <path d="M 36 21 C 31 21 27 25 27 30 C 27 35 36 41 36 41 C 36 41 45 35 45 30 C 45 25 41 21 36 21 Z" fill="#0f172a" />
+    
+    <text x="64" y="32" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="800" letter-spacing="0.5">CRM MASSAGE</text>
+    <text x="64" y="46" fill="#f59e0b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="700" letter-spacing="1">STUDIO &amp; GABINET TERAPII • AI ENGINE</text>
+
+    <!-- Top Tools & Badge -->
+    <g transform="translate(520, 16)">
+      <rect width="200" height="28" rx="8" fill="rgba(16, 185, 129, 0.15)" stroke="rgba(16, 185, 129, 0.4)" />
+      <circle cx="14" cy="14" r="4" fill="#10b981" />
+      <text x="26" y="18" fill="#34d399" font-family="sans-serif" font-size="11" font-weight="700">GABINET OTWARTY • 14 WIZYT</text>
+    </g>
+  </g>
+
+  <!-- KPI Metric Summary Row -->
+  <g transform="translate(30, 98)">
+    <!-- KPI 1 -->
+    <g transform="translate(0, 0)">
+      <rect width="170" height="68" rx="12" fill="url(#crm-card)" stroke="rgba(255,255,255,0.08)" />
+      <text x="16" y="24" fill="#94a3b8" font-family="sans-serif" font-size="10" font-weight="700" letter-spacing="0.5">OBRÓT DZISIAJ</text>
+      <text x="16" y="48" fill="#fbbf24" font-family="sans-serif" font-size="20" font-weight="900">3 450 PLN</text>
+      <text x="120" y="48" fill="#10b981" font-family="sans-serif" font-size="10" font-weight="700">+28%</text>
+    </g>
+
+    <!-- KPI 2 -->
+    <g transform="translate(190, 0)">
+      <rect width="170" height="68" rx="12" fill="url(#crm-card)" stroke="rgba(255,255,255,0.08)" />
+      <text x="16" y="24" fill="#94a3b8" font-family="sans-serif" font-size="10" font-weight="700" letter-spacing="0.5">OBŁOŻENIE ŁÓŻEK</text>
+      <text x="16" y="48" fill="#38bdf8" font-family="sans-serif" font-size="20" font-weight="900">92%</text>
+      <text x="75" y="48" fill="#94a3b8" font-family="sans-serif" font-size="10" font-weight="500">3 gabinety</text>
+    </g>
+
+    <!-- KPI 3 -->
+    <g transform="translate(380, 0)">
+      <rect width="170" height="68" rx="12" fill="url(#crm-card)" stroke="rgba(255,255,255,0.08)" />
+      <text x="16" y="24" fill="#94a3b8" font-family="sans-serif" font-size="10" font-weight="700" letter-spacing="0.5">NOWI KLIENCI</text>
+      <text x="16" y="48" fill="#34d399" font-family="sans-serif" font-size="20" font-weight="900">+6 osób</text>
+      <text x="110" y="48" fill="#10b981" font-family="sans-serif" font-size="10" font-weight="700">m/m</text>
+    </g>
+
+    <!-- KPI 4 -->
+    <g transform="translate(570, 0)">
+      <rect width="170" height="68" rx="12" fill="url(#crm-card)" stroke="rgba(255,255,255,0.08)" />
+      <text x="16" y="24" fill="#94a3b8" font-family="sans-serif" font-size="10" font-weight="700" letter-spacing="0.5">SMS &amp; AI BOT</text>
+      <text x="16" y="48" fill="#a78bfa" font-family="sans-serif" font-size="20" font-weight="900">100% OK</text>
+      <text x="115" y="48" fill="#a78bfa" font-family="sans-serif" font-size="10" font-weight="600">Auto-potw.</text>
+    </g>
+  </g>
+
+  <!-- Main Schedule View / Appointment Cards -->
+  <g transform="translate(30, 182)">
+    <!-- Schedule Box Container -->
+    <rect width="740" height="388" rx="16" fill="url(#crm-card)" stroke="rgba(255,255,255,0.08)" filter="url(#crm-shadow)" />
+
+    <!-- Schedule Header -->
+    <g transform="translate(24, 20)">
+      <text x="0" y="16" fill="#ffffff" font-family="sans-serif" font-size="15" font-weight="800">HARMONOGRAM WIZYT • DZISIEJSZY GRAFIK</text>
+      <text x="0" y="32" fill="#64748b" font-family="sans-serif" font-size="11">Rezerwacje online, karty pacjentów oraz wywiad zdrowotny zsynchronizowane z chmurą.</text>
+      
+      <!-- Action button "+ Nowa Rezerwacja" -->
+      <g transform="translate(530, -5)">
+        <rect width="160" height="34" rx="10" fill="url(#crm-gold)" />
+        <text x="20" y="22" fill="#0f172a" font-family="sans-serif" font-size="11" font-weight="900" letter-spacing="0.3">+ NOWA REZERWACJA</text>
+      </g>
+    </g>
+
+    <!-- Appointment Item 1 -->
+    <g transform="translate(24, 70)">
+      <rect width="692" height="66" rx="12" fill="#0b1220" stroke="rgba(16, 185, 129, 0.3)" stroke-width="1" />
+      
+      <!-- Time pill -->
+      <rect x="16" y="14" width="70" height="38" rx="8" fill="rgba(16, 185, 129, 0.15)" />
+      <text x="25" y="38" fill="#34d399" font-family="sans-serif" font-size="15" font-weight="900">09:30</text>
+      
+      <!-- Details -->
+      <text x="102" y="30" fill="#ffffff" font-family="sans-serif" font-size="14" font-weight="800">Marta Zawadzka</text>
+      <text x="102" y="46" fill="#94a3b8" font-family="sans-serif" font-size="11">Rytuał Kobido Liftingujący z Akupresurą (75 min) • Gabinet 1 (Wschodni)</text>
+
+      <!-- Badge Status -->
+      <rect x="520" y="19" width="105" height="28" rx="8" fill="rgba(16, 185, 129, 0.15)" stroke="#10b981" stroke-width="1" />
+      <text x="532" y="37" fill="#34d399" font-family="sans-serif" font-size="10" font-weight="800">ZAKOŃCZONA</text>
+      
+      <!-- Price -->
+      <text x="642" y="38" fill="#fbbf24" font-family="sans-serif" font-size="14" font-weight="900">220 zł</text>
+    </g>
+
+    <!-- Appointment Item 2 (Active Now) -->
+    <g transform="translate(24, 146)">
+      <rect width="692" height="66" rx="12" fill="#131d31" stroke="#f59e0b" stroke-width="1.5" />
+      
+      <!-- Time pill -->
+      <rect x="16" y="14" width="70" height="38" rx="8" fill="rgba(245, 158, 11, 0.2)" />
+      <text x="25" y="38" fill="#fbbf24" font-family="sans-serif" font-size="15" font-weight="900">11:15</text>
+      
+      <!-- Details -->
+      <text x="102" y="30" fill="#ffffff" font-family="sans-serif" font-size="14" font-weight="800">Piotr Kozłowski</text>
+      <text x="102" y="46" fill="#fde68a" font-family="sans-serif" font-size="11">Masaż Leczniczy Tkanek Głębokich &amp; Pleców (90 min) • Gabinet 2 (VIP)</text>
+
+      <!-- Badge Status -->
+      <rect x="520" y="19" width="105" height="28" rx="8" fill="rgba(245, 158, 11, 0.2)" stroke="#f59e0b" stroke-width="1" />
+      <text x="538" y="37" fill="#fbbf24" font-family="sans-serif" font-size="10" font-weight="800">W TRAKCIE</text>
+      
+      <!-- Price -->
+      <text x="642" y="38" fill="#fbbf24" font-family="sans-serif" font-size="14" font-weight="900">270 zł</text>
+    </g>
+
+    <!-- Appointment Item 3 -->
+    <g transform="translate(24, 222)">
+      <rect width="692" height="66" rx="12" fill="#0b1220" stroke="rgba(255,255,255,0.06)" />
+      
+      <!-- Time pill -->
+      <rect x="16" y="14" width="70" height="38" rx="8" fill="rgba(56, 189, 248, 0.15)" />
+      <text x="25" y="38" fill="#38bdf8" font-family="sans-serif" font-size="15" font-weight="900">13:30</text>
+      
+      <!-- Details -->
+      <text x="102" y="30" fill="#ffffff" font-family="sans-serif" font-size="14" font-weight="800">Karolina &amp; Adam (Dla Par)</text>
+      <text x="102" y="46" fill="#94a3b8" font-family="sans-serif" font-size="11">Masaż Balijski z Ciepłym Olejem Kokosowym i Aromaterapią (60 min)</text>
+
+      <!-- Badge Status -->
+      <rect x="520" y="19" width="105" height="28" rx="8" fill="rgba(56, 189, 248, 0.15)" stroke="#0ea5e9" stroke-width="1" />
+      <text x="530" y="37" fill="#38bdf8" font-family="sans-serif" font-size="10" font-weight="800">POTWIERDZONA</text>
+      
+      <!-- Price -->
+      <text x="642" y="38" fill="#fbbf24" font-family="sans-serif" font-size="14" font-weight="900">380 zł</text>
+    </g>
+
+    <!-- Appointment Item 4 -->
+    <g transform="translate(24, 298)">
+      <rect width="692" height="66" rx="12" fill="#0b1220" stroke="rgba(255,255,255,0.06)" />
+      
+      <!-- Time pill -->
+      <rect x="16" y="14" width="70" height="38" rx="8" fill="rgba(168, 85, 247, 0.15)" />
+      <text x="25" y="38" fill="#c084fc" font-family="sans-serif" font-size="15" font-weight="900">15:00</text>
+      
+      <!-- Details -->
+      <text x="102" y="30" fill="#ffffff" font-family="sans-serif" font-size="14" font-weight="800">Monika Dąbrowska</text>
+      <text x="102" y="46" fill="#94a3b8" font-family="sans-serif" font-size="11">Drenaż Limfatyczny &amp; Masaż Sportowy Regeneracyjny (60 min)</text>
+
+      <!-- Badge Status -->
+      <rect x="520" y="19" width="105" height="28" rx="8" fill="rgba(168, 85, 247, 0.15)" stroke="#a855f7" stroke-width="1" />
+      <text x="532" y="37" fill="#c084fc" font-family="sans-serif" font-size="10" font-weight="800">ZAPŁACONO</text>
+      
+      <!-- Price -->
+      <text x="642" y="38" fill="#fbbf24" font-family="sans-serif" font-size="14" font-weight="900">190 zł</text>
+    </g>
+  </g>
+</svg>

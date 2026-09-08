@@ -19,8 +19,10 @@ export const LazyImage: React.FC<LazyImageProps> = ({
   const [hasError, setHasError] = useState(false);
 
   // Compute WebP source and fallback sources
+  const isSvg = src.endsWith('.svg');
   const isWebp = src.endsWith('.webp');
-  const webpSrc = isWebp ? src : src.replace(/\.(png|jpe?g)$/i, '.webp');
+  const isLocal = src.startsWith('/');
+  const webpSrc = isWebp ? src : (isLocal && !isSvg ? src.replace(/\.(png|jpe?g)$/i, '.webp') : src);
   const standardFallback = fallbackSrc || (isWebp ? src.replace(/\.webp$/i, '.png') : src);
 
   useEffect(() => {
@@ -48,14 +50,15 @@ export const LazyImage: React.FC<LazyImageProps> = ({
       )}
       
       <picture className="w-full h-full">
-        {/* Modern WebP stream */}
-        <source type="image/webp" srcSet={webpSrc} />
+        {/* Modern WebP stream (only when webp source is different and valid) */}
+        {!isSvg && !isWebp && isLocal && <source type="image/webp" srcSet={webpSrc} />}
         {/* Fallback image */}
         <img
           src={hasError && fallbackSrc ? fallbackSrc : src}
           alt={alt}
           loading={priority ? 'eager' : 'lazy'}
           decoding="async"
+          referrerPolicy="no-referrer"
           onLoad={() => setIsLoaded(true)}
           onError={() => {
             if (!hasError && fallbackSrc) {

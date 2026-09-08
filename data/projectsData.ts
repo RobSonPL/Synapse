@@ -96,14 +96,14 @@ export const projectsData: Project[] = [
     id: 14,
     title: "Trzeźwa Mapa",
     category: "Aplikacja Web",
-    imageUrl: "https://s.wordpress.com/mshots/v1/https%3A%2F%2Ftrzezwamapa.pl?w=800&h=600",
+    imageUrl: "/trzezwamapa-thumb.svg",
     link: "https://trzezwamapa.pl"
   },
   {
     id: 15,
     title: "CRM Massage",
     category: "System CRM & AI",
-    imageUrl: "https://s.wordpress.com/mshots/v1/https%3A%2F%2Fcrm-massage.ai.studio?w=800&h=600",
+    imageUrl: "/crm-massage-thumb.svg",
     link: "https://crm-massage.ai.studio/"
   }
 ];
